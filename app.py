@@ -8,6 +8,8 @@ from flask import Flask, jsonify, request
 import audit
 import config
 import detector
+import scoring
+import stylometry
 
 app = Flask(__name__)
 
@@ -96,7 +98,7 @@ def health():
 @app.post("/submit")
 # @limiter.limit(f"{config.RATE_LIMIT_PER_MINUTE}/minute;{config.RATE_LIMIT_PER_DAY}/day")
 def submit():
-    """Milestone 3: validate input, run one signal, and log it."""
+    """Milestone 4: validate input, run both signals, combine, and log."""
     payload = request.get_json(silent=True)
 
     if not isinstance(payload, dict):
@@ -134,18 +136,20 @@ def submit():
             "message": "Text could not be scored. Try a few complete sentences.",
         }), 400
 
+    style_score = stylometry.style_signal(text)
+    combined_score = scoring.combine_signals(model_score, style_score)
     content_id = str(uuid.uuid4())
 
-    # Temporary until the style signal and label mapping are implemented.
-    label = "Analysis incomplete. Only the model signal is connected."
+    # Final labels and confidence will be added in Milestone 5.
+    label = "Both signals processed. Final label mapping is not connected yet."
 
     audit.log_decision(
         content_id=content_id,
         creator_id=creator_id.strip(),
         guess="unsure",
         model_score=model_score,
-        style_score=None,
-        combined_score=None,
+        style_score=style_score,
+        combined_score=combined_score,
         label=label,
         status="partial_analysis",
     )
@@ -156,8 +160,8 @@ def submit():
         "confidence": None,
         "label": label,
         "model_score": model_score,
-        "style_score": None,
-        "combined_score": None,
+        "style_score": style_score,
+        "combined_score": combined_score,
         "status": "partial_analysis",
     }), 200
 
@@ -214,4 +218,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
+ 

@@ -36,6 +36,24 @@
 
 ## What This Does
 
+**Current progress: Milestone 4 implementation, awaiting an integrated run.**
+Final labels, confidence, and appeals are not implemented yet. This is not a
+completed Unit 7 submission.
+
+1. `POST /submit` receives JSON with `text` and `creator_id`.
+2. The route rejects missing, non-string, or whitespace-only fields with HTTP 400.
+3. `detector.model_signal` measures predictability using local GPT-2 perplexity.
+4. `stylometry.style_signal` measures sentence variation, vocabulary variety,
+   and punctuation density.
+5. `scoring.combine_signals` averages the two scores using configured weights.
+6. The route assigns a unique ID and writes both scores and the combined score
+   to `logs/audit.jsonl` through `audit.log_decision`.
+7. It returns the ID and scores. For now, `guess` is `unsure`, `confidence` is
+   `null`, and `status` is `partial_analysis`. These are development placeholders.
+
+The planned final stage maps the combined score to one of three reader-facing
+labels and supports a logged appeal that changes status to `under_review`.
+
 <!-- The path a submission takes, from arriving to the label a reader sees.
      Six or seven steps — this is the trace you wrote in Milestone 1. -->
 
@@ -53,28 +71,43 @@
 
 ### Signal one — the model signal
 
-**What it measures:**
+**What it measures:** GPT-2 perplexity: how predictable the text is to the local model. `detector.model_signal` maps it to 0–1, with higher scores indicating more AI-like predictability.
 
-**Why that might differ between human and AI writing:**
+**Why that might differ between human and AI writing:** Generated text can favor predictable wording. This is a hypothesis behind the signal, not a reliable authorship test.
 
-**What it can't see:**
+**What it can't see:** Authorship, the writing process, or the writer's intent. Plain human writing can be predictable; unusual AI wording can be unpredictable. It only examines up to the configured 400 model tokens.
 
 ### Signal two — the style signal
 
-**What it measures:**
+**What it measures:** Three text-shape features in `stylometry.py`:
 
-**Why that might differ between human and AI writing:**
+- Sentence-length spread: population standard deviation of sentence word counts
+  divided by their mean. Its AI-like component is `1 - min(spread, 1)`.
+- Vocabulary variety: unique lowercase tokens divided by total tokens. Its
+  AI-like component is `1 - type_token_ratio`.
+- Punctuation density: Unicode punctuation characters divided by non-whitespace
+  characters. Its AI-like component is `1 - min(density / 0.10, 1)`.
 
-**What it can't see:**
+The style score weights these components 0.50, 0.30, and 0.20 respectively.
+Fewer than 20 tokens or fewer than two usable sentences returns a neutral 0.5.
+These constants are starting assumptions, not learned or validated parameters.
+
+**Why that might differ between human and AI writing:** The initial heuristic assumes uniform sentence lengths, repeated vocabulary, and sparse punctuation can indicate AI-like style. Those patterns also occur in human writing and need evaluation.
+
+**What it can't see:** Meaning or authorship. Typos, quotations, and editing can move the score. Vocabulary variety depends on passage length, punctuation depends on genre, and the starter word tokenizer poorly represents many non-English languages. A neutral short-text score is a fallback, not evidence of human or AI origin.
 
 ### The combining rule
 
 <!-- Write the rule in words, then give the numbers. What happens when the two
      signals disagree? -->
 
-**The rule:**
+**The rule:** An equal weighted average. Neither signal has demonstrated greater reliability yet. Strong opposing scores move the average toward uncertainty; moderate disagreement can still yield a confident label once mapping is connected.
 
-**The numbers:**
+**The numbers:** `combined_score = 0.5 * model_score + 0.5 * style_score`.
+Keep `WEIGHT_MODEL_SIGNAL = 0.5` and `WEIGHT_STYLE_SIGNAL = 0.5` in `config.py`.
+Inputs must be finite and between 0 and 1; weights must be finite, nonnegative,
+and sum to 1. The result is rounded to four decimal places. It is not a
+calibrated probability of authorship.
 
 **Where it lives:** `scoring.py::combine_signals`
 
@@ -82,12 +115,24 @@
      somewhere else, say where. -->
 
 **A case where my two signals split, and what my rule does with it:**
+The same grocery-store sample was tested separately: the model returned
+`0.7483`; the style signal returned `0.5233`. They differ by `0.2250` in strength.
+The equal average would be `0.6358`; this is calculated from those separate
+runs, not yet captured from the integrated endpoint. With the current starter
+thresholds (human at or below 0.35, AI at or above 0.65), this falls in the unsure
+band once label mapping is connected.
+
+The sample was supplied by AI during development. It is not evidence of
+human authorship and must not be counted among passages I wrote myself.
 
 
 
 ---
 
 ## Label Variants
+
+**Pending Milestone 5:** the code still contains placeholder labels. The table
+below must be completed with the implemented text and exact boundary rules.
 
 <!-- The exact text of all three labels, as a reader would see them, and the
      score range each covers.
@@ -110,6 +155,9 @@
 ---
 
 ## Sample Run
+
+**Pending:** capture a real integrated submission, then a real appeal after
+Milestone 5. Empty response blocks below are not test evidence.
 
 <!-- One submission and one appeal, pasted as text: the request, the response,
      and the log entries. -->
@@ -156,6 +204,11 @@ $ curl "http://127.0.0.1:5000/log?limit=3"
 ---
 
 ## How I Used AI
+
+AI assistance included setup troubleshooting, a planning draft, proposed
+acceptance criteria, and Python implementation suggestions. The two moment
+prompts below still need my own account of what I reviewed and changed. I must
+not describe AI-generated criteria or sample passages as independently written.
 
 **Moment 1**
 
