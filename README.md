@@ -237,14 +237,14 @@ Actual three-signal submission and appeal, followed by content lookup. The crede
   "response": {
     "combined_score": 0.4342,
     "confidence": 0.5658,
-    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
+    "content_id": "f55d53b4-dd7d-47aa-beb9-e8b04b8abe1d",
     "guess": "unsure",
     "human_credential": {
       "badge": "Verified human — local reviewer check",
       "creator_id": "rashedul",
-      "credential_id": "77d90f9d-0ab1-436a-8611-1680cf3aa7a8",
-      "issued_at": 1793235156.859328,
-      "reviewer": "Their real name",
+      "credential_id": "de0430ce-ebfa-43a9-9aa7-a4d8682dcfe4",
+      "issued_at": 1793235908.41208,
+      "reviewer": "MD ISLAM",
       "scope": "Creator completed an observed task; authorship of later items is not verified."
     },
     "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
@@ -255,34 +255,34 @@ Actual three-signal submission and appeal, followed by content lookup. The crede
   }
 }
 ```
-**GET /content/6a4bf4ab-9120-4e81-ae69-67a333bc0020 — HTTP 200**
+**GET /content/f55d53b4-dd7d-47aa-beb9-e8b04b8abe1d — HTTP 200**
 
 ```json
 {
   "method": "GET",
-  "path": "/content/6a4bf4ab-9120-4e81-ae69-67a333bc0020",
+  "path": "/content/f55d53b4-dd7d-47aa-beb9-e8b04b8abe1d",
   "request": null,
   "http_status": 200,
   "response": {
     "combined_score": 0.4342,
-    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
+    "content_id": "f55d53b4-dd7d-47aa-beb9-e8b04b8abe1d",
     "creator_id": "rashedul",
     "guess": "unsure",
     "human_credential": {
       "badge": "Verified human — local reviewer check",
       "creator_id": "rashedul",
-      "credential_id": "77d90f9d-0ab1-436a-8611-1680cf3aa7a8",
-      "issued_at": 1793235156.859328,
-      "reviewer": "Their real name",
+      "credential_id": "de0430ce-ebfa-43a9-9aa7-a4d8682dcfe4",
+      "issued_at": 1793235908.41208,
+      "reviewer": "MD ISLAM",
       "scope": "Creator completed an observed task; authorship of later items is not verified."
     },
     "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
-    "last_updated": "2026-10-29T00:57:21+00:00",
+    "last_updated": "2026-10-29T01:05:20+00:00",
     "model_score": 0.2773,
     "provenance_score": 0.2,
     "status": "decided",
     "style_score": 0.7081,
-    "timestamp": "2026-10-29T00:57:21+00:00"
+    "timestamp": "2026-10-29T01:05:20+00:00"
   }
 }
 ```
@@ -293,45 +293,45 @@ Actual three-signal submission and appeal, followed by content lookup. The crede
   "method": "POST",
   "path": "/appeal",
   "request": {
-    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
+    "content_id": "f55d53b4-dd7d-47aa-beb9-e8b04b8abe1d",
     "reasoning": "Please review this diagnostic submission. The example draft text was supplied by AI; the creator credential is not proof of this item's authorship."
   },
   "http_status": 200,
   "response": {
-    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
+    "content_id": "f55d53b4-dd7d-47aa-beb9-e8b04b8abe1d",
     "message": "Your appeal has been recorded for review.",
     "status": "under_review"
   }
 }
 ```
-**GET /content/6a4bf4ab-9120-4e81-ae69-67a333bc0020 — HTTP 200**
+**GET /content/f55d53b4-dd7d-47aa-beb9-e8b04b8abe1d — HTTP 200**
 
 ```json
 {
   "method": "GET",
-  "path": "/content/6a4bf4ab-9120-4e81-ae69-67a333bc0020",
+  "path": "/content/f55d53b4-dd7d-47aa-beb9-e8b04b8abe1d",
   "request": null,
   "http_status": 200,
   "response": {
     "combined_score": 0.4342,
-    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
+    "content_id": "f55d53b4-dd7d-47aa-beb9-e8b04b8abe1d",
     "creator_id": "rashedul",
     "guess": "unsure",
     "human_credential": {
       "badge": "Verified human — local reviewer check",
       "creator_id": "rashedul",
-      "credential_id": "77d90f9d-0ab1-436a-8611-1680cf3aa7a8",
-      "issued_at": 1793235156.859328,
-      "reviewer": "Their real name",
+      "credential_id": "de0430ce-ebfa-43a9-9aa7-a4d8682dcfe4",
+      "issued_at": 1793235908.41208,
+      "reviewer": "MD ISLAM",
       "scope": "Creator completed an observed task; authorship of later items is not verified."
     },
     "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
-    "last_updated": "2026-10-29T00:57:21+00:00",
+    "last_updated": "2026-10-29T01:05:20+00:00",
     "model_score": 0.2773,
     "provenance_score": 0.2,
     "status": "under_review",
     "style_score": 0.7081,
-    "timestamp": "2026-10-29T00:57:21+00:00"
+    "timestamp": "2026-10-29T01:05:20+00:00"
   }
 }
 ```
@@ -341,15 +341,15 @@ Actual three-signal submission and appeal, followed by content lookup. The crede
 [
   {
     "combined_score": 0.4342,
-    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
+    "content_id": "f55d53b4-dd7d-47aa-beb9-e8b04b8abe1d",
     "creator_id": "rashedul",
     "guess": "unsure",
     "human_credential": {
       "badge": "Verified human — local reviewer check",
       "creator_id": "rashedul",
-      "credential_id": "77d90f9d-0ab1-436a-8611-1680cf3aa7a8",
-      "issued_at": 1793235156.859328,
-      "reviewer": "Their real name",
+      "credential_id": "de0430ce-ebfa-43a9-9aa7-a4d8682dcfe4",
+      "issued_at": 1793235908.41208,
+      "reviewer": "MD ISLAM",
       "scope": "Creator completed an observed task; authorship of later items is not verified."
     },
     "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
@@ -357,15 +357,15 @@ Actual three-signal submission and appeal, followed by content lookup. The crede
     "provenance_score": 0.2,
     "status": "decided",
     "style_score": 0.7081,
-    "timestamp": "2026-10-29T00:57:21+00:00"
+    "timestamp": "2026-10-29T01:05:20+00:00"
   },
   {
-    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
+    "content_id": "f55d53b4-dd7d-47aa-beb9-e8b04b8abe1d",
     "creator_id": "rashedul",
     "event": "appeal",
     "reasoning": "Please review this diagnostic submission. The example draft text was supplied by AI; the creator credential is not proof of this item's authorship.",
     "status": "under_review",
-    "timestamp": "2026-10-29T00:57:21+00:00"
+    "timestamp": "2026-10-29T01:05:20+00:00"
   }
 ]
 ```
@@ -486,52 +486,52 @@ Diagnostic texts were supplied by AI and were not the reviewer's live writing ta
   "creator_credential": {
     "badge": "Verified human — local reviewer check",
     "creator_id": "rashedul",
-    "credential_id": "77d90f9d-0ab1-436a-8611-1680cf3aa7a8",
-    "issued_at": 1793235156.859328,
-    "reviewer": "Their real name",
+    "credential_id": "de0430ce-ebfa-43a9-9aa7-a4d8682dcfe4",
+    "issued_at": 1793235908.41208,
+    "reviewer": "MD ISLAM",
     "scope": "Creator completed an observed task; authorship of later items is not verified."
   },
   "lookup_before_appeal": {
     "combined_score": 0.4342,
-    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
+    "content_id": "f55d53b4-dd7d-47aa-beb9-e8b04b8abe1d",
     "creator_id": "rashedul",
     "guess": "unsure",
     "human_credential": {
       "badge": "Verified human — local reviewer check",
       "creator_id": "rashedul",
-      "credential_id": "77d90f9d-0ab1-436a-8611-1680cf3aa7a8",
-      "issued_at": 1793235156.859328,
-      "reviewer": "Their real name",
+      "credential_id": "de0430ce-ebfa-43a9-9aa7-a4d8682dcfe4",
+      "issued_at": 1793235908.41208,
+      "reviewer": "MD ISLAM",
       "scope": "Creator completed an observed task; authorship of later items is not verified."
     },
     "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
-    "last_updated": "2026-10-29T00:57:21+00:00",
+    "last_updated": "2026-10-29T01:05:20+00:00",
     "model_score": 0.2773,
     "provenance_score": 0.2,
     "status": "decided",
     "style_score": 0.7081,
-    "timestamp": "2026-10-29T00:57:21+00:00"
+    "timestamp": "2026-10-29T01:05:20+00:00"
   },
   "lookup_after_appeal": {
     "combined_score": 0.4342,
-    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
+    "content_id": "f55d53b4-dd7d-47aa-beb9-e8b04b8abe1d",
     "creator_id": "rashedul",
     "guess": "unsure",
     "human_credential": {
       "badge": "Verified human — local reviewer check",
       "creator_id": "rashedul",
-      "credential_id": "77d90f9d-0ab1-436a-8611-1680cf3aa7a8",
-      "issued_at": 1793235156.859328,
-      "reviewer": "Their real name",
+      "credential_id": "de0430ce-ebfa-43a9-9aa7-a4d8682dcfe4",
+      "issued_at": 1793235908.41208,
+      "reviewer": "MD ISLAM",
       "scope": "Creator completed an observed task; authorship of later items is not verified."
     },
     "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
-    "last_updated": "2026-10-29T00:57:21+00:00",
+    "last_updated": "2026-10-29T01:05:20+00:00",
     "model_score": 0.2773,
     "provenance_score": 0.2,
     "status": "under_review",
     "style_score": 0.7081,
-    "timestamp": "2026-10-29T00:57:21+00:00"
+    "timestamp": "2026-10-29T01:05:20+00:00"
   },
   "diagnostic_requests_and_responses": [
     {
@@ -569,7 +569,7 @@ Diagnostic texts were supplied by AI and were not the reviewer's live writing ta
       "response": {
         "combined_score": 0.4942,
         "confidence": 0.5058,
-        "content_id": "ac6b3588-d5eb-488c-868e-513c5b7ed98a",
+        "content_id": "78ff9b9c-0bf9-496f-82dd-fe8ae9eb0a41",
         "guess": "unsure",
         "human_credential": null,
         "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
@@ -590,7 +590,7 @@ Diagnostic texts were supplied by AI and were not the reviewer's live writing ta
       "response": {
         "combined_score": 0.2369,
         "confidence": 0.7631,
-        "content_id": "0ff42733-efd2-49ab-850d-c2a7888db7ce",
+        "content_id": "0605959b-3fb8-434c-9842-b09fb7cd7604",
         "guess": "human",
         "human_credential": null,
         "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
@@ -611,7 +611,7 @@ Diagnostic texts were supplied by AI and were not the reviewer's live writing ta
       "response": {
         "combined_score": 0.8679,
         "confidence": 0.8679,
-        "content_id": "05346263-27f1-499c-be99-1888283f1710",
+        "content_id": "b1bf1c99-f513-4d33-96fd-28117503bae9",
         "guess": "ai",
         "human_credential": null,
         "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
@@ -632,7 +632,7 @@ Diagnostic texts were supplied by AI and were not the reviewer's live writing ta
       "response": {
         "combined_score": 0.2972,
         "confidence": 0.7028,
-        "content_id": "1087e38b-c14f-47e3-86a6-75cc7b3f005d",
+        "content_id": "13b4ef58-2749-4d25-b344-61792f7af28e",
         "guess": "human",
         "human_credential": null,
         "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
@@ -653,7 +653,7 @@ Diagnostic texts were supplied by AI and were not the reviewer's live writing ta
       "response": {
         "combined_score": 0.399,
         "confidence": 0.601,
-        "content_id": "61471d91-7f9f-43f5-b7c0-be4e224d2109",
+        "content_id": "28f18643-b3bc-4c4f-a331-36778f85769c",
         "guess": "unsure",
         "human_credential": null,
         "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
