@@ -1,0 +1,13 @@
+{
+  "text": "The system is designed to provide clear and consistent results. The system is designed to provide clear and consistent results. The system is designed to provide clear and consistent results. The system is designed to provide clear and consistent results. The system is designed to provide clear and consistent results. The system is designed to provide clear and consistent results. The system is designed to provide clear and consistent results. The system is designed to provide clear and consistent results.",
+  "response": {
+    "combined_score": 0.9599,
+    "confidence": 0.9599,
+    "content_id": "1fddce79-d030-45ed-aaf7-79c45540a8bb",
+    "guess": "ai",
+    "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+    "model_score": 0.9943,
+    "status": "decided",
+    "style_score": 0.9255
+  }
+}

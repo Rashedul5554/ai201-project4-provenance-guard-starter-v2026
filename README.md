@@ -36,28 +36,30 @@
 
 ## What This Does
 
-**Current progress: Milestone 4 implementation, awaiting an integrated run.**
-Final labels, confidence, and appeals are not implemented yet. This is not a
-completed Unit 7 submission.
+Provenance Guard is a local backend service for estimating AI-like writing
+patterns and allowing writers to challenge a decision. It cannot prove authorship.
 
-1. `POST /submit` receives JSON with `text` and `creator_id`.
-2. The route rejects missing, non-string, or whitespace-only fields with HTTP 400.
+1. `POST /submit` receives JSON containing `text` and `creator_id`.
+2. It validates the input, returning HTTP 400 for missing, non-string, or
+   whitespace-only fields. Text too short for the model also returns HTTP 400.
 3. `detector.model_signal` measures predictability using local GPT-2 perplexity.
 4. `stylometry.style_signal` measures sentence variation, vocabulary variety,
    and punctuation density.
-5. `scoring.combine_signals` averages the two scores using configured weights.
-6. The route assigns a unique ID and writes both scores and the combined score
-   to `logs/audit.jsonl` through `audit.log_decision`.
-7. It returns the ID and scores. For now, `guess` is `unsure`, `confidence` is
-   `null`, and `status` is `partial_analysis`. These are development placeholders.
+5. `scoring.py::combine_signals` averages both scores; `score_to_label` maps
+   that result to a human, unsure, or AI label.
+6. The route assigns a unique `content_id`, appends the decision to
+   `logs/audit.jsonl`, and returns both signals, combined score, confidence,
+   full label, guess, and status `decided`.
+7. `POST /appeal` accepts that ID and a writer's reasoning. It verifies a
+   completed decision exists and appends an appeal with status `under_review`.
+   The latest entry represents the current status; the original stays intact.
 
-The planned final stage maps the combined score to one of three reader-facing
-labels and supports a logged appeal that changes status to `under_review`.
+The appeal path acknowledges a request for review, not a completed human review.
+Invalid appeal fields return HTTP 400; an unknown completed submission returns
+HTTP 404. The code does not authenticate the claimed creator identity.
 
-<!-- The path a submission takes, from arriving to the label a reader sees.
-     Six or seven steps — this is the trace you wrote in Milestone 1. -->
-
-
+The starter environment check passed all nine checks on my Mac with Python 3.13.
+The service runs locally; rate limiting remains disabled for Unit 7.
 
 ---
 
@@ -101,7 +103,7 @@ These constants are starting assumptions, not learned or validated parameters.
 <!-- Write the rule in words, then give the numbers. What happens when the two
      signals disagree? -->
 
-**The rule:** An equal weighted average. Neither signal has demonstrated greater reliability yet. Strong opposing scores move the average toward uncertainty; moderate disagreement can still yield a confident label once mapping is connected.
+**The rule:** An equal weighted average. Neither signal has demonstrated greater reliability yet. Strong opposing scores move the average toward uncertainty; moderate disagreement can still yield a confident label.
 
 **The numbers:** `combined_score = 0.5 * model_score + 0.5 * style_score`.
 Keep `WEIGHT_MODEL_SIGNAL = 0.5` and `WEIGHT_STYLE_SIGNAL = 0.5` in `config.py`.
@@ -115,112 +117,193 @@ calibrated probability of authorship.
      somewhere else, say where. -->
 
 **A case where my two signals split, and what my rule does with it:**
-The same grocery-store sample was tested separately: the model returned
-`0.7483`; the style signal returned `0.5233`. They differ by `0.2250` in strength.
-The equal average would be `0.6358`; this is calculated from those separate
-runs, not yet captured from the integrated endpoint. With the current starter
-thresholds (human at or below 0.35, AI at or above 0.65), this falls in the unsure
-band once label mapping is connected.
 
-The sample was supplied by AI during development. It is not evidence of
-human authorship and must not be counted among passages I wrote myself.
+The original personal passage produced model score `0.8402` and style score
+`0.3995`. The equal average was `0.6199`, so the final mapping returned
+`unsure`. The actual response and matching log are pasted below.
 
+**Confidence:** `max(combined_score, 1 - combined_score)`, rounded to four
+decimal places. It measures heuristic directional strength from 0.5 to 1, not
+the probability that the named label is correct. For an unsure result it still
+reports the stronger direction; it is not confidence in an accusation.
 
+**Calibration observations:**
+
+- Original AI time-management passage: model `0.4266`, style `0.6583`,
+  combined `0.5424`; this lies in the unsure band.
+- Original personal passage: model `0.8402`, style `0.3995`,
+  combined `0.6199`; unsure.
+- Original formal human passage: model `0.7728`, style `0.6124`,
+  combined `0.6926`. The earlier route still returned a placeholder guess,
+  but this score maps to AI under the final thresholds: a false positive.
+- Human-edited AI passage: model `0.5197`, style `0.5390`,
+  combined `0.5293`; this lies in the unsure band.
+
+The edited AI passage was based on the AI-assisted biographical draft, not the
+time-management passage, so these are not a controlled before/after pair.
+The personal and formal text files were subsequently changed; their later scores
+are for different inputs, not repeated measurements of the original passages.
+The original personal request remains preserved in the Sample Run evidence.
+
+**Actual submissions demonstrating reachable labels:**
+
+- Revised personal sample: `human`, combined `0.2465`.
+- Revised formal sample: `unsure`, combined `0.3737`.
+- AI-generated unusual-prose diagnostic: `human`, combined `0.1711`.
+  This is a missed AI detection, not a genuinely human sample.
+- AI-generated repetitive diagnostic: model `0.9943`, style `0.9255`,
+  combined `0.9599`; `ai`.
+
+These results demonstrate label reachability, not reliable accuracy. The
+thresholds and weights were not changed to force those outcomes.
+The diagnostics were deliberately selected to explore score ranges.
+The saved response files and audit log provide the evidence; the Unit 8
+three-trial evaluation has not been performed.
 
 ---
 
 ## Label Variants
 
-**Pending Milestone 5:** the code still contains placeholder labels. The table
-below must be completed with the implemented text and exact boundary rules.
+Configured in `config.py` and implemented in `scoring.py::score_to_label`:
 
-<!-- The exact text of all three labels, as a reader would see them, and the
-     score range each covers.
+- **High-confidence human** (`guess: human`): `0 <= score <= 0.35`.
+  Exact text: "This writing shows strong human-like patterns. This estimate does not verify who wrote it."
+- **Unsure** (`guess: unsure`): `0.35 < score < 0.65`.
+  Exact text: "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review."
+- **High-confidence AI** (`guess: ai`): `0.65 <= score <= 1`.
+  Exact text: "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review."
 
-     Write them for someone who has never heard the word "threshold". -->
+Every finite score from 0 to 1 maps to exactly one label. Scores outside that
+range are rejected by the mapping. Boundary checks at 0, 0.35, 0.3501,
+0.6499, 0.65, and 1 returned the expected categories.
 
-| Label | Score range | The exact text a reader sees |
-|---|---|---|
-| high-confidence human |  |  |
-| unsure |  |  |
-| high-confidence AI |  |  |
-
-**Why I worded the "unsure" one this way:**
-<!-- It's the hardest of the three. It has to admit uncertainty without
-     sounding like an accusation, because the person reading it may well have
-     written every word themselves. -->
-
-
+**Why I worded the unsure label this way:** It directly admits uncertainty,
+states that no wrongdoing has been established, and provides a review path.
+The AI label also describes patterns rather than claiming proof of AI use.
+The current 0.35/0.65 thresholds leave a middle band, but the observed formal
+human false positive shows that this band does not eliminate wrong accusations.
 
 ---
 
 ## Sample Run
 
-**Pending:** capture a real integrated submission, then a real appeal after
-Milestone 5. Empty response blocks below are not test evidence.
+Actual successful submission and appeal captured in
+`results/milestone5_sample_run.json`. These requests were sent with Python
+`requests`; the full JSON bodies and responses are pasted here as text.
+Timestamps in the log are UTC.
 
-<!-- One submission and one appeal, pasted as text: the request, the response,
-     and the log entries. -->
+**Submission request**
 
-**A submission**
-
-<!-- The response needs content_id, guess, confidence, label, AND both
-     signal scores - model_score and style_score. Unit 8's tools read those
-     two off the response, so leaving them out costs you next unit's
-     diagnostics. -->
-
-```bash
-$ curl -X POST http://127.0.0.1:5000/submit \
-  -H "Content-Type: application/json" \
-  -d '{"text": "...", "creator_id": "..."}'
-```
+`POST http://127.0.0.1:5000/submit`, `Content-Type: application/json`
 
 ```json
-
+{
+  "text": "Here,I write about myself in 5 bullet points:\n    1. I am a Computer Science and Information Security (CSIS) student at John Jay College of Criminal Justice, The City University of New York (CUNY).\n    2. I have been actively involved in undergraduate research, with a background in biophysics, biochemistry, and cellular and molecular biology. My research experience has allowed me to explore scientific fields beyond my primary area of study.\n    3. I have hands-on experience in technology through my work as a College Assistant in the Strategic Initiative Advancement Department, where I contributed to the college website as a frontend developer. I built forms, developed workflows, and wrote scripts using ProcessMaker, HTML, CSS, and JavaScript.\n    4. I have also worked as an IT and Tech Support Intern with the New York City Department of Education (DOE). In this role, I helped manage thousands of devices, update operating systems, distribute and maintain school devices, and remotely manage devices through Microsoft Intune. My responsibilities included activating and deactivating devices, reimaging, updating, wiping, resetting, and deploying applications.\n    5. I am passionate about volunteering, especially in social services. I currently serve as a Victim Service Advocate at a New York City public hospital, where I support survivors of domestic violence and sexual assault. I also help people understand their rights, advocate for themselves, and find the confidence to speak up against violence and injustice.",
+  "creator_id": "human-personal"
+}
 ```
 
-**An appeal**
-
-```bash
-$ curl -X POST http://127.0.0.1:5000/appeal \
-  -H "Content-Type: application/json" \
-  -d '{"content_id": "...", "reasoning": "..."}'
-```
+**Submission response — HTTP 200**
 
 ```json
-
+{
+  "combined_score": 0.6199,
+  "confidence": 0.6199,
+  "content_id": "a8fdf6b2-04ae-4259-9b06-97021faea227",
+  "guess": "unsure",
+  "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+  "model_score": 0.8402,
+  "status": "decided",
+  "style_score": 0.3995
+}
 ```
 
-**What the log shows afterwards**
+**Appeal request**
 
-```bash
-$ curl "http://127.0.0.1:5000/log?limit=3"
-```
+`POST http://127.0.0.1:5000/appeal`, `Content-Type: application/json`
 
 ```json
-
+{
+  "content_id": "a8fdf6b2-04ae-4259-9b06-97021faea227",
+  "reasoning": "I wrote this sample myself and request a review."
+}
 ```
+
+**Appeal response — HTTP 200**
+
+```json
+{
+  "content_id": "a8fdf6b2-04ae-4259-9b06-97021faea227",
+  "message": "Your appeal has been recorded for review.",
+  "status": "under_review"
+}
+```
+
+**Log request**
+
+`GET http://127.0.0.1:5000/log` returned HTTP 200. The matching entries
+for the submission ID are pasted below; other submissions were filtered out.
+
+```json
+[
+  {
+    "combined_score": 0.6199,
+    "content_id": "a8fdf6b2-04ae-4259-9b06-97021faea227",
+    "creator_id": "human-personal",
+    "guess": "unsure",
+    "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+    "model_score": 0.8402,
+    "status": "decided",
+    "style_score": 0.3995,
+    "timestamp": "2026-10-29T00:04:17+00:00"
+  },
+  {
+    "content_id": "a8fdf6b2-04ae-4259-9b06-97021faea227",
+    "creator_id": "human-personal",
+    "event": "appeal",
+    "reasoning": "I wrote this sample myself and request a review.",
+    "status": "under_review",
+    "timestamp": "2026-10-29T00:04:17+00:00"
+  }
+]
+```
+
+The original entry remains `decided`; the later appeal records the item's
+new status as `under_review`.
 
 ---
 
 ## How I Used AI
 
-AI assistance included setup troubleshooting, a planning draft, proposed
-acceptance criteria, and Python implementation suggestions. The two moment
-prompts below still need my own account of what I reviewed and changed. I must
-not describe AI-generated criteria or sample passages as independently written.
+**Moment 1 — Planning and acceptance criteria**
 
-**Moment 1**
+- *What I asked for:* Help understanding the assignment, a draft of
+  `planning.md`, and an updated `criteria.md`.
+- *What came back:* AI drafted the submission flow, endpoint contracts, and
+  all five proposed criteria with targets and reasons.
+- *What I changed:* I added the supplied drafts to my repository and committed
+  them before the implementation experiments. I have not documented independent
+  changes to those criteria; I do not claim I authored the targets without AI.
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+**Moment 2 — Building and checking the service**
 
-**Moment 2**
+- *What I asked for:* Updated Python files, help interpreting terminal output,
+  and help completing the Unit 7 implementation.
+- *What came back:* AI supplied route code, the style heuristic, the combining
+  rule, labels, appeal code, test commands, and README drafting assistance.
+- *What I changed:* I applied the updates in stages, ran them locally, and
+  returned the actual outputs for review. I asked to preserve Unit 8 code and
+  limit today's work to Unit 7. The route progressed from a fixed response to
+  model-only scoring, then two signals, and finally labels and logged appeals.
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+AI also supplied diagnostic passages and a biographical draft. The latter was
+used as the basis for the edited-AI sample. I supplied the personal and formal
+samples and subsequently revised their files. Generated or AI-assisted passages
+are identified as such rather than counted as independently human-written.
+
+The assignment asks students to author their own acceptance criteria. The AI
+drafting above is disclosed because it does not meet that authorship instruction
+as written; it should not be hidden or described as unaided work.
 
 <!-- ═══════════════════════ UNIT 8 — THE TEST ═══════════════════════ -->
 
@@ -382,3 +465,4 @@ that produced it:
 ---
 
 📖 **How to run this project: [RUNNING.md](RUNNING.md)**
+

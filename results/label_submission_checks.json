@@ -1,0 +1,44 @@
+[
+  {
+    "sample": "human-personal",
+    "text": "Here,I write about myself in 5 bullet points:\n    1. I am a CSIS(Computer Science and Information Security) student at The City University of New York at John Jay college of Criminal Justice\n    2. I have been actively engaged with Undergraduate Research where my research background is Biophysics, Biochemistry and Cellular and Molecular biology since my major is Computere Science and informaiton security. \n    3. I have related Tech Job and internship expetiencs which is i used to work as a college assistant in Strategic Initivative Advancement (The College Website) Department where i worked as a Fontend developer build multiple From, process and wirte script usidg the software \"ProcessMaker\" and using the language HTML, CSS, and Javascript. \n    4. One of my Tech Related internship is  i am Departmen of Education (DOE) IT and Tech support intern where i manage and handel more then thousands device update the operatin system, manage and distridute schools devies and remotely manage and maintaince device by cloude system using Microsoft Intune Managmente systemr where i can actavite/deactivate, remiage, update, wipe and resate, deploy application to the device. \n    5. I love to do volunteering work specially social work. My current volunteer role is Victim Service Advocate at New York City Public Hospital where i help people who face domistic violence and sexual assulat i love to teach people about how to do their own advocacy and raise voice againest every crime. ",
+    "response": {
+      "combined_score": 0.2465,
+      "confidence": 0.7535,
+      "content_id": "646ae044-78d3-4dc5-8dc0-3c98e26e81f3",
+      "guess": "human",
+      "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+      "model_score": 0.2033,
+      "status": "decided",
+      "style_score": 0.2898
+    }
+  },
+  {
+    "sample": "human-formal",
+    "text": "I am a Computer Science and Inoformation Security major student at John jay college of Crimimal justice and my minor is Chemisriy. I actively engaged with undergraduare research, my research backgournd is biochemisry and Cellular and moluecular biology where i am focusing immunocell theraphy in therapetuic cancer treatemnt. Beside that, i am also doing a technical internship which is DOE IT and Tech Surreprt Internship where i provide technical  and informational related tasks.   ",
+    "response": {
+      "combined_score": 0.3737,
+      "confidence": 0.6263,
+      "content_id": "ab88b87b-976e-4e1e-a39d-2cdd2b0ce00c",
+      "guess": "unsure",
+      "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.7187
+    }
+  },
+  {
+    "sample": "ai-diagnostic",
+    "text": "Rain stopped. Beneath the viaduct, a watchmaker in saffron boots wrestled a buckled accordion case past the fishmonger's shutter, scattering receipts, brass washers, and a single bruised persimmon across the cobbles while a tram screeched somewhere uphill. Nobody claimed the fruit.",
+    "response": {
+      "combined_score": 0.1711,
+      "confidence": 0.8289,
+      "content_id": "c566ea43-cc75-4216-9df8-001903e983ec",
+      "guess": "human",
+      "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+      "model_score": 0.1644,
+      "status": "decided",
+      "style_score": 0.1778
+    }
+  }
+]
