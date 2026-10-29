@@ -237,7 +237,7 @@ Actual three-signal submission and appeal, followed by content lookup. The crede
   "response": {
     "combined_score": 0.4342,
     "confidence": 0.5658,
-    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
     "guess": "unsure",
     "human_credential": {
       "badge": "Verified human — local reviewer check",
@@ -255,17 +255,17 @@ Actual three-signal submission and appeal, followed by content lookup. The crede
   }
 }
 ```
-**GET /content/ab193cde-7c9a-447c-baab-809ebda46531 — HTTP 200**
+**GET /content/6a4bf4ab-9120-4e81-ae69-67a333bc0020 — HTTP 200**
 
 ```json
 {
   "method": "GET",
-  "path": "/content/ab193cde-7c9a-447c-baab-809ebda46531",
+  "path": "/content/6a4bf4ab-9120-4e81-ae69-67a333bc0020",
   "request": null,
   "http_status": 200,
   "response": {
     "combined_score": 0.4342,
-    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
     "creator_id": "rashedul",
     "guess": "unsure",
     "human_credential": {
@@ -277,12 +277,12 @@ Actual three-signal submission and appeal, followed by content lookup. The crede
       "scope": "Creator completed an observed task; authorship of later items is not verified."
     },
     "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
-    "last_updated": "2026-10-29T00:53:20+00:00",
+    "last_updated": "2026-10-29T00:57:21+00:00",
     "model_score": 0.2773,
     "provenance_score": 0.2,
     "status": "decided",
     "style_score": 0.7081,
-    "timestamp": "2026-10-29T00:53:20+00:00"
+    "timestamp": "2026-10-29T00:57:21+00:00"
   }
 }
 ```
@@ -293,28 +293,28 @@ Actual three-signal submission and appeal, followed by content lookup. The crede
   "method": "POST",
   "path": "/appeal",
   "request": {
-    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
     "reasoning": "Please review this diagnostic submission. The example draft text was supplied by AI; the creator credential is not proof of this item's authorship."
   },
   "http_status": 200,
   "response": {
-    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
     "message": "Your appeal has been recorded for review.",
     "status": "under_review"
   }
 }
 ```
-**GET /content/ab193cde-7c9a-447c-baab-809ebda46531 — HTTP 200**
+**GET /content/6a4bf4ab-9120-4e81-ae69-67a333bc0020 — HTTP 200**
 
 ```json
 {
   "method": "GET",
-  "path": "/content/ab193cde-7c9a-447c-baab-809ebda46531",
+  "path": "/content/6a4bf4ab-9120-4e81-ae69-67a333bc0020",
   "request": null,
   "http_status": 200,
   "response": {
     "combined_score": 0.4342,
-    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
     "creator_id": "rashedul",
     "guess": "unsure",
     "human_credential": {
@@ -326,12 +326,12 @@ Actual three-signal submission and appeal, followed by content lookup. The crede
       "scope": "Creator completed an observed task; authorship of later items is not verified."
     },
     "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
-    "last_updated": "2026-10-29T00:53:20+00:00",
+    "last_updated": "2026-10-29T00:57:21+00:00",
     "model_score": 0.2773,
     "provenance_score": 0.2,
     "status": "under_review",
     "style_score": 0.7081,
-    "timestamp": "2026-10-29T00:53:20+00:00"
+    "timestamp": "2026-10-29T00:57:21+00:00"
   }
 }
 ```
@@ -341,7 +341,7 @@ Actual three-signal submission and appeal, followed by content lookup. The crede
 [
   {
     "combined_score": 0.4342,
-    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
     "creator_id": "rashedul",
     "guess": "unsure",
     "human_credential": {
@@ -357,15 +357,15 @@ Actual three-signal submission and appeal, followed by content lookup. The crede
     "provenance_score": 0.2,
     "status": "decided",
     "style_score": 0.7081,
-    "timestamp": "2026-10-29T00:53:20+00:00"
+    "timestamp": "2026-10-29T00:57:21+00:00"
   },
   {
-    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
     "creator_id": "rashedul",
     "event": "appeal",
     "reasoning": "Please review this diagnostic submission. The example draft text was supplied by AI; the creator credential is not proof of this item's authorship.",
     "status": "under_review",
-    "timestamp": "2026-10-29T00:53:20+00:00"
+    "timestamp": "2026-10-29T00:57:21+00:00"
   }
 ]
 ```
@@ -493,7 +493,7 @@ Diagnostic texts were supplied by AI and were not the reviewer's live writing ta
   },
   "lookup_before_appeal": {
     "combined_score": 0.4342,
-    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
     "creator_id": "rashedul",
     "guess": "unsure",
     "human_credential": {
@@ -505,16 +505,16 @@ Diagnostic texts were supplied by AI and were not the reviewer's live writing ta
       "scope": "Creator completed an observed task; authorship of later items is not verified."
     },
     "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
-    "last_updated": "2026-10-29T00:53:20+00:00",
+    "last_updated": "2026-10-29T00:57:21+00:00",
     "model_score": 0.2773,
     "provenance_score": 0.2,
     "status": "decided",
     "style_score": 0.7081,
-    "timestamp": "2026-10-29T00:53:20+00:00"
+    "timestamp": "2026-10-29T00:57:21+00:00"
   },
   "lookup_after_appeal": {
     "combined_score": 0.4342,
-    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "content_id": "6a4bf4ab-9120-4e81-ae69-67a333bc0020",
     "creator_id": "rashedul",
     "guess": "unsure",
     "human_credential": {
@@ -526,12 +526,12 @@ Diagnostic texts were supplied by AI and were not the reviewer's live writing ta
       "scope": "Creator completed an observed task; authorship of later items is not verified."
     },
     "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
-    "last_updated": "2026-10-29T00:53:20+00:00",
+    "last_updated": "2026-10-29T00:57:21+00:00",
     "model_score": 0.2773,
     "provenance_score": 0.2,
     "status": "under_review",
     "style_score": 0.7081,
-    "timestamp": "2026-10-29T00:53:20+00:00"
+    "timestamp": "2026-10-29T00:57:21+00:00"
   },
   "diagnostic_requests_and_responses": [
     {
@@ -569,7 +569,7 @@ Diagnostic texts were supplied by AI and were not the reviewer's live writing ta
       "response": {
         "combined_score": 0.4942,
         "confidence": 0.5058,
-        "content_id": "a6da9e52-9876-4f32-9a9e-12918e7f2a79",
+        "content_id": "ac6b3588-d5eb-488c-868e-513c5b7ed98a",
         "guess": "unsure",
         "human_credential": null,
         "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
@@ -590,7 +590,7 @@ Diagnostic texts were supplied by AI and were not the reviewer's live writing ta
       "response": {
         "combined_score": 0.2369,
         "confidence": 0.7631,
-        "content_id": "277a2874-f1ee-4880-937e-4bb8a4311d36",
+        "content_id": "0ff42733-efd2-49ab-850d-c2a7888db7ce",
         "guess": "human",
         "human_credential": null,
         "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
@@ -611,7 +611,7 @@ Diagnostic texts were supplied by AI and were not the reviewer's live writing ta
       "response": {
         "combined_score": 0.8679,
         "confidence": 0.8679,
-        "content_id": "a6369a4f-3992-40ac-a9c9-79bb70f69c16",
+        "content_id": "05346263-27f1-499c-be99-1888283f1710",
         "guess": "ai",
         "human_credential": null,
         "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
@@ -632,7 +632,7 @@ Diagnostic texts were supplied by AI and were not the reviewer's live writing ta
       "response": {
         "combined_score": 0.2972,
         "confidence": 0.7028,
-        "content_id": "f6a504bd-e9c7-46e7-8f79-13998007085b",
+        "content_id": "1087e38b-c14f-47e3-86a6-75cc7b3f005d",
         "guess": "human",
         "human_credential": null,
         "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
@@ -653,7 +653,7 @@ Diagnostic texts were supplied by AI and were not the reviewer's live writing ta
       "response": {
         "combined_score": 0.399,
         "confidence": 0.601,
-        "content_id": "4758dd19-8d54-4ca1-936a-b9e6a3f838f5",
+        "content_id": "61471d91-7f9f-43f5-b7c0-be4e224d2109",
         "guess": "unsure",
         "human_credential": null,
         "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
