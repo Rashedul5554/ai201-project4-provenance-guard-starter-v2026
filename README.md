@@ -305,6 +305,25 @@ The assignment asks students to author their own acceptance criteria. The AI
 drafting above is disclosed because it does not meet that authorship instruction
 as written; it should not be hidden or described as unaided work.
 
+
+## Unit 7 Bonus Declaration — Before Implementation
+
+I plan to add all three stretch features:
+1. A third signal based on submitted draft revisions, weighted 0.20 alongside
+   model predictability (0.40) and style (0.40). Draft history can be fabricated;
+   this signal is evidence of revision activity, not proof of human authorship.
+2. `GET /content/<id>` returning a decision and its latest status, including
+   `under_review` after an appeal.
+3. A verified-human path: a reviewer observes a live writing challenge and issues
+   a creator-bound credential through a local reviewer command. The credential
+   appears on later submissions when the writer supplies its secret token.
+   This is a local demonstration, not production identity verification.
+
+After implementation I will record real requests, responses, before/after appeal
+status, and a credential-bearing item. I will distinguish demonstrations from
+actual reviewer verification and keep all Unit 8 code unchanged.
+
+
 <!-- ═══════════════════════ UNIT 8 — THE TEST ═══════════════════════ -->
 
 ---
