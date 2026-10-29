@@ -1,0 +1,10 @@
+{
+  "combined_score": 0.5293,
+  "confidence": null,
+  "content_id": "907d12a9-1e15-4d83-a956-7018048e1d4b",
+  "guess": "unsure",
+  "label": "Both signals processed. Final label mapping is not connected yet.",
+  "model_score": 0.5197,
+  "status": "partial_analysis",
+  "style_score": 0.539
+}

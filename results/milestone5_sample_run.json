@@ -1,0 +1,46 @@
+{
+  "submission_request": {
+    "text": "Here,I write about myself in 5 bullet points:\n    1. I am a Computer Science and Information Security (CSIS) student at John Jay College of Criminal Justice, The City University of New York (CUNY).\n    2. I have been actively involved in undergraduate research, with a background in biophysics, biochemistry, and cellular and molecular biology. My research experience has allowed me to explore scientific fields beyond my primary area of study.\n    3. I have hands-on experience in technology through my work as a College Assistant in the Strategic Initiative Advancement Department, where I contributed to the college website as a frontend developer. I built forms, developed workflows, and wrote scripts using ProcessMaker, HTML, CSS, and JavaScript.\n    4. I have also worked as an IT and Tech Support Intern with the New York City Department of Education (DOE). In this role, I helped manage thousands of devices, update operating systems, distribute and maintain school devices, and remotely manage devices through Microsoft Intune. My responsibilities included activating and deactivating devices, reimaging, updating, wiping, resetting, and deploying applications.\n    5. I am passionate about volunteering, especially in social services. I currently serve as a Victim Service Advocate at a New York City public hospital, where I support survivors of domestic violence and sexual assault. I also help people understand their rights, advocate for themselves, and find the confidence to speak up against violence and injustice.",
+    "creator_id": "human-personal"
+  },
+  "submission_response": {
+    "combined_score": 0.6199,
+    "confidence": 0.6199,
+    "content_id": "a8fdf6b2-04ae-4259-9b06-97021faea227",
+    "guess": "unsure",
+    "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+    "model_score": 0.8402,
+    "status": "decided",
+    "style_score": 0.3995
+  },
+  "appeal_request": {
+    "content_id": "a8fdf6b2-04ae-4259-9b06-97021faea227",
+    "reasoning": "I wrote this sample myself and request a review."
+  },
+  "appeal_response": {
+    "content_id": "a8fdf6b2-04ae-4259-9b06-97021faea227",
+    "message": "Your appeal has been recorded for review.",
+    "status": "under_review"
+  },
+  "log_entries": [
+    {
+      "combined_score": 0.6199,
+      "content_id": "a8fdf6b2-04ae-4259-9b06-97021faea227",
+      "creator_id": "human-personal",
+      "guess": "unsure",
+      "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+      "model_score": 0.8402,
+      "status": "decided",
+      "style_score": 0.3995,
+      "timestamp": "2026-10-29T00:04:17+00:00"
+    },
+    {
+      "content_id": "a8fdf6b2-04ae-4259-9b06-97021faea227",
+      "creator_id": "human-personal",
+      "event": "appeal",
+      "reasoning": "I wrote this sample myself and request a review.",
+      "status": "under_review",
+      "timestamp": "2026-10-29T00:04:17+00:00"
+    }
+  ]
+}

@@ -98,7 +98,7 @@ def health():
 @app.post("/submit")
 # @limiter.limit(f"{config.RATE_LIMIT_PER_MINUTE}/minute;{config.RATE_LIMIT_PER_DAY}/day")
 def submit():
-    """Milestone 4: validate input, run both signals, combine, and log."""
+    """Validate input, run both signals, return a label, and log the decision."""
     payload = request.get_json(silent=True)
 
     if not isinstance(payload, dict):
@@ -140,46 +140,78 @@ def submit():
     combined_score = scoring.combine_signals(model_score, style_score)
     content_id = str(uuid.uuid4())
 
-    # Final labels and confidence will be added in Milestone 5.
-    label = "Both signals processed. Final label mapping is not connected yet."
+    guess, label = scoring.score_to_label(combined_score)
+    # Heuristic strength of the human/AI direction, not a calibrated probability.
+    confidence = round(max(combined_score, 1.0 - combined_score), 4)
 
     audit.log_decision(
         content_id=content_id,
         creator_id=creator_id.strip(),
-        guess="unsure",
+        guess=guess,
         model_score=model_score,
         style_score=style_score,
         combined_score=combined_score,
         label=label,
-        status="partial_analysis",
+        status="decided",
     )
 
     return jsonify({
         "content_id": content_id,
-        "guess": "unsure",
-        "confidence": None,
+        "guess": guess,
+        "confidence": confidence,
         "label": label,
         "model_score": model_score,
         "style_score": style_score,
         "combined_score": combined_score,
-        "status": "partial_analysis",
+        "status": "decided",
     }), 200
 
 @app.post("/appeal")
 def appeal():
-    """
-    TODO — Milestone 5.
+    """Record an appeal; the latest log entry becomes the item's status."""
+    payload = request.get_json(silent=True)
+    if not isinstance(payload, dict):
+        return jsonify({
+            "error": "invalid_input",
+            "message": "Send a JSON object with content_id and reasoning.",
+        }), 400
 
-    Accept content_id and reasoning, verify the submission exists,
-    record the appeal, and return status under_review.
-    """
-    payload = request.get_json(silent=True) or {}
+    content_id = payload.get("content_id")
+    reasoning = payload.get("reasoning")
+    if not isinstance(content_id, str) or not content_id.strip():
+        return jsonify({
+            "error": "invalid_input",
+            "message": "content_id must be a non-empty string.",
+        }), 400
+    if not isinstance(reasoning, str) or not reasoning.strip():
+        return jsonify({
+            "error": "invalid_input",
+            "message": "reasoning must be a non-empty string.",
+        }), 400
 
+    content_id = content_id.strip()
+    entries = audit.entries_for(content_id)
+    original = next(
+        (entry for entry in entries
+         if entry.get("status") == "decided" and entry.get("event") != "appeal"),
+        None,
+    )
+    if original is None:
+        return jsonify({
+            "error": "not_found",
+            "message": "No completed submission was found for this content_id.",
+        }), 404
+
+    entry = audit.log_appeal(
+        content_id=content_id,
+        creator_id=original["creator_id"],
+        reasoning=reasoning,
+    )
     return jsonify({
-        "error": "not_implemented",
-        "message": "POST /appeal isn't built yet — see the TODO in app.py.",
-        "you_sent": payload,
-    }), 501
+        "content_id": content_id,
+        "status": entry["status"],
+        "message": "Your appeal has been recorded for review.",
+    }), 200
 
 
 @app.get("/log")
@@ -218,4 +250,4 @@ def main():
 
 if __name__ == "__main__":
     main()
- 
+    
