@@ -5,25 +5,27 @@ import math
 import config
 
 
-def combine_signals(model_score: float, style_score: float) -> float:
+def combine_signals(model_score: float, style_score: float, provenance_score: float = 0.5) -> float:
     """Return the configured weighted average; higher means more AI-like."""
     if not all(
         math.isfinite(value) and 0.0 <= value <= 1.0
-        for value in (model_score, style_score)
+        for value in (model_score, style_score, provenance_score)
     ):
         raise ValueError("Signal scores must be finite numbers from 0 to 1.")
 
     model_weight = config.WEIGHT_MODEL_SIGNAL
     style_weight = config.WEIGHT_STYLE_SIGNAL
+    provenance_weight = config.WEIGHT_PROVENANCE_SIGNAL
 
     if (
-        not all(math.isfinite(w) and w >= 0 for w in (model_weight, style_weight))
-        or not math.isclose(model_weight + style_weight, 1.0)
+        not all(math.isfinite(w) and w >= 0 for w in (model_weight, style_weight, provenance_weight))
+        or not math.isclose(model_weight + style_weight + provenance_weight, 1.0)
     ):
         raise ValueError("Signal weights must be nonnegative and sum to 1.")
 
     return round(
-        model_weight * model_score + style_weight * style_score,
+        model_weight * model_score + style_weight * style_score
+        + provenance_weight * provenance_score,
         4,
     )
 
@@ -60,3 +62,4 @@ def label_ranges() -> list[tuple[str, str]]:
         ("unsure", f"{config.HUMAN_THRESHOLD:g} < score < {config.AI_THRESHOLD:g}"),
         ("high-confidence AI", f"{config.AI_THRESHOLD:g} <= score <= 1"),
     ]
+

@@ -45,11 +45,12 @@ patterns and allowing writers to challenge a decision. It cannot prove authorshi
 3. `detector.model_signal` measures predictability using local GPT-2 perplexity.
 4. `stylometry.style_signal` measures sentence variation, vocabulary variety,
    and punctuation density.
-5. `scoring.py::combine_signals` averages both scores; `score_to_label` maps
+5. `scoring.py::combine_signals` combines model, style, and optional draft-revision
+   scores with weights 0.40, 0.40, and 0.20; `score_to_label` maps
    that result to a human, unsure, or AI label.
 6. The route assigns a unique `content_id`, appends the decision to
    `logs/audit.jsonl`, and returns both signals, combined score, confidence,
-   full label, guess, and status `decided`.
+   full label, guess, provenance score, any valid creator credential, and status `decided`.
 7. `POST /appeal` accepts that ID and a writer's reasoning. It verifies a
    completed decision exists and appends an appeal with status `under_review`.
    The latest entry represents the current status; the original stays intact.
@@ -98,15 +99,41 @@ These constants are starting assumptions, not learned or validated parameters.
 
 **What it can't see:** Meaning or authorship. Typos, quotations, and editing can move the score. Vocabulary variety depends on passage length, punctuation depends on genre, and the starter word tokenizer poorly represents many non-English languages. A neutral short-text score is a fallback, not evidence of human or AI origin.
 
+### Signal three — draft revision activity (bonus)
+
+**What it measures:** `provenance.py::draft_signal` examines optional
+`draft_history` metadata rather than the final text's predictability or style.
+The list contains 1–10 non-empty draft strings, each at most 20,000 characters;
+the last must exactly equal the submitted text.
+
+For each adjacent pair, Python `SequenceMatcher` computes similarity with
+`autojunk=False`. A meaningful revision has similarity between 0.50 and 0.98
+inclusive AND a length change of at least 10 characters. Two or more meaningful
+revisions yield score 0.20. Otherwise, including missing history, score is 0.50.
+Malformed supplied history returns HTTP 400. No missing-history penalty implies
+AI authorship; 0.50 represents no directional evidence.
+
+**Why it might differ:** A recorded series of substantive revisions can support
+a drafting process, while a pasted final answer may have no such history.
+This is a deliberately weak process heuristic, not a learned detector.
+
+**What it cannot see:** Whether the drafts were written by a person, generated
+by AI, fabricated after the fact, or ordered truthfully. Genuine writers can
+write in one pass and AI can generate convincing draft histories. It records
+no trusted timestamps or editor events. It is independent in measured property,
+not guaranteed statistically independent of the other signals.
+
 ### The combining rule
 
 <!-- Write the rule in words, then give the numbers. What happens when the two
      signals disagree? -->
 
-**The rule:** An equal weighted average. Neither signal has demonstrated greater reliability yet. Strong opposing scores move the average toward uncertainty; moderate disagreement can still yield a confident label.
+**The rule:** A weighted average of three different properties: model predictability (0.40), text style (0.40), and supplied draft-revision activity (0.20). The revision metadata has less weight because it can be fabricated. Strong disagreement can move the average toward uncertainty; no weighting proves authorship.
 
-**The numbers:** `combined_score = 0.5 * model_score + 0.5 * style_score`.
-Keep `WEIGHT_MODEL_SIGNAL = 0.5` and `WEIGHT_STYLE_SIGNAL = 0.5` in `config.py`.
+**The numbers:** `combined_score = 0.4 * model_score + 0.4 * style_score + 0.2 * provenance_score`.
+The three weights live in `config.py`. Missing draft history receives a neutral
+provenance score of 0.5, so an ordinary request uses
+`0.4 * model_score + 0.4 * style_score + 0.1`.
 Inputs must be finite and between 0 and 1; weights must be finite, nonnegative,
 and sum to 1. The result is rounded to four decimal places. It is not a
 calibrated probability of authorship.
@@ -116,7 +143,7 @@ calibrated probability of authorship.
 <!-- ⚠️ The grader checks your code against that line. If your rule lives
      somewhere else, say where. -->
 
-**A case where my two signals split, and what my rule does with it:**
+**Historical two-signal comparison, before the bonus change:**
 
 The original personal passage produced model score `0.8402` and style score
 `0.3995`. The equal average was `0.6199`, so the final mapping returned
@@ -127,7 +154,7 @@ decimal places. It measures heuristic directional strength from 0.5 to 1, not
 the probability that the named label is correct. For an unsure result it still
 reports the stronger direction; it is not confidence in an accusation.
 
-**Calibration observations:**
+**Historical calibration observations (old 0.50/0.50 rule):**
 
 - Original AI time-management passage: model `0.4266`, style `0.6583`,
   combined `0.5424`; this lies in the unsure band.
@@ -143,9 +170,9 @@ The edited AI passage was based on the AI-assisted biographical draft, not the
 time-management passage, so these are not a controlled before/after pair.
 The personal and formal text files were subsequently changed; their later scores
 are for different inputs, not repeated measurements of the original passages.
-The original personal request remains preserved in the Sample Run evidence.
+The original personal request remains preserved in `results/milestone5_sample_run.json`.
 
-**Actual submissions demonstrating reachable labels:**
+**Historical submissions demonstrating reachable labels (old 0.50/0.50 rule):**
 
 - Revised personal sample: `human`, combined `0.2465`.
 - Revised formal sample: `unsure`, combined `0.3737`.
@@ -187,89 +214,163 @@ human false positive shows that this band does not eliminate wrong accusations.
 
 ## Sample Run
 
-Actual successful submission and appeal captured in
-`results/milestone5_sample_run.json`. These requests were sent with Python
-`requests`; the full JSON bodies and responses are pasted here as text.
-Timestamps in the log are UTC.
+<!-- BONUS_SAMPLE_START -->
+Actual three-signal submission and appeal, followed by content lookup. The credential token is omitted from published evidence. Requests were sent by `capture_bonus_evidence.py` using Python requests.
 
-**Submission request**
-
-`POST http://127.0.0.1:5000/submit`, `Content-Type: application/json`
+**POST /submit — HTTP 200**
 
 ```json
 {
-  "text": "Here,I write about myself in 5 bullet points:\n    1. I am a Computer Science and Information Security (CSIS) student at John Jay College of Criminal Justice, The City University of New York (CUNY).\n    2. I have been actively involved in undergraduate research, with a background in biophysics, biochemistry, and cellular and molecular biology. My research experience has allowed me to explore scientific fields beyond my primary area of study.\n    3. I have hands-on experience in technology through my work as a College Assistant in the Strategic Initiative Advancement Department, where I contributed to the college website as a frontend developer. I built forms, developed workflows, and wrote scripts using ProcessMaker, HTML, CSS, and JavaScript.\n    4. I have also worked as an IT and Tech Support Intern with the New York City Department of Education (DOE). In this role, I helped manage thousands of devices, update operating systems, distribute and maintain school devices, and remotely manage devices through Microsoft Intune. My responsibilities included activating and deactivating devices, reimaging, updating, wiping, resetting, and deploying applications.\n    5. I am passionate about volunteering, especially in social services. I currently serve as a Victim Service Advocate at a New York City public hospital, where I support survivors of domestic violence and sexual assault. I also help people understand their rights, advocate for themselves, and find the confidence to speak up against violence and injustice.",
-  "creator_id": "human-personal"
+  "method": "POST",
+  "path": "/submit",
+  "request": {
+    "text": "I checked the school laptop and recorded the fault. The wireless adapter was disabled after an update. I enabled the adapter and tested the connection again.",
+    "creator_id": "rashedul",
+    "draft_history": [
+      "I checked the school laptop and recorded the fault.",
+      "I checked the school laptop and recorded the fault. The wireless adapter was disabled after an update.",
+      "I checked the school laptop and recorded the fault. The wireless adapter was disabled after an update. I enabled the adapter and tested the connection again."
+    ],
+    "verification_token": "<private creator-bound token supplied locally>"
+  },
+  "http_status": 200,
+  "response": {
+    "combined_score": 0.4342,
+    "confidence": 0.5658,
+    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "guess": "unsure",
+    "human_credential": {
+      "badge": "Verified human — local reviewer check",
+      "creator_id": "rashedul",
+      "credential_id": "77d90f9d-0ab1-436a-8611-1680cf3aa7a8",
+      "issued_at": 1793235156.859328,
+      "reviewer": "Their real name",
+      "scope": "Creator completed an observed task; authorship of later items is not verified."
+    },
+    "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+    "model_score": 0.2773,
+    "provenance_score": 0.2,
+    "status": "decided",
+    "style_score": 0.7081
+  }
 }
 ```
-
-**Submission response — HTTP 200**
+**GET /content/ab193cde-7c9a-447c-baab-809ebda46531 — HTTP 200**
 
 ```json
 {
-  "combined_score": 0.6199,
-  "confidence": 0.6199,
-  "content_id": "a8fdf6b2-04ae-4259-9b06-97021faea227",
-  "guess": "unsure",
-  "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
-  "model_score": 0.8402,
-  "status": "decided",
-  "style_score": 0.3995
+  "method": "GET",
+  "path": "/content/ab193cde-7c9a-447c-baab-809ebda46531",
+  "request": null,
+  "http_status": 200,
+  "response": {
+    "combined_score": 0.4342,
+    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "creator_id": "rashedul",
+    "guess": "unsure",
+    "human_credential": {
+      "badge": "Verified human — local reviewer check",
+      "creator_id": "rashedul",
+      "credential_id": "77d90f9d-0ab1-436a-8611-1680cf3aa7a8",
+      "issued_at": 1793235156.859328,
+      "reviewer": "Their real name",
+      "scope": "Creator completed an observed task; authorship of later items is not verified."
+    },
+    "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+    "last_updated": "2026-10-29T00:53:20+00:00",
+    "model_score": 0.2773,
+    "provenance_score": 0.2,
+    "status": "decided",
+    "style_score": 0.7081,
+    "timestamp": "2026-10-29T00:53:20+00:00"
+  }
 }
 ```
-
-**Appeal request**
-
-`POST http://127.0.0.1:5000/appeal`, `Content-Type: application/json`
+**POST /appeal — HTTP 200**
 
 ```json
 {
-  "content_id": "a8fdf6b2-04ae-4259-9b06-97021faea227",
-  "reasoning": "I wrote this sample myself and request a review."
+  "method": "POST",
+  "path": "/appeal",
+  "request": {
+    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "reasoning": "Please review this diagnostic submission. The example draft text was supplied by AI; the creator credential is not proof of this item's authorship."
+  },
+  "http_status": 200,
+  "response": {
+    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "message": "Your appeal has been recorded for review.",
+    "status": "under_review"
+  }
 }
 ```
-
-**Appeal response — HTTP 200**
+**GET /content/ab193cde-7c9a-447c-baab-809ebda46531 — HTTP 200**
 
 ```json
 {
-  "content_id": "a8fdf6b2-04ae-4259-9b06-97021faea227",
-  "message": "Your appeal has been recorded for review.",
-  "status": "under_review"
+  "method": "GET",
+  "path": "/content/ab193cde-7c9a-447c-baab-809ebda46531",
+  "request": null,
+  "http_status": 200,
+  "response": {
+    "combined_score": 0.4342,
+    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "creator_id": "rashedul",
+    "guess": "unsure",
+    "human_credential": {
+      "badge": "Verified human — local reviewer check",
+      "creator_id": "rashedul",
+      "credential_id": "77d90f9d-0ab1-436a-8611-1680cf3aa7a8",
+      "issued_at": 1793235156.859328,
+      "reviewer": "Their real name",
+      "scope": "Creator completed an observed task; authorship of later items is not verified."
+    },
+    "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+    "last_updated": "2026-10-29T00:53:20+00:00",
+    "model_score": 0.2773,
+    "provenance_score": 0.2,
+    "status": "under_review",
+    "style_score": 0.7081,
+    "timestamp": "2026-10-29T00:53:20+00:00"
+  }
 }
 ```
-
-**Log request**
-
-`GET http://127.0.0.1:5000/log` returned HTTP 200. The matching entries
-for the submission ID are pasted below; other submissions were filtered out.
+**Matching audit entries (original decision and appeal)**
 
 ```json
 [
   {
-    "combined_score": 0.6199,
-    "content_id": "a8fdf6b2-04ae-4259-9b06-97021faea227",
-    "creator_id": "human-personal",
+    "combined_score": 0.4342,
+    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "creator_id": "rashedul",
     "guess": "unsure",
+    "human_credential": {
+      "badge": "Verified human — local reviewer check",
+      "creator_id": "rashedul",
+      "credential_id": "77d90f9d-0ab1-436a-8611-1680cf3aa7a8",
+      "issued_at": 1793235156.859328,
+      "reviewer": "Their real name",
+      "scope": "Creator completed an observed task; authorship of later items is not verified."
+    },
     "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
-    "model_score": 0.8402,
+    "model_score": 0.2773,
+    "provenance_score": 0.2,
     "status": "decided",
-    "style_score": 0.3995,
-    "timestamp": "2026-10-29T00:04:17+00:00"
+    "style_score": 0.7081,
+    "timestamp": "2026-10-29T00:53:20+00:00"
   },
   {
-    "content_id": "a8fdf6b2-04ae-4259-9b06-97021faea227",
-    "creator_id": "human-personal",
+    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "creator_id": "rashedul",
     "event": "appeal",
-    "reasoning": "I wrote this sample myself and request a review.",
+    "reasoning": "Please review this diagnostic submission. The example draft text was supplied by AI; the creator credential is not proof of this item's authorship.",
     "status": "under_review",
-    "timestamp": "2026-10-29T00:04:17+00:00"
+    "timestamp": "2026-10-29T00:53:20+00:00"
   }
 ]
 ```
 
-The original entry remains `decided`; the later appeal records the item's
-new status as `under_review`.
+<!-- BONUS_SAMPLE_END -->
 
 ---
 
@@ -323,6 +424,250 @@ After implementation I will record real requests, responses, before/after appeal
 status, and a credential-bearing item. I will distinguish demonstrations from
 actual reviewer verification and keep all Unit 8 code unchanged.
 
+
+## Unit 7 Bonus Implementation
+
+The declaration above is preserved. Commit the declaration-only README before
+copying these implementation files into the repository. Do not backdate commits.
+
+### Content status lookup (+1 requested)
+
+`GET /content/<id>` returns the original decision, public human credential if
+present, latest status, and `last_updated`. After an appeal it shows
+`under_review` while preserving the original scores and label. Unknown IDs return
+HTTP 404. It does not expose the writer's appeal reasoning or credential token.
+
+### Verified-human path (+1 requested)
+
+1. The writer runs `python verification.py request --creator rashedul`.
+2. A reviewer observes that writer read the random challenge phrase and compose
+   a short original paragraph live, in person or on a live call, within 30 minutes.
+3. Only after observing the task, the reviewer runs
+   `python verification.py approve --reviewer "Actual reviewer name"`, then
+   explicitly types `OBSERVED`. The one-use request is marked approved.
+4. The local command creates a creator-bound random credential token, saving
+   it in `.private/writer_credential.json`. Server state stores only its hash.
+5. The writer supplies `verification_token` on a later `/submit` request with
+   the same `creator_id`. A matching credential appears in the response, audit
+   entry, and `/content/<id>` as `human_credential`, including badge text and ID.
+   An invalid or mismatched token returns HTTP 403. Without a token, the field
+   is null; a creator name alone cannot claim the credential.
+
+Badge: **Verified human — local reviewer check**. The credential confirms an
+observed task, not authorship of every later item. It never overrides scoring,
+so a credential-bearing human can still receive an AI-like estimate and appeal.
+There is no hosted identity service. Reviewer approval is protected by local
+filesystem access, not a production administrator login. The credential does
+not expire and there is no revocation UI yet. Keep `.private/` out of Git.
+Do not describe an unobserved/self-approved demonstration as independent human
+verification. The capture command requires a credential from the extra step.
+
+### What changed
+
+Two-signal scoring became 0.40 model + 0.40 style + 0.20 draft activity. The
+model and style implementations, label thresholds, existing criteria, and Unit 8
+rate limiting are unchanged. The lookup route reuses the append-only audit log.
+Verification state is separate private local data. No third-party messages or
+accounts are involved.
+
+### Actual bonus evidence
+
+<!-- BONUS_EVIDENCE_START -->
+Actual local results are saved in `results/bonus_evidence.json`.
+
+Labels observed under the new weights: ai, human, unsure.
+
+The sample above shows a provenance score of 0.20, a creator credential on an item, and lookup moving from decided to under_review. Missing-history input returned 0.50. Unknown content returned 404; a token used with another creator returned 403.
+
+Diagnostic texts were supplied by AI and were not the reviewer's live writing task. The badge does not attest to their authorship.
+
+```json
+{
+  "creator_credential": {
+    "badge": "Verified human — local reviewer check",
+    "creator_id": "rashedul",
+    "credential_id": "77d90f9d-0ab1-436a-8611-1680cf3aa7a8",
+    "issued_at": 1793235156.859328,
+    "reviewer": "Their real name",
+    "scope": "Creator completed an observed task; authorship of later items is not verified."
+  },
+  "lookup_before_appeal": {
+    "combined_score": 0.4342,
+    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "creator_id": "rashedul",
+    "guess": "unsure",
+    "human_credential": {
+      "badge": "Verified human — local reviewer check",
+      "creator_id": "rashedul",
+      "credential_id": "77d90f9d-0ab1-436a-8611-1680cf3aa7a8",
+      "issued_at": 1793235156.859328,
+      "reviewer": "Their real name",
+      "scope": "Creator completed an observed task; authorship of later items is not verified."
+    },
+    "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+    "last_updated": "2026-10-29T00:53:20+00:00",
+    "model_score": 0.2773,
+    "provenance_score": 0.2,
+    "status": "decided",
+    "style_score": 0.7081,
+    "timestamp": "2026-10-29T00:53:20+00:00"
+  },
+  "lookup_after_appeal": {
+    "combined_score": 0.4342,
+    "content_id": "ab193cde-7c9a-447c-baab-809ebda46531",
+    "creator_id": "rashedul",
+    "guess": "unsure",
+    "human_credential": {
+      "badge": "Verified human — local reviewer check",
+      "creator_id": "rashedul",
+      "credential_id": "77d90f9d-0ab1-436a-8611-1680cf3aa7a8",
+      "issued_at": 1793235156.859328,
+      "reviewer": "Their real name",
+      "scope": "Creator completed an observed task; authorship of later items is not verified."
+    },
+    "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+    "last_updated": "2026-10-29T00:53:20+00:00",
+    "model_score": 0.2773,
+    "provenance_score": 0.2,
+    "status": "under_review",
+    "style_score": 0.7081,
+    "timestamp": "2026-10-29T00:53:20+00:00"
+  },
+  "diagnostic_requests_and_responses": [
+    {
+      "method": "GET",
+      "path": "/content/no-such-id",
+      "request": null,
+      "http_status": 404,
+      "response": {
+        "error": "not_found",
+        "message": "Content not found."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/submit",
+      "request": {
+        "text": "I checked the school laptop and recorded the fault. The wireless adapter was disabled after an update. I enabled the adapter and tested the connection again.",
+        "creator_id": "rashedul-other",
+        "verification_token": "<private creator-bound token supplied locally>"
+      },
+      "http_status": 403,
+      "response": {
+        "error": "invalid_credential",
+        "message": "Credential token is invalid for this creator."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/submit",
+      "request": {
+        "text": "I checked the school laptop and recorded the fault. The wireless adapter was disabled after an update. I enabled the adapter and tested the connection again.",
+        "creator_id": "bonus-no-draft"
+      },
+      "http_status": 200,
+      "response": {
+        "combined_score": 0.4942,
+        "confidence": 0.5058,
+        "content_id": "a6da9e52-9876-4f32-9a9e-12918e7f2a79",
+        "guess": "unsure",
+        "human_credential": null,
+        "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+        "model_score": 0.2773,
+        "provenance_score": 0.5,
+        "status": "decided",
+        "style_score": 0.7081
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/submit",
+      "request": {
+        "text": "Rain stopped. Beneath the viaduct, a watchmaker in saffron boots wrestled a buckled accordion case past the fishmonger's shutter, scattering receipts, brass washers, and a single bruised persimmon across the cobbles while a tram screeched somewhere uphill. Nobody claimed the fruit.",
+        "creator_id": "ai-unusual-diagnostic"
+      },
+      "http_status": 200,
+      "response": {
+        "combined_score": 0.2369,
+        "confidence": 0.7631,
+        "content_id": "277a2874-f1ee-4880-937e-4bb8a4311d36",
+        "guess": "human",
+        "human_credential": null,
+        "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+        "model_score": 0.1644,
+        "provenance_score": 0.5,
+        "status": "decided",
+        "style_score": 0.1778
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/submit",
+      "request": {
+        "text": "The system is designed to provide clear and consistent results. The system is designed to provide clear and consistent results. The system is designed to provide clear and consistent results. The system is designed to provide clear and consistent results. The system is designed to provide clear and consistent results. The system is designed to provide clear and consistent results. The system is designed to provide clear and consistent results. The system is designed to provide clear and consistent results.",
+        "creator_id": "ai-repetitive-diagnostic"
+      },
+      "http_status": 200,
+      "response": {
+        "combined_score": 0.8679,
+        "confidence": 0.8679,
+        "content_id": "a6369a4f-3992-40ac-a9c9-79bb70f69c16",
+        "guess": "ai",
+        "human_credential": null,
+        "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+        "model_score": 0.9943,
+        "provenance_score": 0.5,
+        "status": "decided",
+        "style_score": 0.9255
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/submit",
+      "request": {
+        "text": "Here,I write about myself in 5 bullet points:\n    1. I am a CSIS(Computer Science and Information Security) student at The City University of New York at John Jay college of Criminal Justice\n    2. I have been actively engaged with Undergraduate Research where my research background is Biophysics, Biochemistry and Cellular and Molecular biology since my major is Computere Science and informaiton security. \n    3. I have related Tech Job and internship expetiencs which is i used to work as a college assistant in Strategic Initivative Advancement (The College Website) Department where i worked as a Fontend developer build multiple From, process and wirte script usidg the software \"ProcessMaker\" and using the language HTML, CSS, and Javascript. \n    4. One of my Tech Related internship is  i am Departmen of Education (DOE) IT and Tech support intern where i manage and handel more then thousands device update the operatin system, manage and distridute schools devies and remotely manage and maintaince device by cloude system using Microsoft Intune Managmente systemr where i can actavite/deactivate, remiage, update, wipe and resate, deploy application to the device. \n    5. I love to do volunteering work specially social work. My current volunteer role is Victim Service Advocate at New York City Public Hospital where i help people who face domistic violence and sexual assulat i love to teach people about how to do their own advocacy and raise voice againest every crime. ",
+        "creator_id": "human_personal.txt"
+      },
+      "http_status": 200,
+      "response": {
+        "combined_score": 0.2972,
+        "confidence": 0.7028,
+        "content_id": "f6a504bd-e9c7-46e7-8f79-13998007085b",
+        "guess": "human",
+        "human_credential": null,
+        "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+        "model_score": 0.2033,
+        "provenance_score": 0.5,
+        "status": "decided",
+        "style_score": 0.2898
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/submit",
+      "request": {
+        "text": "I am a Computer Science and Inoformation Security major student at John jay college of Crimimal justice and my minor is Chemisriy. I actively engaged with undergraduare research, my research backgournd is biochemisry and Cellular and moluecular biology where i am focusing immunocell theraphy in therapetuic cancer treatemnt. Beside that, i am also doing a technical internship which is DOE IT and Tech Surreprt Internship where i provide technical  and informational related tasks.   ",
+        "creator_id": "human_formal.txt"
+      },
+      "http_status": 200,
+      "response": {
+        "combined_score": 0.399,
+        "confidence": 0.601,
+        "content_id": "4758dd19-8d54-4ca1-936a-b9e6a3f838f5",
+        "guess": "unsure",
+        "human_credential": null,
+        "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+        "model_score": 0.0287,
+        "provenance_score": 0.5,
+        "status": "decided",
+        "style_score": 0.7187
+      }
+    }
+  ]
+}
+```
+
+<!-- BONUS_EVIDENCE_END -->
 
 <!-- ═══════════════════════ UNIT 8 — THE TEST ═══════════════════════ -->
 

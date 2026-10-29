@@ -10,6 +10,8 @@ import config
 import detector
 import scoring
 import stylometry
+import provenance
+import verification
 
 app = Flask(__name__)
 
@@ -136,8 +138,18 @@ def submit():
             "message": "Text could not be scored. Try a few complete sentences.",
         }), 400
 
+    try:
+        draft_score = provenance.draft_signal(text, payload.get("draft_history"))
+    except ValueError as exc:
+        return jsonify({"error": "invalid_input", "message": str(exc)}), 400
+    credential = None
+    if "verification_token" in payload:
+        credential = verification.credential_for(creator_id.strip(), payload["verification_token"])
+        if credential is None:
+            return jsonify({"error": "invalid_credential", "message": "Credential token is invalid for this creator."}), 403
+
     style_score = stylometry.style_signal(text)
-    combined_score = scoring.combine_signals(model_score, style_score)
+    combined_score = scoring.combine_signals(model_score, style_score, draft_score)
     content_id = str(uuid.uuid4())
 
     guess, label = scoring.score_to_label(combined_score)
@@ -153,6 +165,8 @@ def submit():
         combined_score=combined_score,
         label=label,
         status="decided",
+        provenance_score=draft_score,
+        human_credential=credential,
     )
 
     return jsonify({
@@ -164,6 +178,8 @@ def submit():
         "style_score": style_score,
         "combined_score": combined_score,
         "status": "decided",
+        "provenance_score": draft_score,
+        "human_credential": credential,
     }), 200
 
 @app.post("/appeal")
@@ -212,6 +228,20 @@ def appeal():
         "status": entry["status"],
         "message": "Your appeal has been recorded for review.",
     }), 200
+
+
+@app.get("/content/<content_id>")
+def get_content(content_id):
+    """Return the original decision with the item's latest status."""
+    entries = audit.entries_for(content_id)
+    original = next((e for e in entries if e.get("status") == "decided"), None)
+    if original is None:
+        return jsonify({"error": "not_found", "message": "Content not found."}), 404
+    current = dict(original)
+    current["status"] = entries[-1]["status"]
+    current["last_updated"] = entries[-1]["timestamp"]
+    # Do not expose the appeal explanation or any credential secret here.
+    return jsonify(current), 200
 
 
 @app.get("/log")
