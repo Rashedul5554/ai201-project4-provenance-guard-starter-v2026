@@ -1,0 +1,122 @@
+[
+  {
+    "timestamp": "2026-11-06T19:05:22+00:00",
+    "content_id": "b040af35-d09a-4975-b2f4-114a2ebb07f5",
+    "creator_id": "attacker_EV01",
+    "guess": "unsure",
+    "model_score": 0.1635,
+    "style_score": 0.6261,
+    "combined_score": 0.4158,
+    "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+    "status": "decided",
+    "provenance_score": 0.5,
+    "human_credential": null
+  },
+  {
+    "timestamp": "2026-11-06T19:05:22+00:00",
+    "content_id": "66aed748-0f62-4265-a398-ad17969aecc8",
+    "creator_id": "attacker_EV02",
+    "guess": "unsure",
+    "model_score": 0.5943,
+    "style_score": 0.2896,
+    "combined_score": 0.4536,
+    "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+    "status": "decided",
+    "provenance_score": 0.5,
+    "human_credential": null
+  },
+  {
+    "timestamp": "2026-11-06T19:05:22+00:00",
+    "content_id": "724dc615-6be0-48fa-8591-91876961698b",
+    "creator_id": "attacker_FP03",
+    "guess": "ai",
+    "model_score": 0.8051,
+    "style_score": 0.5895,
+    "combined_score": 0.6578,
+    "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+    "status": "decided",
+    "provenance_score": 0.5,
+    "human_credential": null
+  },
+  {
+    "timestamp": "2026-11-06T19:05:23+00:00",
+    "content_id": "bfd04649-84eb-4b4c-9953-784a535e59a0",
+    "creator_id": "attacker_FP05",
+    "guess": "ai",
+    "model_score": 0.8005,
+    "style_score": 0.6406,
+    "combined_score": 0.6764,
+    "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+    "status": "decided",
+    "provenance_score": 0.5,
+    "human_credential": null
+  },
+  {
+    "timestamp": "2026-11-06T19:05:23+00:00",
+    "content_id": "0cf1f99d-eeff-4ec9-bef4-11698aa1f8da",
+    "creator_id": "attacker_FP06",
+    "guess": "ai",
+    "model_score": 0.8814,
+    "style_score": 0.4944,
+    "combined_score": 0.6503,
+    "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+    "status": "decided",
+    "provenance_score": 0.5,
+    "human_credential": null
+  },
+  {
+    "timestamp": "2026-11-06T19:05:23+00:00",
+    "content_id": "628e0650-a60a-47b8-a34c-11ccd1e03209",
+    "creator_id": "attacker_PI02",
+    "guess": "human",
+    "model_score": 0.2044,
+    "style_score": 0.3587,
+    "combined_score": 0.3252,
+    "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+    "status": "decided",
+    "provenance_score": 0.5,
+    "human_credential": null
+  },
+  {
+    "timestamp": "2026-11-06T19:05:23+00:00",
+    "content_id": "ac833d54-962b-4884-9420-fc3993918c6a",
+    "creator_id": "attacker_MF03",
+    "guess": "human",
+    "model_score": 0.0,
+    "style_score": 0.5,
+    "combined_score": 0.3,
+    "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+    "status": "decided",
+    "provenance_score": 0.5,
+    "human_credential": null
+  },
+  {
+    "timestamp": "2026-11-06T19:05:23+00:00",
+    "content_id": "2f389316-2d68-4243-8106-9cdfaa22ec36",
+    "creator_id": "attacker_MF07",
+    "guess": "ai",
+    "model_score": 0.9064,
+    "style_score": 0.5,
+    "combined_score": 0.6626,
+    "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+    "status": "decided",
+    "provenance_score": 0.5,
+    "human_credential": null
+  },
+  {
+    "timestamp": "2026-11-06T19:05:23+00:00",
+    "creator_id": "attacker_MF01",
+    "event": "rejected",
+    "status": "rejected",
+    "reason": "invalid_input",
+    "http_status": 400
+  },
+  {
+    "timestamp": "2026-11-06T19:05:24+00:00",
+    "creator_id": "attacker_flood",
+    "event": "rejected",
+    "status": "rejected",
+    "reason": "rate_limited",
+    "limit": "10 per 1 minute"
+  }
+]

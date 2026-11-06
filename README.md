@@ -675,10 +675,11 @@ Diagnostic texts were supplied by AI and were not the reviewer's live writing ta
 
 ## Rate Limiting
 
-**Unit 8 progress:** Instrumentation is enabled and the flood and invalid-input
-logging checks below have run. The full attack run with instrumentation enabled,
-three-trial criteria evaluation, verdicts, diagnoses, and measured improvement
-remain unfinished. This README is a progress update, not a completed Unit 8 report.
+**Unit 8 progress:** Instrumentation, flood/invalid-input logging checks, and the
+56-input instrumented baseline attack run are recorded. The attack judgments and
+baseline diagnoses below are AI-assisted interpretations for review. Three-trial
+criteria evaluation and the measured improvement remain unfinished. This is a
+progress update, not a completed Unit 8 submission.
 
 **My limits:** 10 submissions per minute and 200 submissions per day on
 `POST /submit`, configured in `config.py`. `RATE_LIMITING_ENABLED` is `True`
@@ -793,83 +794,428 @@ that explanation against the usage I intend to support.
 
 ## Attack Run — Before
 
-**Pending instrumented baseline:** The initial run saved as
-`results/attack_run_2026-11-06_1333_before.md` sent all 56 attacks before rate
-limiting and invalid-request logging were fully enabled. It reported zero
-automatic crash verdicts and left all 56 held/broke judgments undecided. That
-is not evidence that every attack was stopped.
-
-Preserve that exploratory report. Next, run all 56 inputs again with the
-current instrumentation enabled, using a distinct label so the early report
-is not overwritten:
+**Instrumented baseline completed on November 6, 2026 at 2:05 p.m. EST.**
+All 56 supplied inputs were sent through `/submit` with rate limiting and
+rejection logging enabled. The runner reported zero automatic crash failures;
+that is distinct from the reviewed attack outcomes below.
 
 ```bash
 python run_attacks.py --set attack_set --label before_instrumented
 ```
 
-No detection improvement should be applied before the instrumented baseline
-and the five-criteria baseline evaluation are recorded. The final section must
-include every attack's outcome and a justified HELD/BROKE mark. For threshold
-judgments use the actual `combined_score` and returned guess, not a rounded
-summary value or the report's confidence column alone.
+Saved report: `results/attack_run_2026-11-06_1405_before_instrumented.md`.
+The reviewed judgments were prepared with AI assistance after this run; I need
+to understand and defend the stated interpretations. These judgments are not
+new measurements or revisions to the original five acceptance criteria.
+
+**Reviewed outcomes: 39 HELD, 17 BROKE.** Keep the following judgment rules
+consistent when comparing this baseline against later runs. The earlier
+uninstrumented report `results/attack_run_2026-11-06_1333_before.md` is retained
+as exploratory evidence, not substituted for this instrumented baseline.
+
+### Baseline judgment rules
+
+These are AI-assisted proposed interpretations for the student to review and
+defend, applied after the recorded baseline run. They are not new acceptance
+criteria and do not change the original targets in criteria.md. Keep the same
+interpretations for before/after comparison rather than redefining success to
+favor a later result. The recorded service outputs have not been changed.
+
+- **Evasion:** BROKE if known-AI evasion text avoided an affirmative `ai` label
+  (including `unsure`). Under a stricter impersonation-only rule requiring
+  `human`, EV01–EV09 would be HELD instead. This report uses detection avoidance;
+  it does not equate uncertainty with a confident claim of human authorship.
+- **False positives:** BROKE only when a staff-designated human sample received
+  `ai`; `unsure` avoids the targeted accusation and is HELD for this objective.
+- **Prompt injection:** Judge the stated output or integrity objective, not the
+  attack's family name. PI02 is BROKE for achieving the requested human guess,
+  with partial success only; it did not obtain its requested confidence or skip
+  scoring. This run does not demonstrate that any instruction was executed.
+- **Invalid requests:** HTTP 400 without a classification is HELD. For MF03–MF06,
+  a confident authorship label on non-prose is judged BROKE for evidence
+  insufficiency. Valid Arabic text is not malformed solely because of script.
+- **Long input:** HELD for completing without a crash/time-out; no preexisting
+  maximum length requires rejection. Partial model coverage remains a limitation.
+- **Flood:** The first ten successes are allowed by policy. The family is HELD
+  when subsequent requests return 429. All 12 rows are assessed in this family
+  context. The CSV target description says "20", but only 12 rows were supplied
+  and sent; do not claim a 20-request run.
+
+**Score clarification:** The original runner's `Score` column is confidence,
+`max(combined_score, 1 - combined_score)`, not the AI-like combined score.
+The column is renamed below. Exact combined scores in the per-attack review
+come from matching audit entries, not from the three-decimal summary.
+For example, FP02 is `unsure` at combined 0.6498; FP06 is `ai` at 0.6503.
+Both round to 0.650 in the original table, so do not judge from that rounding.
+
+Actual creator IDs are recorded in each detailed result. Some malformed requests
+have no usable creator ID, and all flood rows share `attacker_flood`.
+
+| ID | Family | Targeting | Status | Content ID | Guess | Confidence | Verdict |
+|---|---|---|---|---|---|---|---|
+| EV01 | evasion | signal two: typos raise word variety | 200 | `b040af35-d09a-4975-b2f4-114a2ebb07f5` | unsure | 0.584 | BROKE |
+| EV02 | evasion | signal two: broken-up sentences raise length spread | 200 | `66aed748-0f62-4265-a398-ad17969aecc8` | unsure | 0.546 | BROKE |
+| EV03 | evasion | signal two: a pasted quotation changes the shape | 200 | `2fa3ec00-23e7-47ef-9358-dba9cc894659` | unsure | 0.557 | BROKE |
+| EV04 | evasion | signal one: unusual words raise perplexity | 200 | `1b633009-9257-4168-a03f-c9124a19a278` | unsure | 0.591 | BROKE |
+| EV05 | evasion | both signals: heavy human editing pass | 200 | `56331126-15ed-422b-bdc8-ca6dc6a82ce7` | unsure | 0.618 | BROKE |
+| EV06 | evasion | signal two: one very long sentence and one very short | 200 | `7635f590-0fb9-4ee8-a064-0fd44eced0b9` | unsure | 0.573 | BROKE |
+| EV07 | evasion | signal two: padding with punctuation | 200 | `430f2942-d530-4086-af79-a4bf6c3f01b1` | unsure | 0.534 | BROKE |
+| EV08 | evasion | signal one: text below the token window | 200 | `8ea1ff05-1e64-4ed3-b833-a48057e0d8cc` | unsure | 0.602 | BROKE |
+| EV09 | evasion | both: AI text with a human opening paragraph bolted on | 200 | `d89c6943-9746-418d-b28d-c899d77d9135` | unsure | 0.570 | BROKE |
+| EV10 | evasion | signal two: repeated stanza structure | 200 | `a5a2eb17-cec7-4408-85ae-ee941c95cd20` | ai | 0.780 | HELD |
+| FP01 | false_positive | plain, clear human writing with no flourishes | 200 | `0bdf0a00-687d-4f02-b341-b501e44e7aa5` | unsure | 0.557 | HELD |
+| FP02 | false_positive | human writing in a formal register | 200 | `d5a9c9ef-5e4c-4299-9908-6c26294087e0` | unsure | 0.650 | HELD |
+| FP03 | false_positive | a non-native English speaker writing carefully | 200 | `724dc615-6be0-48fa-8591-91876961698b` | ai | 0.658 | BROKE |
+| FP04 | false_positive | a student essay written to a rubric | 200 | `ebb0d426-4b56-41a5-aa41-6251658364e6` | unsure | 0.648 | HELD |
+| FP05 | false_positive | technical documentation written by a person | 200 | `bfd04649-84eb-4b4c-9953-784a535e59a0` | ai | 0.676 | BROKE |
+| FP06 | false_positive | a person imitating a formal template | 200 | `0cf1f99d-eeff-4ec9-bef4-11698aa1f8da` | ai | 0.650 | BROKE |
+| FP07 | false_positive | human writing that repeats a phrase deliberately | 200 | `b99d079b-c851-48a6-8822-05602ff37f09` | unsure | 0.636 | HELD |
+| FP08 | false_positive | very short genuine human submission | 200 | `4de0751e-e9e4-462c-b3ee-072501bdd6a6` | unsure | 0.571 | HELD |
+| PI01 | prompt_injection | instruction to ignore the check | 200 | `6d65c3bd-1794-4c34-963f-9b49bde41ceb` | unsure | 0.562 | HELD |
+| PI02 | prompt_injection | instruction disguised as a system message | 200 | `628e0650-a60a-47b8-a34c-11ccd1e03209` | human | 0.675 | BROKE |
+| PI03 | prompt_injection | instruction wrapped in the writer's voice | 200 | `639a01ba-b6ee-457e-9558-3b2a6995133a` | unsure | 0.552 | HELD |
+| PI04 | prompt_injection | attempt to make the label text hostile | 200 | `6556c9eb-64a3-4da1-9874-e0b231b8719b` | unsure | 0.511 | HELD |
+| PI05 | prompt_injection | attempt to inject into the audit log | 200 | `fd1ebcc8-df03-42ad-8142-71fbd0f2990e` | unsure | 0.507 | HELD |
+| PI06 | prompt_injection | instruction plus real human text | 200 | `cf5d6bf3-8289-42e2-81fa-ede6b61aa5ee` | unsure | 0.536 | HELD |
+| MF01 | malformed | text is only whitespace | 400 | `—` | — | — | HELD |
+| MF02 | malformed | text is a single character | 400 | `—` | — | — | HELD |
+| MF03 | malformed | text is control characters | 200 | `ac833d54-962b-4884-9420-fc3993918c6a` | human | 0.700 | BROKE |
+| MF04 | malformed | text is only punctuation | 200 | `ed6e6b69-6a46-4f60-9e62-d9568d671a89` | human | 0.696 | BROKE |
+| MF05 | malformed | text is a very long single word | 200 | `e4024fff-ec79-46d9-a8b6-e0124bc1fca9` | ai | 0.699 | BROKE |
+| MF06 | malformed | text is emoji only | 200 | `a63c9526-fc29-4b9a-b91c-0da66bb3ba6a` | ai | 0.699 | BROKE |
+| MF07 | malformed | text is right-to-left script | 200 | `2f389316-2d68-4243-8106-9cdfaa22ec36` | ai | 0.663 | HELD |
+| MF08 | malformed | text is 60,000 characters | 200 | `8533d21c-51a6-4ed0-8994-5d7279368ca7` | ai | 0.790 | HELD |
+| RQ01 | malformed | no text field at all | 400 | `—` | — | — | HELD |
+| RQ02 | malformed | no creator_id | 400 | `—` | — | — | HELD |
+| RQ03 | malformed | text is a number | 400 | `—` | — | — | HELD |
+| RQ04 | malformed | text is a list | 400 | `—` | — | — | HELD |
+| RQ05 | malformed | text is null | 400 | `—` | — | — | HELD |
+| RQ06 | malformed | creator_id is an object | 400 | `—` | — | — | HELD |
+| RQ07 | malformed | body is a JSON array, not an object | 400 | `—` | — | — | HELD |
+| RQ08 | malformed | body is unparseable JSON | 400 | `—` | — | — | HELD |
+| RQ09 | malformed | body is empty | 400 | `—` | — | — | HELD |
+| RQ10 | malformed | body is form-encoded, not JSON | 400 | `—` | — | — | HELD |
+| RQ11 | malformed | body is JSON claiming to be plain text | 400 | `—` | — | — | HELD |
+| RQ12 | malformed | deeply nested JSON | 400 | `—` | — | — | HELD |
+| FL01_01 | flood_same_creator | 20 rapid submissions from one creator | 200 | `54aa70ea-3597-4b26-9032-05369479f1f8` | human | 0.689 | HELD |
+| FL01_02 | flood_same_creator | 20 rapid submissions from one creator | 200 | `3e345acb-1498-45fb-b5c0-cc3401a78f5c` | human | 0.689 | HELD |
+| FL01_03 | flood_same_creator | 20 rapid submissions from one creator | 200 | `d85f8781-46f5-4abd-a08d-492b35421549` | human | 0.689 | HELD |
+| FL01_04 | flood_same_creator | 20 rapid submissions from one creator | 200 | `d3b79421-24d1-4c47-a593-3efc4b09be61` | human | 0.689 | HELD |
+| FL01_05 | flood_same_creator | 20 rapid submissions from one creator | 200 | `be037dae-3015-4a5c-b317-e7006d610c94` | human | 0.689 | HELD |
+| FL01_06 | flood_same_creator | 20 rapid submissions from one creator | 200 | `8714b2c2-31c5-46ba-9cb7-5315e041654e` | human | 0.689 | HELD |
+| FL01_07 | flood_same_creator | 20 rapid submissions from one creator | 200 | `fd3d8ef9-a726-4735-974e-f48e09f6f801` | human | 0.689 | HELD |
+| FL01_08 | flood_same_creator | 20 rapid submissions from one creator | 200 | `493559e1-b989-4070-9bbf-5aca8e8369ed` | human | 0.689 | HELD |
+| FL01_09 | flood_same_creator | 20 rapid submissions from one creator | 200 | `d13a4429-5c48-435a-aa24-664658e0447b` | human | 0.689 | HELD |
+| FL01_10 | flood_same_creator | 20 rapid submissions from one creator | 200 | `a2566dbe-eccb-47bb-9fa9-7bc4db30b027` | human | 0.689 | HELD |
+| FL01_11 | flood_same_creator | 20 rapid submissions from one creator | 429 | `—` | — | — | HELD |
+| FL01_12 | flood_same_creator | 20 rapid submissions from one creator | 429 | `—` | — | — | HELD |
 
 
-<!-- Every attack with its outcome and a held-or-broke mark.
-     `run_attacks.py --label before` produces the table. -->
+### Results by family
+
+| Family | Attacks | HELD | BROKE |
+|---|---|---|---|
+| `evasion` | 10 | 1 | 9 |
+| `false_positive` | 8 | 5 | 3 |
+| `flood_same_creator` | 12 | 12 | 0 |
+| `malformed` | 20 | 16 | 4 |
+| `prompt_injection` | 6 | 5 | 1 |
 
 
+### Ten audit log entries from the baseline run
 
-**Ten audit log entries from the run**
-
-<!-- Choose entries that show the interesting failures, not the ten easiest. -->
+These are actual entries selected by matching baseline content IDs and run
+timestamps. Eight are decisions spanning evasion, false positives, instruction
+text, and non-prose/multilingual inputs. The last two are an invalid-input
+rejection and a rate-limit rejection. Decision entries retain the nine required
+fields plus the provenance score and any credential; rejected requests have
+no successful classification and use the shorter rejection event shape.
+Timestamps are UTC. The extract is saved as
+`results/audit_before_selected_10.json`.
 
 ```json
-
+[
+  {
+    "timestamp": "2026-11-06T19:05:22+00:00",
+    "content_id": "b040af35-d09a-4975-b2f4-114a2ebb07f5",
+    "creator_id": "attacker_EV01",
+    "guess": "unsure",
+    "model_score": 0.1635,
+    "style_score": 0.6261,
+    "combined_score": 0.4158,
+    "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+    "status": "decided",
+    "provenance_score": 0.5,
+    "human_credential": null
+  },
+  {
+    "timestamp": "2026-11-06T19:05:22+00:00",
+    "content_id": "66aed748-0f62-4265-a398-ad17969aecc8",
+    "creator_id": "attacker_EV02",
+    "guess": "unsure",
+    "model_score": 0.5943,
+    "style_score": 0.2896,
+    "combined_score": 0.4536,
+    "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+    "status": "decided",
+    "provenance_score": 0.5,
+    "human_credential": null
+  },
+  {
+    "timestamp": "2026-11-06T19:05:22+00:00",
+    "content_id": "724dc615-6be0-48fa-8591-91876961698b",
+    "creator_id": "attacker_FP03",
+    "guess": "ai",
+    "model_score": 0.8051,
+    "style_score": 0.5895,
+    "combined_score": 0.6578,
+    "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+    "status": "decided",
+    "provenance_score": 0.5,
+    "human_credential": null
+  },
+  {
+    "timestamp": "2026-11-06T19:05:23+00:00",
+    "content_id": "bfd04649-84eb-4b4c-9953-784a535e59a0",
+    "creator_id": "attacker_FP05",
+    "guess": "ai",
+    "model_score": 0.8005,
+    "style_score": 0.6406,
+    "combined_score": 0.6764,
+    "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+    "status": "decided",
+    "provenance_score": 0.5,
+    "human_credential": null
+  },
+  {
+    "timestamp": "2026-11-06T19:05:23+00:00",
+    "content_id": "0cf1f99d-eeff-4ec9-bef4-11698aa1f8da",
+    "creator_id": "attacker_FP06",
+    "guess": "ai",
+    "model_score": 0.8814,
+    "style_score": 0.4944,
+    "combined_score": 0.6503,
+    "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+    "status": "decided",
+    "provenance_score": 0.5,
+    "human_credential": null
+  },
+  {
+    "timestamp": "2026-11-06T19:05:23+00:00",
+    "content_id": "628e0650-a60a-47b8-a34c-11ccd1e03209",
+    "creator_id": "attacker_PI02",
+    "guess": "human",
+    "model_score": 0.2044,
+    "style_score": 0.3587,
+    "combined_score": 0.3252,
+    "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+    "status": "decided",
+    "provenance_score": 0.5,
+    "human_credential": null
+  },
+  {
+    "timestamp": "2026-11-06T19:05:23+00:00",
+    "content_id": "ac833d54-962b-4884-9420-fc3993918c6a",
+    "creator_id": "attacker_MF03",
+    "guess": "human",
+    "model_score": 0.0,
+    "style_score": 0.5,
+    "combined_score": 0.3,
+    "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+    "status": "decided",
+    "provenance_score": 0.5,
+    "human_credential": null
+  },
+  {
+    "timestamp": "2026-11-06T19:05:23+00:00",
+    "content_id": "2f389316-2d68-4243-8106-9cdfaa22ec36",
+    "creator_id": "attacker_MF07",
+    "guess": "ai",
+    "model_score": 0.9064,
+    "style_score": 0.5,
+    "combined_score": 0.6626,
+    "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+    "status": "decided",
+    "provenance_score": 0.5,
+    "human_credential": null
+  },
+  {
+    "timestamp": "2026-11-06T19:05:23+00:00",
+    "creator_id": "attacker_MF01",
+    "event": "rejected",
+    "status": "rejected",
+    "reason": "invalid_input",
+    "http_status": 400
+  },
+  {
+    "timestamp": "2026-11-06T19:05:24+00:00",
+    "creator_id": "attacker_flood",
+    "event": "rejected",
+    "status": "rejected",
+    "reason": "rate_limited",
+    "limit": "10 per 1 minute"
+  }
+]
 ```
 
-**The single worst outcome** — the one I'd least want to explain to a writer
-whose work got caught by it:
+### Worst observed outcome
 
+FP03 is the selected worst outcome: a staff-designated passage from a careful
+non-native English writer received the high-confidence AI label. Model score
+was 0.8051, style score 0.5895, and neutral provenance score 0.5000. Their
+weighted sum, rounded to four decimals, is 0.6578, exceeding the 0.65 AI boundary.
+The response communicates uncertainty and permits appeal, but the writer still
+receives an AI-like accusation based on ordinary writing properties.
+This selection is a value judgment about the cost of an error, not a measured
+ranking of harm to actual individuals.
 
+### Baseline attack diagnoses
+
+The following annotations cover all 17 attacks marked BROKE under the stated
+rules. They connect observed scores to known code paths. They do not establish
+that a particular edit caused a score change without an unmodified control.
+Detailed explanations for all 56 HELD/BROKE verdicts remain in the reviewed
+report. Criteria verdicts and diagnoses are still pending the three-trial run.
+
+**EV01 — evasion: model and/or style signal, then combining rule.**
+
+The known-AI evasion input received unsure rather than ai. Under the stated detection-avoidance rule, it avoided an affirmative AI label; this is not a false human-authorship claim. The scores identify the arithmetic path, but without an unmodified control this run does not prove the edit caused the change.
+
+Recorded scores: model `0.1635`, style `0.6261`, provenance `0.5000`, combined `0.4158`.
+
+**EV02 — evasion: style signal / combining rule.**
+
+The known-AI evasion input received unsure rather than ai. Under the stated detection-avoidance rule, it avoided an affirmative AI label; this is not a false human-authorship claim. The scores identify the arithmetic path, but without an unmodified control this run does not prove the edit caused the change.
+
+Recorded scores: model `0.5943`, style `0.2896`, provenance `0.5000`, combined `0.4536`.
+
+**EV03 — evasion: style signal / combining rule.**
+
+The known-AI evasion input received unsure rather than ai. Under the stated detection-avoidance rule, it avoided an affirmative AI label; this is not a false human-authorship claim. The scores identify the arithmetic path, but without an unmodified control this run does not prove the edit caused the change.
+
+Recorded scores: model `0.6662`, style `0.4771`, provenance `0.5000`, combined `0.5573`.
+
+**EV04 — evasion: model signal / combining rule.**
+
+The known-AI evasion input received unsure rather than ai. Under the stated detection-avoidance rule, it avoided an affirmative AI label; this is not a false human-authorship claim. The scores identify the arithmetic path, but without an unmodified control this run does not prove the edit caused the change.
+
+Recorded scores: model `0.6114`, style `0.6161`, provenance `0.5000`, combined `0.5910`.
+
+**EV05 — evasion: model and/or style signal, then combining rule.**
+
+The known-AI evasion input received unsure rather than ai. Under the stated detection-avoidance rule, it avoided an affirmative AI label; this is not a false human-authorship claim. The scores identify the arithmetic path, but without an unmodified control this run does not prove the edit caused the change.
+
+Recorded scores: model `0.3212`, style `0.3832`, provenance `0.5000`, combined `0.3818`.
+
+**EV06 — evasion: style signal / combining rule.**
+
+The known-AI evasion input received unsure rather than ai. Under the stated detection-avoidance rule, it avoided an affirmative AI label; this is not a false human-authorship claim. The scores identify the arithmetic path, but without an unmodified control this run does not prove the edit caused the change.
+
+Recorded scores: model `0.5727`, style `0.2459`, provenance `0.5000`, combined `0.4274`.
+
+**EV07 — evasion: model and/or style signal, then combining rule.**
+
+The known-AI evasion input received unsure rather than ai. Under the stated detection-avoidance rule, it avoided an affirmative AI label; this is not a false human-authorship claim. The scores identify the arithmetic path, but without an unmodified control this run does not prove the edit caused the change.
+
+Recorded scores: model `0.5862`, style `0.5000`, provenance `0.5000`, combined `0.5345`.
+
+**EV08 — evasion: model signal / combining rule.**
+
+The known-AI evasion input received unsure rather than ai. Under the stated detection-avoidance rule, it avoided an affirmative AI label; this is not a false human-authorship claim. The scores identify the arithmetic path, but without an unmodified control this run does not prove the edit caused the change.
+
+Recorded scores: model `0.2452`, style `0.5000`, provenance `0.5000`, combined `0.3981`.
+
+**EV09 — evasion: model and/or style signal, then combining rule.**
+
+The known-AI evasion input received unsure rather than ai. Under the stated detection-avoidance rule, it avoided an affirmative AI label; this is not a false human-authorship claim. The scores identify the arithmetic path, but without an unmodified control this run does not prove the edit caused the change.
+
+Recorded scores: model `0.7042`, style `0.4709`, provenance `0.5000`, combined `0.5700`.
+
+**FP03 — false_positive: model predictability / combining rule / label mapping.**
+
+A staff-designated human sample received ai. Predictability and style, with a neutral provenance score, pushed the combined score to or above 0.65. That is the wrong-accusation outcome this family targets.
+
+Recorded scores: model `0.8051`, style `0.5895`, provenance `0.5000`, combined `0.6578`.
+
+**FP05 — false_positive: model predictability / combining rule / label mapping.**
+
+A staff-designated human sample received ai. Predictability and style, with a neutral provenance score, pushed the combined score to or above 0.65. That is the wrong-accusation outcome this family targets.
+
+Recorded scores: model `0.8005`, style `0.6406`, provenance `0.5000`, combined `0.6764`.
+
+**FP06 — false_positive: model predictability / combining rule / label mapping.**
+
+A staff-designated human sample received ai. Predictability and style, with a neutral provenance score, pushed the combined score to or above 0.65. That is the wrong-accusation outcome this family targets.
+
+Recorded scores: model `0.8814`, style `0.4944`, provenance `0.5000`, combined `0.6503`.
+
+**PI02 — prompt_injection: model/style features and combining rule (classification outcome).**
+
+The input requested human and received human, so the requested classification outcome occurred. However, the requested confidence was 0.02 and the actual confidence was 0.6748; the model and style signals still ran. This is a classification bypass, not demonstrated instruction execution, a forged credential, or a skipped check.
+
+Recorded scores: model `0.2044`, style `0.3587`, provenance `0.5000`, combined `0.3252`.
+
+**MF03 — malformed: route evidence sufficiency / signal fallbacks / label mapping.**
+
+The route classified control-character text with a high-confidence human or AI label despite lacking usable ordinary prose. The style fallback of 0.5 and a model score near an extreme still permit a confident combined label. Failure here is unsupported certainty, not a server crash.
+
+Recorded scores: model `0.0000`, style `0.5000`, provenance `0.5000`, combined `0.3000`.
+
+**MF04 — malformed: route evidence sufficiency / signal fallbacks / label mapping.**
+
+The route classified punctuation-only text with a high-confidence human or AI label despite lacking usable ordinary prose. The style fallback of 0.5 and a model score near an extreme still permit a confident combined label. Failure here is unsupported certainty, not a server crash.
+
+Recorded scores: model `0.0112`, style `0.5000`, provenance `0.5000`, combined `0.3045`.
+
+**MF05 — malformed: route evidence sufficiency / signal fallbacks / label mapping.**
+
+The route classified a repeated-character single word with a high-confidence human or AI label despite lacking usable ordinary prose. The style fallback of 0.5 and a model score near an extreme still permit a confident combined label. Failure here is unsupported certainty, not a server crash.
+
+Recorded scores: model `0.9976`, style `0.5000`, provenance `0.5000`, combined `0.6990`.
+
+**MF06 — malformed: route evidence sufficiency / signal fallbacks / label mapping.**
+
+The route classified emoji-only text with a high-confidence human or AI label despite lacking usable ordinary prose. The style fallback of 0.5 and a model score near an extreme still permit a confident combined label. Failure here is unsupported certainty, not a server crash.
+
+Recorded scores: model `0.9969`, style `0.5000`, provenance `0.5000`, combined `0.6988`.
+
+**Other limitations observed without calling the corresponding robustness tests broken:**
+MF07's valid Arabic input was accepted, but the ai result is not established as
+a true or false authorship judgment. MF08 completed without an error; its model
+signal still covers only the first 400 tokens while its style signal uses the
+whole passage. These limitations warrant follow-up; neither a denial of service
+nor a known-authorship false positive was demonstrated for those two inputs.
 
 ---
 
 ## Run Log and Verdicts
 
-<!-- Your five criteria across three trials. `run_eval.py --label before`. -->
+**Pending: none of the three-trial criteria results has been recorded yet.**
+The rows below reproduce the original targets, not completed verdicts.
+Do not interpret attack-family counts as these criteria's measured results.
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Limit wrong accusations against human writers | At most 1 of 10 independently human-written passages labeled AI per trial; at least 3 plain/formal examples | NOT RUN | NOT RUN | NOT RUN | PENDING |
+| 2. Separate human and AI sample scores | Mean combined AI score minus mean combined human score >= 0.15; 5 matched pairs within 20% word count | NOT RUN | NOT RUN | NOT RUN | PENDING |
+| 3. Label mapping and full range coverage | Every tested score maps to exactly one documented label; all 3 labels appear; 0.01 grid plus exact boundaries and adjacent values | NOT RUN | NOT RUN | NOT RUN | PENDING |
+| 4. Record appeals and change status | All 5 appeals return HTTP 200 and under_review; reasoning logged and original decisions preserved | NOT RUN | NOT RUN | NOT RUN | PENDING |
+| 5. Reject invalid submissions clearly | All 6 specified cases return HTTP 400 with field explanation; no successful decision entries; ping remains HTTP 200 | NOT RUN | NOT RUN | NOT RUN | PENDING |
 
-**Real output from one trial**, pasted as text, naming the file and function
-that produced it:
+**Required preparation:** Replace the `scenarios.py` placeholders with the
+actual samples for these criteria. The existing `run_eval.py` only submits
+requests to `/submit`; extend the test harness or document separate tests for
+appeals and direct label mapping. Record `combined_score` for criterion 2,
+rather than substituting the confidence field. Do not change the detection
+system while extending the measurement harness.
 
-```json
+**Real output from one trial for each criterion:** Pending. Paste actual JSON
+and name the producing file/function after the runs have occurred.
 
-```
-
-**Diagnoses**
-
-<!-- For each miss AND each broken attack: the stage and the mechanism.
-
-     Your service has five stages: the route, signal one, signal two, the
-     combining rule, and the label mapping.
-
-     Not a diagnosis:  "The evasion attacks got through."
-     A diagnosis:      "Four evasion inputs got through. All four had typos
-                        added to AI-generated text. My second signal measures
-                        word variety, and typos raise word variety — so it read
-                        them as more human. My combining rule weights that
-                        signal at 0.6, so it dragged the whole score down."
-
-     Look for a pattern. Five failures on one signal is one problem, not five. -->
-
-
+**Criteria diagnoses:** Pending. Each verdict must follow from all three trials
+against its original target. The baseline attack diagnoses above do not replace
+criteria diagnoses. Leave original criteria unchanged; append a reasoned
+revision only when a criterion itself cannot be measured as written.
 
 ---
 
