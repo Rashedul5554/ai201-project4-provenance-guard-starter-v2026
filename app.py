@@ -14,7 +14,39 @@ import provenance
 import verification
 
 app = Flask(__name__)
+@app.after_request
+def log_submit_rejections(response):
+    """Record rejected submissions; the existing handler logs 429s."""
+    if (
+        request.path == "/submit"
+        and request.method == "POST"
+        and response.status_code >= 400
+        and response.status_code != 429
+    ):
+        payload = request.get_json(silent=True)
+        creator_id = (
+            payload.get("creator_id")
+            if isinstance(payload, dict)
+            else None
+        )
 
+        if not isinstance(creator_id, str) or not creator_id.strip():
+            creator_id = "unknown"
+
+        error_body = response.get_json(silent=True)
+        reason = (
+            error_body.get("error", "request_rejected")
+            if isinstance(error_body, dict)
+            else "request_rejected"
+        )
+
+        audit.log_rejection(
+            creator_id=creator_id.strip(),
+            reason=reason,
+            http_status=response.status_code,
+        )
+
+    return response
 
 # Rate limiting — Unit 8. Disabled until enabled in config.py.
 class _LimiterOff:
@@ -98,7 +130,7 @@ def health():
 
 
 @app.post("/submit")
-# @limiter.limit(f"{config.RATE_LIMIT_PER_MINUTE}/minute;{config.RATE_LIMIT_PER_DAY}/day")
+@limiter.limit(f"{config.RATE_LIMIT_PER_MINUTE}/minute;{config.RATE_LIMIT_PER_DAY}/day")
 def submit():
     """Validate input, run both signals, return a label, and log the decision."""
     payload = request.get_json(silent=True)

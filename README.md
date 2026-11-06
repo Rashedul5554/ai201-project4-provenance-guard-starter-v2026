@@ -675,29 +675,144 @@ Diagnostic texts were supplied by AI and were not the reviewer's live writing ta
 
 ## Rate Limiting
 
-**My limits:** ___ per minute, ___ per day
+**Unit 8 progress:** Instrumentation is enabled and the flood and invalid-input
+logging checks below have run. The full attack run with instrumentation enabled,
+three-trial criteria evaluation, verdicts, diagnoses, and measured improvement
+remain unfinished. This README is a progress update, not a completed Unit 8 report.
 
-**Why those numbers and not others:**
-<!-- Think about two people: a real writer submitting their own work a few
-     times an hour, and a script sending a thousand variations to map your
-     thresholds. Your numbers have to be liveable for the first and hostile to
-     the second. -->
+**My limits:** 10 submissions per minute and 200 submissions per day on
+`POST /submit`, configured in `config.py`. `RATE_LIMITING_ENABLED` is `True`
+and the `@limiter.limit(...)` decorator above `submit` is active.
 
-**What a caller counts as:** <!-- per address, or per creator_id? They fail
-differently — one script can look like a thousand callers, and one household
-can look like one. -->
+**Why those numbers and not others:** These are my initial limits. Ten requests
+per minute permits short bursts of submissions or edits from a writer while
+preventing one caller from making hundreds of scoring requests in a minute.
+The daily cap of 200 is intended to allow substantial legitimate use while
+constraining sustained automated probing. Neither number is validated against
+real production traffic. Frequent users could hit the caps, and an attacker
+can rotate claimed creator IDs to evade a per-creator quota.
+
+**What a caller counts as:** A usable string `creator_id` identifies the caller.
+If the JSON is not an object or the ID is absent/invalid/blank, the limiter falls
+back to the remote address. Valid IDs count separately even on the same address;
+requests without valid IDs can share one address quota. The ID is caller-supplied,
+not authenticated. The key currently returns the original ID string, so callers
+can also vary whitespace to obtain a different key. This limitation has not
+been changed during the baseline setup.
+
+The existing storage is in-memory. Restarting the service clears counters;
+multiple processes would not share the same counters. These limits apply only
+to `/submit`, not the appeal or lookup routes.
 
 **The run of status codes when I pushed past it:**
 
-<!-- python run_attacks.py --flood 15 -->
+Produced by `run_attacks.py::run_flood` on November 6, 2026 at 1:49 p.m.
+America/New_York, using `python run_attacks.py --flood 15`. Saved in
+`results/flood_2026-11-06_1349.md`.
 
+```text
+200 200 200 200 200 200 200 200 200 200 429 429 429 429 429
 ```
 
+Ten requests succeeded and five were rate limited. This confirms the per-minute
+limit in this run; it does not test reaching the daily cap.
+
+An earlier check at 1:30 p.m., preserved in `results/flood_2026-11-06_1330.md`,
+returned fifteen `200` responses because rate limiting was not active. That is
+an initial setup observation, not successful limiter evidence.
+
+### Audit logging checks
+
+Successful decisions record all nine required fields: timestamp, content_id,
+creator_id, guess, model_score, style_score, combined_score, label, and status.
+The third-signal score and optional human credential are additional fields.
+
+The existing `rate_limited` handler records `429` rejections. The new
+`app.py::log_submit_rejections` after-response hook records `/submit` responses
+with status 400 or above, excluding 429 to avoid duplicate rejection entries.
+Rejections have no successful classification; their shorter event shape is
+intentional and includes the reason and available caller identity. The existing
+429 shape includes its limit; the new hook includes the HTTP status.
+
+**Example rate-limit rejection, read back with `GET /log`:**
+
+```json
+{
+  "timestamp": "2026-11-06T18:49:15+00:00",
+  "creator_id": "flood_tester",
+  "event": "rejected",
+  "status": "rejected",
+  "reason": "rate_limited",
+  "limit": "10 per 1 minute"
+}
 ```
+
+**Invalid-input request and response:**
+
+```bash
+curl -i -X POST http://127.0.0.1:5000/submit \
+  -H "Content-Type: application/json" \
+  -d '{"creator_id":"missing-text-check"}'
+```
+
+HTTP status: `400 BAD REQUEST`.
+
+```json
+{
+  "error": "invalid_input",
+  "message": "text must be a non-empty string."
+}
+```
+
+**Matching rejection, read back with `GET /log?limit=1`:**
+
+```json
+{
+  "timestamp": "2026-11-06T18:54:55+00:00",
+  "creator_id": "missing-text-check",
+  "event": "rejected",
+  "status": "rejected",
+  "reason": "invalid_input",
+  "http_status": 400
+}
+```
+
+Audit timestamps are UTC; `18:54:55+00:00` is 1:54:55 p.m. EST.
+These two entries verify instrumentation. They do not replace the requirement
+to paste at least ten informative entries, mostly from the full attack run,
+including at least one rejection, in the next section.
+
+**AI assistance for this stage:** I asked for the next steps and an updated
+README based on my actual output. AI suggested enabling the existing limiter,
+adding the rejection logging hook, and documenting the resulting checks. I
+applied the code and ran the flood and missing-text requests locally. The
+initial limits and the explanation above were AI-assisted; I need to review
+that explanation against the usage I intend to support.
 
 ---
 
 ## Attack Run — Before
+
+**Pending instrumented baseline:** The initial run saved as
+`results/attack_run_2026-11-06_1333_before.md` sent all 56 attacks before rate
+limiting and invalid-request logging were fully enabled. It reported zero
+automatic crash verdicts and left all 56 held/broke judgments undecided. That
+is not evidence that every attack was stopped.
+
+Preserve that exploratory report. Next, run all 56 inputs again with the
+current instrumentation enabled, using a distinct label so the early report
+is not overwritten:
+
+```bash
+python run_attacks.py --set attack_set --label before_instrumented
+```
+
+No detection improvement should be applied before the instrumented baseline
+and the five-criteria baseline evaluation are recorded. The final section must
+include every attack's outcome and a justified HELD/BROKE mark. For threshold
+judgments use the actual `combined_score` and returned guess, not a rounded
+summary value or the report's confidence column alone.
+
 
 <!-- Every attack with its outcome and a held-or-broke mark.
      `run_attacks.py --label before` produces the table. -->
