@@ -1,0 +1,4594 @@
+{
+  "run_id": "unit8-b433dad16f",
+  "label": "before",
+  "sample_sha256": "81b8a1f471d5c9778a648fbe38431cd5d4d1eaae44b19dcfca55ecd7ebb13ef9",
+  "trials": [
+    [
+      {
+        "passed": true,
+        "measure": "0/10 labeled ai",
+        "producer": "app.py::submit",
+        "evidence": [
+          {
+            "sample_id": "H01",
+            "http": 200,
+            "body": {
+              "combined_score": 0.5718,
+              "confidence": 0.5718,
+              "content_id": "df0283c5-5d03-40f0-b21c-c48d60ed662b",
+              "guess": "unsure",
+              "human_credential": null,
+              "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+              "model_score": 0.6795,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H02",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3916,
+              "confidence": 0.6084,
+              "content_id": "4091b9f2-4600-4fb1-89af-dd3432384a1a",
+              "guess": "unsure",
+              "human_credential": null,
+              "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+              "model_score": 0.229,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H03",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3134,
+              "confidence": 0.6866,
+              "content_id": "2e19c141-2a0a-4360-b3b1-3ab90af2a706",
+              "guess": "human",
+              "human_credential": null,
+              "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+              "model_score": 0.0336,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H04",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3105,
+              "confidence": 0.6895,
+              "content_id": "fb2c54a7-cffb-40b8-8f2f-d95206c06263",
+              "guess": "human",
+              "human_credential": null,
+              "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+              "model_score": 0.0263,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H05",
+            "http": 200,
+            "body": {
+              "combined_score": 0.2916,
+              "confidence": 0.7084,
+              "content_id": "204c0b2f-e819-4165-af67-e3c57bc216ee",
+              "guess": "human",
+              "human_credential": null,
+              "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+              "model_score": 0.0699,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.409
+            }
+          },
+          {
+            "sample_id": "H06",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3979,
+              "confidence": 0.6021,
+              "content_id": "c672b437-e3a8-4f3a-89f7-dd2665871d34",
+              "guess": "unsure",
+              "human_credential": null,
+              "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+              "model_score": 0.0261,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.7187
+            }
+          },
+          {
+            "sample_id": "H07",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3833,
+              "confidence": 0.6167,
+              "content_id": "20cf68b0-0250-469e-8dc6-635a5ef7756a",
+              "guess": "unsure",
+              "human_credential": null,
+              "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+              "model_score": 0.2082,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H08",
+            "http": 200,
+            "body": {
+              "combined_score": 0.4041,
+              "confidence": 0.5959,
+              "content_id": "f800c7fc-19b6-4228-b59d-4babeb38e1b5",
+              "guess": "unsure",
+              "human_credential": null,
+              "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+              "model_score": 0.2603,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H09",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3281,
+              "confidence": 0.6719,
+              "content_id": "ff7358f9-0aba-48fe-a12c-5cc5c2e41f46",
+              "guess": "human",
+              "human_credential": null,
+              "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+              "model_score": 0.0703,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H10",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3403,
+              "confidence": 0.6597,
+              "content_id": "f1bef977-ac00-48bd-9fa9-8ffa51229498",
+              "guess": "human",
+              "human_credential": null,
+              "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+              "model_score": 0.092,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5088
+            }
+          }
+        ]
+      },
+      {
+        "passed": true,
+        "measure": "mean gap 0.21914",
+        "producer": "app.py::submit and run_unit8_eval.py::run_trial",
+        "evidence": {
+          "pairs": [
+            {
+              "human_id": "H01",
+              "ai_id": "A01",
+              "source": "OpenAI Codex, generated for Unit 8 on 2026-11-07"
+            },
+            {
+              "human_id": "H02",
+              "ai_id": "A02",
+              "source": "OpenAI Codex, generated for Unit 8 on 2026-11-07"
+            },
+            {
+              "human_id": "H03",
+              "ai_id": "A03",
+              "source": "OpenAI Codex, generated for Unit 8 on 2026-11-07"
+            },
+            {
+              "human_id": "H04",
+              "ai_id": "A04",
+              "source": "OpenAI Codex, generated for Unit 8 on 2026-11-07"
+            },
+            {
+              "human_id": "H05",
+              "ai_id": "A05",
+              "source": "OpenAI Codex, generated for Unit 8 on 2026-11-07"
+            }
+          ],
+          "human": [
+            {
+              "sample_id": "H01",
+              "http": 200,
+              "body": {
+                "combined_score": 0.5718,
+                "confidence": 0.5718,
+                "content_id": "df0283c5-5d03-40f0-b21c-c48d60ed662b",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.6795,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            {
+              "sample_id": "H02",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3916,
+                "confidence": 0.6084,
+                "content_id": "4091b9f2-4600-4fb1-89af-dd3432384a1a",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.229,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            {
+              "sample_id": "H03",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3134,
+                "confidence": 0.6866,
+                "content_id": "2e19c141-2a0a-4360-b3b1-3ab90af2a706",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0336,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            {
+              "sample_id": "H04",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3105,
+                "confidence": 0.6895,
+                "content_id": "fb2c54a7-cffb-40b8-8f2f-d95206c06263",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0263,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            {
+              "sample_id": "H05",
+              "http": 200,
+              "body": {
+                "combined_score": 0.2916,
+                "confidence": 0.7084,
+                "content_id": "204c0b2f-e819-4165-af67-e3c57bc216ee",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0699,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.409
+              }
+            }
+          ],
+          "ai": [
+            {
+              "sample_id": "A01",
+              "http": 200,
+              "body": {
+                "combined_score": 0.6412,
+                "confidence": 0.6412,
+                "content_id": "126f6f63-3179-497c-9958-4c00485ab51e",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.8531,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            {
+              "sample_id": "A02",
+              "http": 200,
+              "body": {
+                "combined_score": 0.5701,
+                "confidence": 0.5701,
+                "content_id": "437db836-70a8-4a5b-91ff-5f9f6af00b3e",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.5594,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.6159
+              }
+            },
+            {
+              "sample_id": "A03",
+              "http": 200,
+              "body": {
+                "combined_score": 0.5287,
+                "confidence": 0.5287,
+                "content_id": "3c19a580-b9c7-42b2-9635-5cd23087fa98",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.5141,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5577
+              }
+            },
+            {
+              "sample_id": "A04",
+              "http": 200,
+              "body": {
+                "combined_score": 0.5502,
+                "confidence": 0.5502,
+                "content_id": "e7579e2b-75b1-4214-8e80-4b7bbab43dc6",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.4871,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.6384
+              }
+            },
+            {
+              "sample_id": "A05",
+              "http": 200,
+              "body": {
+                "combined_score": 0.6844,
+                "confidence": 0.6844,
+                "content_id": "6b51ea93-7d47-4de9-b748-0e1154abcc01",
+                "guess": "ai",
+                "human_credential": null,
+                "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+                "model_score": 0.7679,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.6931
+              }
+            }
+          ]
+        }
+      },
+      {
+        "passed": true,
+        "measure": "105/105 label checks",
+        "producer": "scoring.py::score_to_label",
+        "evidence": [
+          {
+            "score": "0",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.01",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.02",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.03",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.04",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.05",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.06",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.07",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.08",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.09",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.1",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.11",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.12",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.13",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.14",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.15",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.16",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.17",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.18",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.19",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.2",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.21",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.22",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.23",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.24",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.25",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.26",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.27",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.28",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.29",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.3",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.31",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.32",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.33",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.34",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.349999",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.35",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.350001",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.36",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.37",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.38",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.39",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.4",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.41",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.42",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.43",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.44",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.45",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.46",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.47",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.48",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.49",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.5",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.51",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.52",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.53",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.54",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.55",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.56",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.57",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.58",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.59",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.6",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.61",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.62",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.63",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.64",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.649999",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.65",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.650001",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.66",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.67",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.68",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.69",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.7",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.71",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.72",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.73",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.74",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.75",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.76",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.77",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.78",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.79",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.8",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.81",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.82",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.83",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.84",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.85",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.86",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.87",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.88",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.89",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.9",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.91",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.92",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.93",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.94",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.95",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.96",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.97",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.98",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.99",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "1",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          }
+        ]
+      },
+      {
+        "passed": true,
+        "measure": "5/5 appeals",
+        "producer": "app.py::submit, appeal, get_log",
+        "evidence": [
+          {
+            "submission": {
+              "sample_id": "H01",
+              "http": 200,
+              "body": {
+                "combined_score": 0.5718,
+                "confidence": 0.5718,
+                "content_id": "5debf7dc-fe46-4080-b9ef-7ebf053fc8e1",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.6795,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            "ok": true,
+            "request": {
+              "content_id": "5debf7dc-fe46-4080-b9ef-7ebf053fc8e1",
+              "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-1: please review this decision."
+            },
+            "response": {
+              "http": 200,
+              "body": {
+                "content_id": "5debf7dc-fe46-4080-b9ef-7ebf053fc8e1",
+                "message": "Your appeal has been recorded for review.",
+                "status": "under_review"
+              }
+            },
+            "matching_log": [
+              {
+                "combined_score": 0.5718,
+                "content_id": "5debf7dc-fe46-4080-b9ef-7ebf053fc8e1",
+                "creator_id": "unit8-b433dad16f-1-appeal0",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.6795,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5,
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              },
+              {
+                "content_id": "5debf7dc-fe46-4080-b9ef-7ebf053fc8e1",
+                "creator_id": "unit8-b433dad16f-1-appeal0",
+                "event": "appeal",
+                "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-1: please review this decision.",
+                "status": "under_review",
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              }
+            ]
+          },
+          {
+            "submission": {
+              "sample_id": "H02",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3916,
+                "confidence": 0.6084,
+                "content_id": "2ddfa7eb-b666-4b3f-b32a-2b11bb47f6d9",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.229,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            "ok": true,
+            "request": {
+              "content_id": "2ddfa7eb-b666-4b3f-b32a-2b11bb47f6d9",
+              "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-1: please review this decision."
+            },
+            "response": {
+              "http": 200,
+              "body": {
+                "content_id": "2ddfa7eb-b666-4b3f-b32a-2b11bb47f6d9",
+                "message": "Your appeal has been recorded for review.",
+                "status": "under_review"
+              }
+            },
+            "matching_log": [
+              {
+                "combined_score": 0.3916,
+                "content_id": "2ddfa7eb-b666-4b3f-b32a-2b11bb47f6d9",
+                "creator_id": "unit8-b433dad16f-1-appeal1",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.229,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5,
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              },
+              {
+                "content_id": "2ddfa7eb-b666-4b3f-b32a-2b11bb47f6d9",
+                "creator_id": "unit8-b433dad16f-1-appeal1",
+                "event": "appeal",
+                "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-1: please review this decision.",
+                "status": "under_review",
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              }
+            ]
+          },
+          {
+            "submission": {
+              "sample_id": "H03",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3134,
+                "confidence": 0.6866,
+                "content_id": "97ce68a3-6127-48bb-ad59-88f20df7d2a6",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0336,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            "ok": true,
+            "request": {
+              "content_id": "97ce68a3-6127-48bb-ad59-88f20df7d2a6",
+              "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-1: please review this decision."
+            },
+            "response": {
+              "http": 200,
+              "body": {
+                "content_id": "97ce68a3-6127-48bb-ad59-88f20df7d2a6",
+                "message": "Your appeal has been recorded for review.",
+                "status": "under_review"
+              }
+            },
+            "matching_log": [
+              {
+                "combined_score": 0.3134,
+                "content_id": "97ce68a3-6127-48bb-ad59-88f20df7d2a6",
+                "creator_id": "unit8-b433dad16f-1-appeal2",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0336,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5,
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              },
+              {
+                "content_id": "97ce68a3-6127-48bb-ad59-88f20df7d2a6",
+                "creator_id": "unit8-b433dad16f-1-appeal2",
+                "event": "appeal",
+                "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-1: please review this decision.",
+                "status": "under_review",
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              }
+            ]
+          },
+          {
+            "submission": {
+              "sample_id": "H04",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3105,
+                "confidence": 0.6895,
+                "content_id": "3c8a8573-07c9-4ae4-8942-8507366ea3d9",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0263,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            "ok": true,
+            "request": {
+              "content_id": "3c8a8573-07c9-4ae4-8942-8507366ea3d9",
+              "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-1: please review this decision."
+            },
+            "response": {
+              "http": 200,
+              "body": {
+                "content_id": "3c8a8573-07c9-4ae4-8942-8507366ea3d9",
+                "message": "Your appeal has been recorded for review.",
+                "status": "under_review"
+              }
+            },
+            "matching_log": [
+              {
+                "combined_score": 0.3105,
+                "content_id": "3c8a8573-07c9-4ae4-8942-8507366ea3d9",
+                "creator_id": "unit8-b433dad16f-1-appeal3",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0263,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5,
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              },
+              {
+                "content_id": "3c8a8573-07c9-4ae4-8942-8507366ea3d9",
+                "creator_id": "unit8-b433dad16f-1-appeal3",
+                "event": "appeal",
+                "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-1: please review this decision.",
+                "status": "under_review",
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              }
+            ]
+          },
+          {
+            "submission": {
+              "sample_id": "H05",
+              "http": 200,
+              "body": {
+                "combined_score": 0.2916,
+                "confidence": 0.7084,
+                "content_id": "a587729a-754f-4be8-a48d-9cc0e9c64474",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0699,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.409
+              }
+            },
+            "ok": true,
+            "request": {
+              "content_id": "a587729a-754f-4be8-a48d-9cc0e9c64474",
+              "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-1: please review this decision."
+            },
+            "response": {
+              "http": 200,
+              "body": {
+                "content_id": "a587729a-754f-4be8-a48d-9cc0e9c64474",
+                "message": "Your appeal has been recorded for review.",
+                "status": "under_review"
+              }
+            },
+            "matching_log": [
+              {
+                "combined_score": 0.2916,
+                "content_id": "a587729a-754f-4be8-a48d-9cc0e9c64474",
+                "creator_id": "unit8-b433dad16f-1-appeal4",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0699,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.409,
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              },
+              {
+                "content_id": "a587729a-754f-4be8-a48d-9cc0e9c64474",
+                "creator_id": "unit8-b433dad16f-1-appeal4",
+                "event": "appeal",
+                "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-1: please review this decision.",
+                "status": "under_review",
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "passed": true,
+        "measure": "6/6 invalid cases; ping 200",
+        "producer": "app.py::submit, get_log, ping",
+        "evidence": {
+          "cases": [
+            {
+              "expected_field": "text",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "text must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unit8-b433dad16f-1-bad0",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:23+00:00"
+                }
+              ],
+              "ok": true
+            },
+            {
+              "expected_field": "text",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "text must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unit8-b433dad16f-1-bad1",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:23+00:00"
+                }
+              ],
+              "ok": true
+            },
+            {
+              "expected_field": "text",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "text must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unit8-b433dad16f-1-bad2",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:23+00:00"
+                }
+              ],
+              "ok": true
+            },
+            {
+              "expected_field": "text",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "text must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unit8-b433dad16f-1-bad3",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:23+00:00"
+                }
+              ],
+              "ok": true
+            },
+            {
+              "expected_field": "creator_id",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "creator_id must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unknown",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:23+00:00"
+                }
+              ],
+              "ok": true
+            },
+            {
+              "expected_field": "creator_id",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "creator_id must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unknown",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:23+00:00"
+                }
+              ],
+              "ok": true
+            }
+          ],
+          "ping": {
+            "http": 200,
+            "body": {
+              "ok": true,
+              "service": "provenance-guard",
+              "you_sent": "unit8-eval"
+            }
+          }
+        }
+      }
+    ],
+    [
+      {
+        "passed": true,
+        "measure": "0/10 labeled ai",
+        "producer": "app.py::submit",
+        "evidence": [
+          {
+            "sample_id": "H01",
+            "http": 200,
+            "body": {
+              "combined_score": 0.5718,
+              "confidence": 0.5718,
+              "content_id": "611684af-35cf-4de5-b470-b3396f68efda",
+              "guess": "unsure",
+              "human_credential": null,
+              "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+              "model_score": 0.6795,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H02",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3916,
+              "confidence": 0.6084,
+              "content_id": "99d49428-cacb-4a34-8b1b-d5d71e961c02",
+              "guess": "unsure",
+              "human_credential": null,
+              "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+              "model_score": 0.229,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H03",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3134,
+              "confidence": 0.6866,
+              "content_id": "00cd6a9c-e072-4226-ad9b-c6a532e839b1",
+              "guess": "human",
+              "human_credential": null,
+              "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+              "model_score": 0.0336,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H04",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3105,
+              "confidence": 0.6895,
+              "content_id": "665611c0-95cf-4cd5-bd22-7dbda27cb029",
+              "guess": "human",
+              "human_credential": null,
+              "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+              "model_score": 0.0263,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H05",
+            "http": 200,
+            "body": {
+              "combined_score": 0.2916,
+              "confidence": 0.7084,
+              "content_id": "50325cd8-3ab7-4079-ab34-d1530c90a10f",
+              "guess": "human",
+              "human_credential": null,
+              "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+              "model_score": 0.0699,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.409
+            }
+          },
+          {
+            "sample_id": "H06",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3979,
+              "confidence": 0.6021,
+              "content_id": "0f93b67d-4ad3-48db-8405-6512bf3f9285",
+              "guess": "unsure",
+              "human_credential": null,
+              "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+              "model_score": 0.0261,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.7187
+            }
+          },
+          {
+            "sample_id": "H07",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3833,
+              "confidence": 0.6167,
+              "content_id": "5562bc92-6d41-42c4-8546-dd7d8b97187e",
+              "guess": "unsure",
+              "human_credential": null,
+              "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+              "model_score": 0.2082,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H08",
+            "http": 200,
+            "body": {
+              "combined_score": 0.4041,
+              "confidence": 0.5959,
+              "content_id": "a7e998e7-b035-4010-9710-d4e831d583a3",
+              "guess": "unsure",
+              "human_credential": null,
+              "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+              "model_score": 0.2603,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H09",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3281,
+              "confidence": 0.6719,
+              "content_id": "2bace6e6-f054-42cc-9563-c18e0520fc7e",
+              "guess": "human",
+              "human_credential": null,
+              "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+              "model_score": 0.0703,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H10",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3403,
+              "confidence": 0.6597,
+              "content_id": "2af4e954-59f1-4012-8660-7aee1fed0100",
+              "guess": "human",
+              "human_credential": null,
+              "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+              "model_score": 0.092,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5088
+            }
+          }
+        ]
+      },
+      {
+        "passed": true,
+        "measure": "mean gap 0.21914",
+        "producer": "app.py::submit and run_unit8_eval.py::run_trial",
+        "evidence": {
+          "pairs": [
+            {
+              "human_id": "H01",
+              "ai_id": "A01",
+              "source": "OpenAI Codex, generated for Unit 8 on 2026-11-07"
+            },
+            {
+              "human_id": "H02",
+              "ai_id": "A02",
+              "source": "OpenAI Codex, generated for Unit 8 on 2026-11-07"
+            },
+            {
+              "human_id": "H03",
+              "ai_id": "A03",
+              "source": "OpenAI Codex, generated for Unit 8 on 2026-11-07"
+            },
+            {
+              "human_id": "H04",
+              "ai_id": "A04",
+              "source": "OpenAI Codex, generated for Unit 8 on 2026-11-07"
+            },
+            {
+              "human_id": "H05",
+              "ai_id": "A05",
+              "source": "OpenAI Codex, generated for Unit 8 on 2026-11-07"
+            }
+          ],
+          "human": [
+            {
+              "sample_id": "H01",
+              "http": 200,
+              "body": {
+                "combined_score": 0.5718,
+                "confidence": 0.5718,
+                "content_id": "611684af-35cf-4de5-b470-b3396f68efda",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.6795,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            {
+              "sample_id": "H02",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3916,
+                "confidence": 0.6084,
+                "content_id": "99d49428-cacb-4a34-8b1b-d5d71e961c02",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.229,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            {
+              "sample_id": "H03",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3134,
+                "confidence": 0.6866,
+                "content_id": "00cd6a9c-e072-4226-ad9b-c6a532e839b1",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0336,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            {
+              "sample_id": "H04",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3105,
+                "confidence": 0.6895,
+                "content_id": "665611c0-95cf-4cd5-bd22-7dbda27cb029",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0263,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            {
+              "sample_id": "H05",
+              "http": 200,
+              "body": {
+                "combined_score": 0.2916,
+                "confidence": 0.7084,
+                "content_id": "50325cd8-3ab7-4079-ab34-d1530c90a10f",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0699,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.409
+              }
+            }
+          ],
+          "ai": [
+            {
+              "sample_id": "A01",
+              "http": 200,
+              "body": {
+                "combined_score": 0.6412,
+                "confidence": 0.6412,
+                "content_id": "824e1234-7ba5-4a0b-8770-2c6dfee1fbf6",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.8531,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            {
+              "sample_id": "A02",
+              "http": 200,
+              "body": {
+                "combined_score": 0.5701,
+                "confidence": 0.5701,
+                "content_id": "5ffb9d2e-6897-4d71-9564-a4198b536fcf",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.5594,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.6159
+              }
+            },
+            {
+              "sample_id": "A03",
+              "http": 200,
+              "body": {
+                "combined_score": 0.5287,
+                "confidence": 0.5287,
+                "content_id": "7fbba2b8-d6cd-4253-b772-562766766656",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.5141,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5577
+              }
+            },
+            {
+              "sample_id": "A04",
+              "http": 200,
+              "body": {
+                "combined_score": 0.5502,
+                "confidence": 0.5502,
+                "content_id": "38303ab6-446c-4dac-aa03-9fb945c83342",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.4871,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.6384
+              }
+            },
+            {
+              "sample_id": "A05",
+              "http": 200,
+              "body": {
+                "combined_score": 0.6844,
+                "confidence": 0.6844,
+                "content_id": "4508bcf4-0d25-40f4-a0b8-8c2228255fa2",
+                "guess": "ai",
+                "human_credential": null,
+                "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+                "model_score": 0.7679,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.6931
+              }
+            }
+          ]
+        }
+      },
+      {
+        "passed": true,
+        "measure": "105/105 label checks",
+        "producer": "scoring.py::score_to_label",
+        "evidence": [
+          {
+            "score": "0",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.01",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.02",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.03",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.04",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.05",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.06",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.07",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.08",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.09",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.1",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.11",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.12",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.13",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.14",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.15",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.16",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.17",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.18",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.19",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.2",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.21",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.22",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.23",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.24",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.25",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.26",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.27",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.28",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.29",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.3",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.31",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.32",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.33",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.34",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.349999",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.35",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.350001",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.36",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.37",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.38",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.39",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.4",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.41",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.42",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.43",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.44",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.45",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.46",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.47",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.48",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.49",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.5",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.51",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.52",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.53",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.54",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.55",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.56",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.57",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.58",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.59",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.6",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.61",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.62",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.63",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.64",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.649999",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.65",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.650001",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.66",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.67",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.68",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.69",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.7",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.71",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.72",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.73",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.74",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.75",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.76",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.77",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.78",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.79",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.8",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.81",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.82",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.83",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.84",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.85",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.86",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.87",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.88",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.89",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.9",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.91",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.92",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.93",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.94",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.95",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.96",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.97",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.98",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.99",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "1",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          }
+        ]
+      },
+      {
+        "passed": true,
+        "measure": "5/5 appeals",
+        "producer": "app.py::submit, appeal, get_log",
+        "evidence": [
+          {
+            "submission": {
+              "sample_id": "H01",
+              "http": 200,
+              "body": {
+                "combined_score": 0.5718,
+                "confidence": 0.5718,
+                "content_id": "01330c1c-458b-4a8a-b24c-6894b1efef42",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.6795,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            "ok": true,
+            "request": {
+              "content_id": "01330c1c-458b-4a8a-b24c-6894b1efef42",
+              "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-2: please review this decision."
+            },
+            "response": {
+              "http": 200,
+              "body": {
+                "content_id": "01330c1c-458b-4a8a-b24c-6894b1efef42",
+                "message": "Your appeal has been recorded for review.",
+                "status": "under_review"
+              }
+            },
+            "matching_log": [
+              {
+                "combined_score": 0.5718,
+                "content_id": "01330c1c-458b-4a8a-b24c-6894b1efef42",
+                "creator_id": "unit8-b433dad16f-2-appeal0",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.6795,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5,
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              },
+              {
+                "content_id": "01330c1c-458b-4a8a-b24c-6894b1efef42",
+                "creator_id": "unit8-b433dad16f-2-appeal0",
+                "event": "appeal",
+                "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-2: please review this decision.",
+                "status": "under_review",
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              }
+            ]
+          },
+          {
+            "submission": {
+              "sample_id": "H02",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3916,
+                "confidence": 0.6084,
+                "content_id": "2022749b-405e-4b5d-9a17-bd17c22d1229",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.229,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            "ok": true,
+            "request": {
+              "content_id": "2022749b-405e-4b5d-9a17-bd17c22d1229",
+              "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-2: please review this decision."
+            },
+            "response": {
+              "http": 200,
+              "body": {
+                "content_id": "2022749b-405e-4b5d-9a17-bd17c22d1229",
+                "message": "Your appeal has been recorded for review.",
+                "status": "under_review"
+              }
+            },
+            "matching_log": [
+              {
+                "combined_score": 0.3916,
+                "content_id": "2022749b-405e-4b5d-9a17-bd17c22d1229",
+                "creator_id": "unit8-b433dad16f-2-appeal1",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.229,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5,
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              },
+              {
+                "content_id": "2022749b-405e-4b5d-9a17-bd17c22d1229",
+                "creator_id": "unit8-b433dad16f-2-appeal1",
+                "event": "appeal",
+                "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-2: please review this decision.",
+                "status": "under_review",
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              }
+            ]
+          },
+          {
+            "submission": {
+              "sample_id": "H03",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3134,
+                "confidence": 0.6866,
+                "content_id": "7d9b3df3-d479-42da-97a2-7950781cb643",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0336,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            "ok": true,
+            "request": {
+              "content_id": "7d9b3df3-d479-42da-97a2-7950781cb643",
+              "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-2: please review this decision."
+            },
+            "response": {
+              "http": 200,
+              "body": {
+                "content_id": "7d9b3df3-d479-42da-97a2-7950781cb643",
+                "message": "Your appeal has been recorded for review.",
+                "status": "under_review"
+              }
+            },
+            "matching_log": [
+              {
+                "combined_score": 0.3134,
+                "content_id": "7d9b3df3-d479-42da-97a2-7950781cb643",
+                "creator_id": "unit8-b433dad16f-2-appeal2",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0336,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5,
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              },
+              {
+                "content_id": "7d9b3df3-d479-42da-97a2-7950781cb643",
+                "creator_id": "unit8-b433dad16f-2-appeal2",
+                "event": "appeal",
+                "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-2: please review this decision.",
+                "status": "under_review",
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              }
+            ]
+          },
+          {
+            "submission": {
+              "sample_id": "H04",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3105,
+                "confidence": 0.6895,
+                "content_id": "80c3a67f-14f6-42a6-9d00-288859111886",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0263,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            "ok": true,
+            "request": {
+              "content_id": "80c3a67f-14f6-42a6-9d00-288859111886",
+              "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-2: please review this decision."
+            },
+            "response": {
+              "http": 200,
+              "body": {
+                "content_id": "80c3a67f-14f6-42a6-9d00-288859111886",
+                "message": "Your appeal has been recorded for review.",
+                "status": "under_review"
+              }
+            },
+            "matching_log": [
+              {
+                "combined_score": 0.3105,
+                "content_id": "80c3a67f-14f6-42a6-9d00-288859111886",
+                "creator_id": "unit8-b433dad16f-2-appeal3",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0263,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5,
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              },
+              {
+                "content_id": "80c3a67f-14f6-42a6-9d00-288859111886",
+                "creator_id": "unit8-b433dad16f-2-appeal3",
+                "event": "appeal",
+                "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-2: please review this decision.",
+                "status": "under_review",
+                "timestamp": "2026-11-08T03:53:23+00:00"
+              }
+            ]
+          },
+          {
+            "submission": {
+              "sample_id": "H05",
+              "http": 200,
+              "body": {
+                "combined_score": 0.2916,
+                "confidence": 0.7084,
+                "content_id": "e3108805-29b0-4085-aec6-b60079b8788c",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0699,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.409
+              }
+            },
+            "ok": true,
+            "request": {
+              "content_id": "e3108805-29b0-4085-aec6-b60079b8788c",
+              "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-2: please review this decision."
+            },
+            "response": {
+              "http": 200,
+              "body": {
+                "content_id": "e3108805-29b0-4085-aec6-b60079b8788c",
+                "message": "Your appeal has been recorded for review.",
+                "status": "under_review"
+              }
+            },
+            "matching_log": [
+              {
+                "combined_score": 0.2916,
+                "content_id": "e3108805-29b0-4085-aec6-b60079b8788c",
+                "creator_id": "unit8-b433dad16f-2-appeal4",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0699,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.409,
+                "timestamp": "2026-11-08T03:53:24+00:00"
+              },
+              {
+                "content_id": "e3108805-29b0-4085-aec6-b60079b8788c",
+                "creator_id": "unit8-b433dad16f-2-appeal4",
+                "event": "appeal",
+                "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-2: please review this decision.",
+                "status": "under_review",
+                "timestamp": "2026-11-08T03:53:24+00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "passed": true,
+        "measure": "6/6 invalid cases; ping 200",
+        "producer": "app.py::submit, get_log, ping",
+        "evidence": {
+          "cases": [
+            {
+              "expected_field": "text",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "text must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unit8-b433dad16f-2-bad0",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:24+00:00"
+                }
+              ],
+              "ok": true
+            },
+            {
+              "expected_field": "text",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "text must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unit8-b433dad16f-2-bad1",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:24+00:00"
+                }
+              ],
+              "ok": true
+            },
+            {
+              "expected_field": "text",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "text must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unit8-b433dad16f-2-bad2",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:24+00:00"
+                }
+              ],
+              "ok": true
+            },
+            {
+              "expected_field": "text",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "text must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unit8-b433dad16f-2-bad3",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:24+00:00"
+                }
+              ],
+              "ok": true
+            },
+            {
+              "expected_field": "creator_id",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "creator_id must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unknown",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:24+00:00"
+                }
+              ],
+              "ok": true
+            },
+            {
+              "expected_field": "creator_id",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "creator_id must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unknown",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:24+00:00"
+                }
+              ],
+              "ok": true
+            }
+          ],
+          "ping": {
+            "http": 200,
+            "body": {
+              "ok": true,
+              "service": "provenance-guard",
+              "you_sent": "unit8-eval"
+            }
+          }
+        }
+      }
+    ],
+    [
+      {
+        "passed": true,
+        "measure": "0/10 labeled ai",
+        "producer": "app.py::submit",
+        "evidence": [
+          {
+            "sample_id": "H01",
+            "http": 200,
+            "body": {
+              "combined_score": 0.5718,
+              "confidence": 0.5718,
+              "content_id": "dc4e0c43-a05b-4b0a-b5f4-66f6e89612cf",
+              "guess": "unsure",
+              "human_credential": null,
+              "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+              "model_score": 0.6795,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H02",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3916,
+              "confidence": 0.6084,
+              "content_id": "7830cd60-8675-4177-9b05-b1964709ca64",
+              "guess": "unsure",
+              "human_credential": null,
+              "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+              "model_score": 0.229,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H03",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3134,
+              "confidence": 0.6866,
+              "content_id": "9d40cc13-b5af-4775-82dd-40c2f3588fc3",
+              "guess": "human",
+              "human_credential": null,
+              "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+              "model_score": 0.0336,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H04",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3105,
+              "confidence": 0.6895,
+              "content_id": "953e43e8-b6bd-4cfa-941d-2a67c896de59",
+              "guess": "human",
+              "human_credential": null,
+              "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+              "model_score": 0.0263,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H05",
+            "http": 200,
+            "body": {
+              "combined_score": 0.2916,
+              "confidence": 0.7084,
+              "content_id": "0746d549-3d39-45ce-ae1d-57b0523637c1",
+              "guess": "human",
+              "human_credential": null,
+              "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+              "model_score": 0.0699,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.409
+            }
+          },
+          {
+            "sample_id": "H06",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3979,
+              "confidence": 0.6021,
+              "content_id": "17b69e6b-2849-4532-bee4-195eb0536aba",
+              "guess": "unsure",
+              "human_credential": null,
+              "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+              "model_score": 0.0261,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.7187
+            }
+          },
+          {
+            "sample_id": "H07",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3833,
+              "confidence": 0.6167,
+              "content_id": "634fd4a5-9cef-4636-961d-21b0ab536edf",
+              "guess": "unsure",
+              "human_credential": null,
+              "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+              "model_score": 0.2082,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H08",
+            "http": 200,
+            "body": {
+              "combined_score": 0.4041,
+              "confidence": 0.5959,
+              "content_id": "1f533fa2-076c-489d-93b3-66ae4595cc3e",
+              "guess": "unsure",
+              "human_credential": null,
+              "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+              "model_score": 0.2603,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H09",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3281,
+              "confidence": 0.6719,
+              "content_id": "6030e4eb-d19c-4751-917b-29cfbaf2377a",
+              "guess": "human",
+              "human_credential": null,
+              "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+              "model_score": 0.0703,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5
+            }
+          },
+          {
+            "sample_id": "H10",
+            "http": 200,
+            "body": {
+              "combined_score": 0.3403,
+              "confidence": 0.6597,
+              "content_id": "1027b437-9ed6-4ec0-af51-475653a3ad8e",
+              "guess": "human",
+              "human_credential": null,
+              "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+              "model_score": 0.092,
+              "provenance_score": 0.5,
+              "status": "decided",
+              "style_score": 0.5088
+            }
+          }
+        ]
+      },
+      {
+        "passed": true,
+        "measure": "mean gap 0.21914",
+        "producer": "app.py::submit and run_unit8_eval.py::run_trial",
+        "evidence": {
+          "pairs": [
+            {
+              "human_id": "H01",
+              "ai_id": "A01",
+              "source": "OpenAI Codex, generated for Unit 8 on 2026-11-07"
+            },
+            {
+              "human_id": "H02",
+              "ai_id": "A02",
+              "source": "OpenAI Codex, generated for Unit 8 on 2026-11-07"
+            },
+            {
+              "human_id": "H03",
+              "ai_id": "A03",
+              "source": "OpenAI Codex, generated for Unit 8 on 2026-11-07"
+            },
+            {
+              "human_id": "H04",
+              "ai_id": "A04",
+              "source": "OpenAI Codex, generated for Unit 8 on 2026-11-07"
+            },
+            {
+              "human_id": "H05",
+              "ai_id": "A05",
+              "source": "OpenAI Codex, generated for Unit 8 on 2026-11-07"
+            }
+          ],
+          "human": [
+            {
+              "sample_id": "H01",
+              "http": 200,
+              "body": {
+                "combined_score": 0.5718,
+                "confidence": 0.5718,
+                "content_id": "dc4e0c43-a05b-4b0a-b5f4-66f6e89612cf",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.6795,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            {
+              "sample_id": "H02",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3916,
+                "confidence": 0.6084,
+                "content_id": "7830cd60-8675-4177-9b05-b1964709ca64",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.229,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            {
+              "sample_id": "H03",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3134,
+                "confidence": 0.6866,
+                "content_id": "9d40cc13-b5af-4775-82dd-40c2f3588fc3",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0336,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            {
+              "sample_id": "H04",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3105,
+                "confidence": 0.6895,
+                "content_id": "953e43e8-b6bd-4cfa-941d-2a67c896de59",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0263,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            {
+              "sample_id": "H05",
+              "http": 200,
+              "body": {
+                "combined_score": 0.2916,
+                "confidence": 0.7084,
+                "content_id": "0746d549-3d39-45ce-ae1d-57b0523637c1",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0699,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.409
+              }
+            }
+          ],
+          "ai": [
+            {
+              "sample_id": "A01",
+              "http": 200,
+              "body": {
+                "combined_score": 0.6412,
+                "confidence": 0.6412,
+                "content_id": "da7c31b1-5c68-4b1e-a11f-29ecba74ac43",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.8531,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            {
+              "sample_id": "A02",
+              "http": 200,
+              "body": {
+                "combined_score": 0.5701,
+                "confidence": 0.5701,
+                "content_id": "7532162a-eb67-448d-bf75-bca227c84d6b",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.5594,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.6159
+              }
+            },
+            {
+              "sample_id": "A03",
+              "http": 200,
+              "body": {
+                "combined_score": 0.5287,
+                "confidence": 0.5287,
+                "content_id": "8372a9c4-925a-45a3-aa86-17719d8184a1",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.5141,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5577
+              }
+            },
+            {
+              "sample_id": "A04",
+              "http": 200,
+              "body": {
+                "combined_score": 0.5502,
+                "confidence": 0.5502,
+                "content_id": "727b7480-03b9-4552-b04f-dbcbf599ceb0",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.4871,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.6384
+              }
+            },
+            {
+              "sample_id": "A05",
+              "http": 200,
+              "body": {
+                "combined_score": 0.6844,
+                "confidence": 0.6844,
+                "content_id": "72e29f44-dedc-496b-b5fe-ce2ec1833230",
+                "guess": "ai",
+                "human_credential": null,
+                "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+                "model_score": 0.7679,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.6931
+              }
+            }
+          ]
+        }
+      },
+      {
+        "passed": true,
+        "measure": "105/105 label checks",
+        "producer": "scoring.py::score_to_label",
+        "evidence": [
+          {
+            "score": "0",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.01",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.02",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.03",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.04",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.05",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.06",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.07",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.08",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.09",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.1",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.11",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.12",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.13",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.14",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.15",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.16",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.17",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.18",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.19",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.2",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.21",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.22",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.23",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.24",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.25",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.26",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.27",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.28",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.29",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.3",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.31",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.32",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.33",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.34",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.349999",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.35",
+            "expected": "human",
+            "guess": "human",
+            "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+            "ok": true
+          },
+          {
+            "score": "0.350001",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.36",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.37",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.38",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.39",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.4",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.41",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.42",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.43",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.44",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.45",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.46",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.47",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.48",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.49",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.5",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.51",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.52",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.53",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.54",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.55",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.56",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.57",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.58",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.59",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.6",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.61",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.62",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.63",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.64",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.649999",
+            "expected": "unsure",
+            "guess": "unsure",
+            "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.65",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.650001",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.66",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.67",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.68",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.69",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.7",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.71",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.72",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.73",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.74",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.75",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.76",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.77",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.78",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.79",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.8",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.81",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.82",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.83",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.84",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.85",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.86",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.87",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.88",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.89",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.9",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.91",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.92",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.93",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.94",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.95",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.96",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.97",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.98",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "0.99",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          },
+          {
+            "score": "1",
+            "expected": "ai",
+            "guess": "ai",
+            "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+            "ok": true
+          }
+        ]
+      },
+      {
+        "passed": true,
+        "measure": "5/5 appeals",
+        "producer": "app.py::submit, appeal, get_log",
+        "evidence": [
+          {
+            "submission": {
+              "sample_id": "H01",
+              "http": 200,
+              "body": {
+                "combined_score": 0.5718,
+                "confidence": 0.5718,
+                "content_id": "8ddc510b-354e-4173-a957-e16b3dacfe08",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.6795,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            "ok": true,
+            "request": {
+              "content_id": "8ddc510b-354e-4173-a957-e16b3dacfe08",
+              "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-3: please review this decision."
+            },
+            "response": {
+              "http": 200,
+              "body": {
+                "content_id": "8ddc510b-354e-4173-a957-e16b3dacfe08",
+                "message": "Your appeal has been recorded for review.",
+                "status": "under_review"
+              }
+            },
+            "matching_log": [
+              {
+                "combined_score": 0.5718,
+                "content_id": "8ddc510b-354e-4173-a957-e16b3dacfe08",
+                "creator_id": "unit8-b433dad16f-3-appeal0",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.6795,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5,
+                "timestamp": "2026-11-08T03:53:24+00:00"
+              },
+              {
+                "content_id": "8ddc510b-354e-4173-a957-e16b3dacfe08",
+                "creator_id": "unit8-b433dad16f-3-appeal0",
+                "event": "appeal",
+                "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-3: please review this decision.",
+                "status": "under_review",
+                "timestamp": "2026-11-08T03:53:24+00:00"
+              }
+            ]
+          },
+          {
+            "submission": {
+              "sample_id": "H02",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3916,
+                "confidence": 0.6084,
+                "content_id": "e5c1b394-6e4e-4bbf-822f-d6beef6dfeba",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.229,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            "ok": true,
+            "request": {
+              "content_id": "e5c1b394-6e4e-4bbf-822f-d6beef6dfeba",
+              "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-3: please review this decision."
+            },
+            "response": {
+              "http": 200,
+              "body": {
+                "content_id": "e5c1b394-6e4e-4bbf-822f-d6beef6dfeba",
+                "message": "Your appeal has been recorded for review.",
+                "status": "under_review"
+              }
+            },
+            "matching_log": [
+              {
+                "combined_score": 0.3916,
+                "content_id": "e5c1b394-6e4e-4bbf-822f-d6beef6dfeba",
+                "creator_id": "unit8-b433dad16f-3-appeal1",
+                "guess": "unsure",
+                "human_credential": null,
+                "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+                "model_score": 0.229,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5,
+                "timestamp": "2026-11-08T03:53:24+00:00"
+              },
+              {
+                "content_id": "e5c1b394-6e4e-4bbf-822f-d6beef6dfeba",
+                "creator_id": "unit8-b433dad16f-3-appeal1",
+                "event": "appeal",
+                "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-3: please review this decision.",
+                "status": "under_review",
+                "timestamp": "2026-11-08T03:53:24+00:00"
+              }
+            ]
+          },
+          {
+            "submission": {
+              "sample_id": "H03",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3134,
+                "confidence": 0.6866,
+                "content_id": "1a3da336-88f2-4f3e-8695-e81230a331ef",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0336,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            "ok": true,
+            "request": {
+              "content_id": "1a3da336-88f2-4f3e-8695-e81230a331ef",
+              "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-3: please review this decision."
+            },
+            "response": {
+              "http": 200,
+              "body": {
+                "content_id": "1a3da336-88f2-4f3e-8695-e81230a331ef",
+                "message": "Your appeal has been recorded for review.",
+                "status": "under_review"
+              }
+            },
+            "matching_log": [
+              {
+                "combined_score": 0.3134,
+                "content_id": "1a3da336-88f2-4f3e-8695-e81230a331ef",
+                "creator_id": "unit8-b433dad16f-3-appeal2",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0336,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5,
+                "timestamp": "2026-11-08T03:53:24+00:00"
+              },
+              {
+                "content_id": "1a3da336-88f2-4f3e-8695-e81230a331ef",
+                "creator_id": "unit8-b433dad16f-3-appeal2",
+                "event": "appeal",
+                "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-3: please review this decision.",
+                "status": "under_review",
+                "timestamp": "2026-11-08T03:53:24+00:00"
+              }
+            ]
+          },
+          {
+            "submission": {
+              "sample_id": "H04",
+              "http": 200,
+              "body": {
+                "combined_score": 0.3105,
+                "confidence": 0.6895,
+                "content_id": "c1c62b2e-1edd-4e19-ac0d-6f3e16e5e208",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0263,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5
+              }
+            },
+            "ok": true,
+            "request": {
+              "content_id": "c1c62b2e-1edd-4e19-ac0d-6f3e16e5e208",
+              "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-3: please review this decision."
+            },
+            "response": {
+              "http": 200,
+              "body": {
+                "content_id": "c1c62b2e-1edd-4e19-ac0d-6f3e16e5e208",
+                "message": "Your appeal has been recorded for review.",
+                "status": "under_review"
+              }
+            },
+            "matching_log": [
+              {
+                "combined_score": 0.3105,
+                "content_id": "c1c62b2e-1edd-4e19-ac0d-6f3e16e5e208",
+                "creator_id": "unit8-b433dad16f-3-appeal3",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0263,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.5,
+                "timestamp": "2026-11-08T03:53:24+00:00"
+              },
+              {
+                "content_id": "c1c62b2e-1edd-4e19-ac0d-6f3e16e5e208",
+                "creator_id": "unit8-b433dad16f-3-appeal3",
+                "event": "appeal",
+                "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-3: please review this decision.",
+                "status": "under_review",
+                "timestamp": "2026-11-08T03:53:24+00:00"
+              }
+            ]
+          },
+          {
+            "submission": {
+              "sample_id": "H05",
+              "http": 200,
+              "body": {
+                "combined_score": 0.2916,
+                "confidence": 0.7084,
+                "content_id": "0c4a8856-e0d8-4f55-89a5-47f2b374b512",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0699,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.409
+              }
+            },
+            "ok": true,
+            "request": {
+              "content_id": "0c4a8856-e0d8-4f55-89a5-47f2b374b512",
+              "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-3: please review this decision."
+            },
+            "response": {
+              "http": 200,
+              "body": {
+                "content_id": "0c4a8856-e0d8-4f55-89a5-47f2b374b512",
+                "message": "Your appeal has been recorded for review.",
+                "status": "under_review"
+              }
+            },
+            "matching_log": [
+              {
+                "combined_score": 0.2916,
+                "content_id": "0c4a8856-e0d8-4f55-89a5-47f2b374b512",
+                "creator_id": "unit8-b433dad16f-3-appeal4",
+                "guess": "human",
+                "human_credential": null,
+                "label": "This writing shows strong human-like patterns. This estimate does not verify who wrote it.",
+                "model_score": 0.0699,
+                "provenance_score": 0.5,
+                "status": "decided",
+                "style_score": 0.409,
+                "timestamp": "2026-11-08T03:53:24+00:00"
+              },
+              {
+                "content_id": "0c4a8856-e0d8-4f55-89a5-47f2b374b512",
+                "creator_id": "unit8-b433dad16f-3-appeal4",
+                "event": "appeal",
+                "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-3: please review this decision.",
+                "status": "under_review",
+                "timestamp": "2026-11-08T03:53:24+00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "passed": true,
+        "measure": "6/6 invalid cases; ping 200",
+        "producer": "app.py::submit, get_log, ping",
+        "evidence": {
+          "cases": [
+            {
+              "expected_field": "text",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "text must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unit8-b433dad16f-3-bad0",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:24+00:00"
+                }
+              ],
+              "ok": true
+            },
+            {
+              "expected_field": "text",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "text must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unit8-b433dad16f-3-bad1",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:24+00:00"
+                }
+              ],
+              "ok": true
+            },
+            {
+              "expected_field": "text",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "text must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unit8-b433dad16f-3-bad2",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:24+00:00"
+                }
+              ],
+              "ok": true
+            },
+            {
+              "expected_field": "text",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "text must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unit8-b433dad16f-3-bad3",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:24+00:00"
+                }
+              ],
+              "ok": true
+            },
+            {
+              "expected_field": "creator_id",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "creator_id must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unknown",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:24+00:00"
+                }
+              ],
+              "ok": true
+            },
+            {
+              "expected_field": "creator_id",
+              "response": {
+                "http": 400,
+                "body": {
+                  "error": "invalid_input",
+                  "message": "creator_id must be a non-empty string."
+                }
+              },
+              "new_log_entries": [
+                {
+                  "creator_id": "unknown",
+                  "event": "rejected",
+                  "http_status": 400,
+                  "reason": "invalid_input",
+                  "status": "rejected",
+                  "timestamp": "2026-11-08T03:53:24+00:00"
+                }
+              ],
+              "ok": true
+            }
+          ],
+          "ping": {
+            "http": 200,
+            "body": {
+              "ok": true,
+              "service": "provenance-guard",
+              "you_sent": "unit8-eval"
+            }
+          }
+        }
+      }
+    ]
+  ]
+}
