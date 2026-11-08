@@ -184,8 +184,8 @@ The original personal request remains preserved in `results/milestone5_sample_ru
 These results demonstrate label reachability, not reliable accuracy. The
 thresholds and weights were not changed to force those outcomes.
 The diagnostics were deliberately selected to explore score ranges.
-The saved response files and audit log provide the evidence; the Unit 8
-three-trial evaluation has not been performed.
+The saved response files and audit log provide the Unit 7 evidence. The Unit 8
+baseline evaluation appears in Run Log and Verdicts.
 
 ---
 
@@ -195,9 +195,9 @@ Configured in `config.py` and implemented in `scoring.py::score_to_label`:
 
 - **High-confidence human** (`guess: human`): `0 <= score <= 0.35`.
   Exact text: "This writing shows strong human-like patterns. This estimate does not verify who wrote it."
-- **Unsure** (`guess: unsure`): `0.35 < score < 0.65`.
+- **Unsure** (`guess: unsure`): `0.35 < score < 0.68`.
   Exact text: "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review."
-- **High-confidence AI** (`guess: ai`): `0.65 <= score <= 1`.
+- **High-confidence AI** (`guess: ai`): `0.68 <= score <= 1`.
   Exact text: "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review."
 
 Every finite score from 0 to 1 maps to exactly one label. Scores outside that
@@ -207,8 +207,7 @@ range are rejected by the mapping. Boundary checks at 0, 0.35, 0.3501,
 **Why I worded the unsure label this way:** It directly admits uncertainty,
 states that no wrongdoing has been established, and provides a review path.
 The AI label also describes patterns rather than claiming proof of AI use.
-The current 0.35/0.65 thresholds leave a middle band, but the observed formal
-human false positive shows that this band does not eliminate wrong accusations.
+The Unit 8 experiment raised the AI boundary from 0.65 to 0.68. See The Improvement for the observed outcomes.
 
 ---
 
@@ -675,11 +674,10 @@ Diagnostic texts were supplied by AI and were not the reviewer's live writing ta
 
 ## Rate Limiting
 
-**Unit 8 progress:** Instrumentation, flood/invalid-input logging checks, and the
-56-input instrumented baseline attack run are recorded. The attack judgments and
-baseline diagnoses below are AI-assisted interpretations for review. Three-trial
-criteria evaluation and the measured improvement remain unfinished. This is a
-progress update, not a completed Unit 8 submission.
+**Unit 8 progress:** Instrumentation, the full baseline attack run, and three
+baseline criteria trials are recorded. The attack judgments and diagnoses below
+are AI-assisted interpretations for review. The threshold improvement, initial after runs, and repeat criteria trials are
+recorded.
 
 **My limits:** 10 submissions per minute and 200 submissions per day on
 `POST /submit`, configured in `config.py`. `RATE_LIMITING_ENABLED` is `True`
@@ -1190,69 +1188,403 @@ nor a known-authorship false positive was demonstrated for those two inputs.
 
 ## Run Log and Verdicts
 
-**Pending: none of the three-trial criteria results has been recorded yet.**
-The rows below reproduce the original targets, not completed verdicts.
-Do not interpret attack-family counts as these criteria's measured results.
+All five original criteria met their targets in each of the three baseline
+trials on November 7, 2026. I ran `python run_unit8_eval.py --label before`
+against the instrumented local service.
+
+- Run ID `unit8-b433dad16f`
+- Dataset SHA-256 `81b8a1f471d5c9778a648fbe38431cd5d4d1eaae44b19dcfca55ecd7ebb13ef9`
+- [Summary](results/criteria_2026-11-07_225321_before.md) and [complete observed results](results/criteria_2026-11-07_225321_before.json)
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Limit wrong accusations against human writers | At most 1 of 10 independently human-written passages labeled AI per trial; at least 3 plain/formal examples | NOT RUN | NOT RUN | NOT RUN | PENDING |
-| 2. Separate human and AI sample scores | Mean combined AI score minus mean combined human score >= 0.15; 5 matched pairs within 20% word count | NOT RUN | NOT RUN | NOT RUN | PENDING |
-| 3. Label mapping and full range coverage | Every tested score maps to exactly one documented label; all 3 labels appear; 0.01 grid plus exact boundaries and adjacent values | NOT RUN | NOT RUN | NOT RUN | PENDING |
-| 4. Record appeals and change status | All 5 appeals return HTTP 200 and under_review; reasoning logged and original decisions preserved | NOT RUN | NOT RUN | NOT RUN | PENDING |
-| 5. Reject invalid submissions clearly | All 6 specified cases return HTTP 400 with field explanation; no successful decision entries; ping remains HTTP 200 | NOT RUN | NOT RUN | NOT RUN | PENDING |
+| 1. Limit wrong accusations against human writers | At most 1 of 10 independently human-written passages labeled AI per trial; at least 3 plain/formal examples | 0/10 labeled ai | 0/10 labeled ai | 0/10 labeled ai | MET |
+| 2. Separate human and AI sample scores | Mean combined AI score minus mean combined human score >= 0.15; 5 matched pairs within 20% word count | mean gap 0.21914 | mean gap 0.21914 | mean gap 0.21914 | MET |
+| 3. Label mapping and full range coverage | Every tested score maps to exactly one documented label; all 3 labels appear; 0.01 grid plus exact boundaries and adjacent values | 105/105 label checks | 105/105 label checks | 105/105 label checks | MET |
+| 4. Record appeals and change status | All 5 appeals return HTTP 200 and under_review; reasoning logged and original decisions preserved | 5/5 appeals | 5/5 appeals | 5/5 appeals | MET |
+| 5. Reject invalid submissions clearly | All 6 specified cases return HTTP 400 with field explanation; no successful decision entries; ping remains HTTP 200 | 6/6 invalid cases; ping 200 | 6/6 invalid cases; ping 200 | 6/6 invalid cases; ping 200 | MET |
 
-**Required preparation:** Replace the `scenarios.py` placeholders with the
-actual samples for these criteria. The existing `run_eval.py` only submits
-requests to `/submit`; extend the test harness or document separate tests for
-appeals and direct label mapping. Record `combined_score` for criterion 2,
-rather than substituting the confidence field. Do not change the detection
-system while extending the measurement harness.
+The label check exercises the mapping function directly across the grid and
+boundary cases. The five matched pairs measure separation on this dataset.
+The staff attack results remain a separate measurement. In particular, the
+staff set produced three AI labels on designated human passages, while these
+ten human passages produced zero.
 
-**Real output from one trial for each criterion:** Pending. Paste actual JSON
-and name the producing file/function after the runs have occurred.
+### Recorded evidence from trial 1
 
-**Criteria diagnoses:** Pending. Each verdict must follow from all three trials
-against its original target. The baseline attack diagnoses above do not replace
-criteria diagnoses. Leave original criteria unchanged; append a reasoned
-revision only when a criterion itself cannot be measured as written.
+The snippets below are selected from the saved JSON. The linked results
+contain every case from all three trials.
+
+**1. Wrong AI accusations**
+
+Produced by `app.py::submit`.
+
+```json
+{
+  "sample_id": "H01",
+  "http": 200,
+  "body": {
+    "combined_score": 0.5718,
+    "confidence": 0.5718,
+    "content_id": "df0283c5-5d03-40f0-b21c-c48d60ed662b",
+    "guess": "unsure",
+    "human_credential": null,
+    "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+    "model_score": 0.6795,
+    "provenance_score": 0.5,
+    "status": "decided",
+    "style_score": 0.5
+  }
+}
+```
+
+**2. Mean score separation**
+
+Produced by `app.py::submit and run_unit8_eval.py::run_trial`.
+
+```json
+{
+  "measure": "mean gap 0.21914",
+  "pair": {
+    "human_id": "H01",
+    "ai_id": "A01",
+    "source": "OpenAI Codex, generated for Unit 8 on 2026-11-07"
+  },
+  "human": {
+    "sample_id": "H01",
+    "http": 200,
+    "body": {
+      "combined_score": 0.5718,
+      "confidence": 0.5718,
+      "content_id": "df0283c5-5d03-40f0-b21c-c48d60ed662b",
+      "guess": "unsure",
+      "human_credential": null,
+      "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+      "model_score": 0.6795,
+      "provenance_score": 0.5,
+      "status": "decided",
+      "style_score": 0.5
+    }
+  },
+  "ai": {
+    "sample_id": "A01",
+    "http": 200,
+    "body": {
+      "combined_score": 0.6412,
+      "confidence": 0.6412,
+      "content_id": "126f6f63-3179-497c-9958-4c00485ab51e",
+      "guess": "unsure",
+      "human_credential": null,
+      "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+      "model_score": 0.8531,
+      "provenance_score": 0.5,
+      "status": "decided",
+      "style_score": 0.5
+    }
+  }
+}
+```
+
+**3. Label mapping**
+
+Produced by `scoring.py::score_to_label`.
+
+```json
+[
+  {
+    "score": "0.649999",
+    "expected": "unsure",
+    "guess": "unsure",
+    "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+    "ok": true
+  },
+  {
+    "score": "0.65",
+    "expected": "ai",
+    "guess": "ai",
+    "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+    "ok": true
+  },
+  {
+    "score": "0.650001",
+    "expected": "ai",
+    "guess": "ai",
+    "label": "This writing shows strong AI-like patterns. This estimate can be wrong and does not prove AI use. The writer can request a review.",
+    "ok": true
+  }
+]
+```
+
+**4. Appeal and audit retention**
+
+Produced by `app.py::submit, appeal, get_log`.
+
+```json
+{
+  "submission": {
+    "sample_id": "H01",
+    "http": 200,
+    "body": {
+      "combined_score": 0.5718,
+      "confidence": 0.5718,
+      "content_id": "5debf7dc-fe46-4080-b9ef-7ebf053fc8e1",
+      "guess": "unsure",
+      "human_credential": null,
+      "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+      "model_score": 0.6795,
+      "provenance_score": 0.5,
+      "status": "decided",
+      "style_score": 0.5
+    }
+  },
+  "ok": true,
+  "request": {
+    "content_id": "5debf7dc-fe46-4080-b9ef-7ebf053fc8e1",
+    "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-1: please review this decision."
+  },
+  "response": {
+    "http": 200,
+    "body": {
+      "content_id": "5debf7dc-fe46-4080-b9ef-7ebf053fc8e1",
+      "message": "Your appeal has been recorded for review.",
+      "status": "under_review"
+    }
+  },
+  "matching_log": [
+    {
+      "combined_score": 0.5718,
+      "content_id": "5debf7dc-fe46-4080-b9ef-7ebf053fc8e1",
+      "creator_id": "unit8-b433dad16f-1-appeal0",
+      "guess": "unsure",
+      "human_credential": null,
+      "label": "We cannot reliably tell whether AI was involved in this writing. This is not a finding of wrongdoing. The writer can request a review.",
+      "model_score": 0.6795,
+      "provenance_score": 0.5,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-08T03:53:23+00:00"
+    },
+    {
+      "content_id": "5debf7dc-fe46-4080-b9ef-7ebf053fc8e1",
+      "creator_id": "unit8-b433dad16f-1-appeal0",
+      "event": "appeal",
+      "reasoning": "Unit 8 evaluation trial unit8-b433dad16f-1: please review this decision.",
+      "status": "under_review",
+      "timestamp": "2026-11-08T03:53:23+00:00"
+    }
+  ]
+}
+```
+
+**5. Invalid request and service responsiveness**
+
+Produced by `app.py::submit, get_log, ping`.
+
+```json
+{
+  "invalid_case": {
+    "expected_field": "text",
+    "response": {
+      "http": 400,
+      "body": {
+        "error": "invalid_input",
+        "message": "text must be a non-empty string."
+      }
+    },
+    "new_log_entries": [
+      {
+        "creator_id": "unit8-b433dad16f-1-bad0",
+        "event": "rejected",
+        "http_status": 400,
+        "reason": "invalid_input",
+        "status": "rejected",
+        "timestamp": "2026-11-08T03:53:23+00:00"
+      }
+    ],
+    "ok": true
+  },
+  "ping": {
+    "http": 200,
+    "body": {
+      "ok": true,
+      "service": "provenance-guard",
+      "you_sent": "unit8-eval"
+    }
+  }
+}
+```
+
+### Criteria diagnoses
+
+There were no criteria misses in these three trials. The attack-level
+diagnoses are recorded under Attack Run — Before. I used an AI-assisted test
+runner to record and summarize the trials.
 
 ---
 
 ## The Improvement
 
-**What I changed:**
-
-**Which diagnosis pointed at it:**
+I raised the AI threshold from 0.65 to 0.68 while retaining the human boundary
+at 0.35. The baseline staff false positives FP03, FP05 and FP06 scored
+between 0.6503 and 0.6764. I widened the unsure range to test whether those
+passages could avoid an affirmative AI label.
 
 ### Attack Run — After
 
-<!-- Same format. `run_attacks.py --label after` -->
+The [reviewed after report](results/attack_run_2026-11-07_2300_after.md) contains
+all 56 recorded responses and verdicts. The table below uses the same
+interpretations as the baseline. The final numeric column is confidence.
 
+| ID | Family | Targeting | Status | Content ID | Guess | Confidence | Verdict |
+|---|---|---|---|---|---|---|---|
+| EV01 | evasion | signal two: typos raise word variety | 200 | `220c7112-89c7-4044-bd66-30ab2820c388` | unsure | 0.584 | BROKE |
+| EV02 | evasion | signal two: broken-up sentences raise length spread | 200 | `d9ed5be8-46c8-4db6-aaf1-c4424d4e02fa` | unsure | 0.546 | BROKE |
+| EV03 | evasion | signal two: a pasted quotation changes the shape | 200 | `9c1473e1-aa3d-4589-a13b-ce03d8195ba3` | unsure | 0.557 | BROKE |
+| EV04 | evasion | signal one: unusual words raise perplexity | 200 | `e31b3dbf-7f7f-4901-866c-50ec9124f603` | unsure | 0.591 | BROKE |
+| EV05 | evasion | both signals: heavy human editing pass | 200 | `4cf3efc4-dd50-4f8b-957a-98cf3c38ddbc` | unsure | 0.618 | BROKE |
+| EV06 | evasion | signal two: one very long sentence and one very short | 200 | `cf19401e-916a-48d3-83c0-8d12da7f749f` | unsure | 0.573 | BROKE |
+| EV07 | evasion | signal two: padding with punctuation | 200 | `a5a586db-ce02-4eee-8d5b-7ddfaa4ad35d` | unsure | 0.534 | BROKE |
+| EV08 | evasion | signal one: text below the token window | 200 | `623f7422-a988-4c38-8041-c7babe1b2b81` | unsure | 0.602 | BROKE |
+| EV09 | evasion | both: AI text with a human opening paragraph bolted on | 200 | `0635537a-2ab4-407c-b6fa-d43dcb0d786a` | unsure | 0.570 | BROKE |
+| EV10 | evasion | signal two: repeated stanza structure | 200 | `c552ebbf-caa2-4103-9cda-07e3f859b1ad` | ai | 0.780 | HELD |
+| FP01 | false_positive | plain, clear human writing with no flourishes | 200 | `3290e1bc-8873-46d3-b000-7e7269f7c015` | unsure | 0.557 | HELD |
+| FP02 | false_positive | human writing in a formal register | 200 | `8a9aa68b-259b-4e4a-a680-b4ad1a3d9273` | unsure | 0.650 | HELD |
+| FP03 | false_positive | a non-native English speaker writing carefully | 200 | `3e78f46f-914c-40b7-93bc-1b97feea7cf1` | unsure | 0.658 | HELD |
+| FP04 | false_positive | a student essay written to a rubric | 200 | `7332ae5b-dee5-4916-a830-dab2b61449ad` | unsure | 0.648 | HELD |
+| FP05 | false_positive | technical documentation written by a person | 200 | `9abd28b8-e24e-4426-8125-22e3441bcd71` | unsure | 0.676 | HELD |
+| FP06 | false_positive | a person imitating a formal template | 200 | `2cf3fc24-ef67-43a3-a3bf-fb3bdfaed0df` | unsure | 0.650 | HELD |
+| FP07 | false_positive | human writing that repeats a phrase deliberately | 200 | `b7f31722-039f-4c3b-b398-d3e2d665876c` | unsure | 0.636 | HELD |
+| FP08 | false_positive | very short genuine human submission | 200 | `3fa4af24-9acb-4c5f-8267-66d6190f77cf` | unsure | 0.571 | HELD |
+| PI01 | prompt_injection | instruction to ignore the check | 200 | `a4aaa15b-9a28-4093-8dda-059d5e54e5b0` | unsure | 0.562 | HELD |
+| PI02 | prompt_injection | instruction disguised as a system message | 200 | `34656792-deff-4c21-8713-07ae864796fc` | human | 0.675 | BROKE |
+| PI03 | prompt_injection | instruction wrapped in the writer's voice | 200 | `ff3a7493-266e-4d83-bb3a-60cdde85cafc` | unsure | 0.552 | HELD |
+| PI04 | prompt_injection | attempt to make the label text hostile | 200 | `f2c03161-3e83-4e2d-8273-4f7775a49409` | unsure | 0.511 | HELD |
+| PI05 | prompt_injection | attempt to inject into the audit log | 200 | `06b49196-ffc9-4f0e-8125-9dbc6d90f69e` | unsure | 0.507 | HELD |
+| PI06 | prompt_injection | instruction plus real human text | 200 | `d9e37cb8-da99-4a42-8688-276240f28907` | unsure | 0.536 | HELD |
+| MF01 | malformed | text is only whitespace | 400 | `—` | — | — | HELD |
+| MF02 | malformed | text is a single character | 400 | `—` | — | — | HELD |
+| MF03 | malformed | text is control characters | 200 | `f5953ce5-162f-44cc-a04a-ceccddb2027c` | human | 0.700 | BROKE |
+| MF04 | malformed | text is only punctuation | 200 | `455e1fb8-abd7-4a77-b86f-c735bb0bdf2e` | human | 0.696 | BROKE |
+| MF05 | malformed | text is a very long single word | 200 | `e74698b9-0ea1-403f-aae6-6c33dd26615e` | ai | 0.699 | BROKE |
+| MF06 | malformed | text is emoji only | 200 | `2c505972-d18d-4156-8d53-51a76bf87d0d` | ai | 0.699 | BROKE |
+| MF07 | malformed | text is right-to-left script | 200 | `3bf61ad1-b771-49c4-8a6c-43f1e2f0d4dd` | unsure | 0.663 | HELD |
+| MF08 | malformed | text is 60,000 characters | 200 | `9bc0fcb3-bc5b-4a9a-aa6b-94376860965f` | ai | 0.790 | HELD |
+| RQ01 | malformed | no text field at all | 400 | `—` | — | — | HELD |
+| RQ02 | malformed | no creator_id | 400 | `—` | — | — | HELD |
+| RQ03 | malformed | text is a number | 400 | `—` | — | — | HELD |
+| RQ04 | malformed | text is a list | 400 | `—` | — | — | HELD |
+| RQ05 | malformed | text is null | 400 | `—` | — | — | HELD |
+| RQ06 | malformed | creator_id is an object | 400 | `—` | — | — | HELD |
+| RQ07 | malformed | body is a JSON array, not an object | 400 | `—` | — | — | HELD |
+| RQ08 | malformed | body is unparseable JSON | 400 | `—` | — | — | HELD |
+| RQ09 | malformed | body is empty | 400 | `—` | — | — | HELD |
+| RQ10 | malformed | body is form-encoded, not JSON | 400 | `—` | — | — | HELD |
+| RQ11 | malformed | body is JSON claiming to be plain text | 400 | `—` | — | — | HELD |
+| RQ12 | malformed | deeply nested JSON | 400 | `—` | — | — | HELD |
+| FL01_01 | flood_same_creator | 20 rapid submissions from one creator | 200 | `b25e11d6-d859-4fe0-b437-b27dd34cef96` | human | 0.689 | HELD |
+| FL01_02 | flood_same_creator | 20 rapid submissions from one creator | 200 | `88615031-4b9c-4bb6-a92b-0bfaafc5bafe` | human | 0.689 | HELD |
+| FL01_03 | flood_same_creator | 20 rapid submissions from one creator | 200 | `1c7e2f47-a75b-43cc-a443-23af995cff67` | human | 0.689 | HELD |
+| FL01_04 | flood_same_creator | 20 rapid submissions from one creator | 200 | `c8d565c9-dc34-40fa-b761-980f58daa2ee` | human | 0.689 | HELD |
+| FL01_05 | flood_same_creator | 20 rapid submissions from one creator | 200 | `45e17a5a-d3d5-4438-a630-0987a768ee18` | human | 0.689 | HELD |
+| FL01_06 | flood_same_creator | 20 rapid submissions from one creator | 200 | `92350073-70f9-454e-be78-ce5b2df34e6e` | human | 0.689 | HELD |
+| FL01_07 | flood_same_creator | 20 rapid submissions from one creator | 200 | `0c41d930-9d04-4c82-a6cd-479892969d58` | human | 0.689 | HELD |
+| FL01_08 | flood_same_creator | 20 rapid submissions from one creator | 200 | `05725fab-b2b5-4e0a-bd9b-509af2e3bc3f` | human | 0.689 | HELD |
+| FL01_09 | flood_same_creator | 20 rapid submissions from one creator | 200 | `6a71d279-27e0-4c9e-98a2-1984f2314709` | human | 0.689 | HELD |
+| FL01_10 | flood_same_creator | 20 rapid submissions from one creator | 200 | `e1325d60-89bf-4857-bb79-5017f30db43c` | human | 0.689 | HELD |
+| FL01_11 | flood_same_creator | 20 rapid submissions from one creator | 429 | `—` | — | — | HELD |
+| FL01_12 | flood_same_creator | 20 rapid submissions from one creator | 429 | `—` | — | — | HELD |
 
+Using the same inputs and verdict rules, the staff run moved from 39 HELD
+and 17 BROKE to 42 HELD and 14 BROKE. Staff false positives fell from 3/8
+to 0/8. Nine of ten evasion inputs still avoided an affirmative AI label,
+and EV10 retained its AI label. MF07 also moved from ai to unsure. That
+Arabic-script case remains HELD as a route robustness check. No HTTP status
+changed across the 56 requests. A wider unsure range could also withhold an AI
+label from genuine AI passages scoring between 0.65 and 0.68. The staff set
+used to choose the threshold does not measure that risk on unseen inputs.
 
-**Did it help, and how do I know:**
+### Initial after criteria run
 
-<!-- Widening the unsure band usually fixes one problem and creates another.
-     Reporting that trade honestly is worth full credit. -->
+[Original summary](results/criteria_2026-11-07_230055_after.md) and [original evidence](results/criteria_2026-11-07_230055_after.json).
+The sample hash matched the baseline. Criteria 1, 2 and 4 met their targets
+in all three trials. Criterion 3 scored 102/107 in each trial because the
+README still specified the old 0.65 boundary. Scores 0.65, 0.650001, 0.66,
+0.67 and 0.679999 were documented as ai while the code returned unsure.
 
+Criterion 5 recorded 6/6, 5/6 and 4/6. The missing and empty creator-ID
+requests share the address quota. The attack run and closely spaced criteria
+trials reused that quota, so three cases returned 429 before validation.
+Ping returned 200 in all three trials. The original verdicts are preserved.
 
+### Repeat after criteria run
+
+The repeat run started after a service restart and waited 61 seconds between
+trials. The active README ranges matched the 0.68 threshold. The dataset
+hash matched both earlier runs. All five original criteria met their targets
+in all three repeat trials.
+
+| Criterion | Target | Trial 1 | Trial 2 | Trial 3 | Verdict |
+|---|---|---|---|---|---|
+| 1. Wrong AI accusations | At most 1 of 10 human passages labeled ai | 0/10 labeled ai | 0/10 labeled ai | 0/10 labeled ai | MET |
+| 2. Mean score separation | AI mean minus human mean >= 0.15 over five matched pairs | mean gap 0.21914 | mean gap 0.21914 | mean gap 0.21914 | MET |
+| 3. Label mapping | All grid and boundary cases match documented labels; all three appear | 105/105 label checks | 105/105 label checks | 105/105 label checks | MET |
+| 4. Appeals | 5 of 5 reach under_review, log reasoning and retain decision | 5/5 appeals | 5/5 appeals | 5/5 appeals | MET |
+| 5. Invalid input | 6 of 6 return 400 with field error, no scored decision; ping returns 200 | 6/6 invalid cases; ping 200 | 6/6 invalid cases; ping 200 | 6/6 invalid cases; ping 200 | MET |
+
+[Repeat summary](results/criteria_2026-11-07_230720_after.md) and
+[complete repeat evidence](results/criteria_2026-11-07_230720_after.json).
+
+The label mapping matched the corrected documentation in 105/105 checks per
+trial. All six invalid cases reached validation and returned 400 in every
+trial. The initial 429s still demonstrate how a shared quota affects callers
+without valid creator IDs. The mean score gap stayed at 0.21914, as expected
+because changing the label boundary leaves the underlying scores unchanged.
+The zero AI labels on the ten evaluation passages were also unchanged.
 
 ---
 
 ## What's Still Broken
 
-<!-- For each attack still getting through and each criterion still missed:
-     what you'd do, and why you stopped. -->
+- **EV01–EV09:** The combined scores still put these known-AI passages in the
+  unsure range. Editing can alter the model's predictability signal or the
+  style statistics without changing who wrote the text. A follow-up would
+  compare each edited input with its original passage, then test whether
+  scoring smaller sections makes the result less sensitive to one unusual
+  segment.
+- **PI02:** The disguised system message still received a human label. Its
+  model and style scores produced a combined score below the human boundary.
+  The request did not skip scoring or set the requested confidence. A
+  follow-up would compare the same passage with and without the prefix to
+  measure its influence on the features.
+- **MF03–MF06:** Control characters, punctuation, repeated characters and emoji
+  can still receive confident labels. The route accepts these strings and the
+  style fallback can leave the model score with enough influence to reach a
+  confident label. I would test a validation rule for text with too little
+  usable language, including legitimate short and multilingual inputs.
+- **Invalid-input criterion in the initial after run:** A burst of requests
+  without usable creator IDs can still receive 429 before validation. The
+  repeat isolates the validation test with fresh quota windows. It does not
+  remove or change that real rate-limit behavior.
 
+I stopped after the one measured threshold change so the comparison isolates
+its effect. No original acceptance criterion remained missed in the repeat
+run. The staff cases used to choose the threshold are the same ones used to
+measure the change, so the reduction in false positives needs confirmation
+on fresh passages.
 
+For a production deployment, I would send uncertain cases to review and
+avoid treating an AI label as grounds for punishment by itself. Writers
+benefit from fewer wrong accusations, while reviewers bear the added work
+and some AI-written passages may pass without an affirmative label.
 
-**The trade I'd make if this ran for real:**
+### AI use in Unit 8
 
-<!-- Two sentences. Fewer wrong accusations means more AI text getting through.
-     Say which way you'd go and WHO PAYS FOR IT. -->
-
-
+I used Codex to help wire rejection logging, interpret the attack results,
+prepare the evaluation runner, and summarize the observed evidence. Codex
+also generated the five matched AI passages. The human passages are my own
+writing. I used the recorded results to compare the 0.65 and 0.68 thresholds,
+and kept the initial after run as evidence of the documentation mismatch and
+shared rate-limit interference.
 
 <!-- ═════════════════════════════════════════════════════════════════════
 
