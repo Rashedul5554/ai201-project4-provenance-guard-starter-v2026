@@ -1623,3 +1623,21 @@ shared rate-limit interference.
 
 📖 **How to run this project: [RUNNING.md](RUNNING.md)**
 
+
+## Capstone
+
+**What This Extends**
+
+I’m extending Provenance Guard from Units 7–8. The service already records
+scoring decisions, appeals, and submission rejections in its audit log. For the
+capstone, I’ll document a single command to start the service locally from a
+clean checkout and add structured request records with a timestamp, an input
+summary, the response outcome, and elapsed time. The records will cover both
+successful and failed requests.
+
+**The Shape**
+
+I chose Shape A (Deploy and Instrument) and Path B (Local with Logs). I’ll use
+`RUNNING.md` to document the local startup and its environment. Hosted
+deployment, detector retraining, and changes to the scoring rules are outside
+this capstone’s scope.
