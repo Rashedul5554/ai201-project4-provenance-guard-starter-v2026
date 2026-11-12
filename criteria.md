@@ -50,3 +50,57 @@ Send six separate requests to `POST /submit`:
 **Target:** All six requests return HTTP 400 with a JSON error explaining the invalid field. None returns a successful classification or creates a successful scored-submission entry. Afterward, a valid `POST /ping` request still returns HTTP 200.
 
 **Why this target:** Invalid requests should receive useful feedback instead of fabricated scores or server crashes. Checking `/ping` afterward confirms that rejecting bad input leaves the service responsive.
+
+---
+
+## Unit 9 Capstone Acceptance Criteria
+
+Provenance Guard · Shape A (Deploy and Instrument) · Path B (Local with Logs)
+
+These are AI-assisted proposals for review. CodePath asks you to author the final targets and reasons before collecting results. Record three trials for each criterion before the improvement and three afterward.
+
+### 1. Clean-checkout startup
+
+Have a peer follow `RUNNING.md` from a fresh clone. Ask them to show how they can tell the service is ready. Capture the start command and the readiness response.
+
+**Target:** Following the setup steps and single launch command in `RUNNING.md` from a fresh clone, a valid `POST /ping` returns HTTP 200 in each trial. The tester uses the prerequisites documented in `RUNNING.md` without additional setup instructions.
+
+**Why this target:** HTTP 200 confirms the local service can receive and answer a request. Requiring the documented steps alone makes the setup reproducible for a classmate.
+
+### 2. One structured record per request
+
+Use one valid `POST /submit` request and one with `text` missing. Before sending them, have the viewer predict how many new records should appear. Match the requests individually to the new structured records. Use the log position immediately after the readiness check as the starting point for the count.
+
+**Target:** The two sequential `POST /submit` requests produce exactly two new records in the structured request log, one after each request. Check the log count after readiness, after the valid submission, and after the rejected submission. Each submission must increase the count by exactly one.
+
+**Why this target:** A missing record hides a request, and a duplicate inflates request and error counts. Checking after each submission catches both.
+
+### 3. Response outcome matches its log record
+
+Show the successful client response and its corresponding structured record side by side. Ask the viewer to find the same outcome field in both. Use one field consistently across trials.
+
+**Target:** For the successful `POST /submit`, the HTTP status recorded in the matching structured request log entry equals the status shown by the client in every trial.
+
+**Why this target:** A matching status lets someone reading the log verify what the client received after the terminal output is gone.
+
+### 4. Elapsed time is usable
+
+Show the elapsed-time field and its unit for the two submissions. Ask the viewer to identify which took longer. Compare the recorded values using the same unit.
+
+**Target:** Both submission records contain a finite, nonnegative numeric duration in milliseconds in every trial.
+
+**Why this target:** A common unit makes successful and rejected requests easy to compare. This target checks whether the timing can be used to investigate delays without assuming a speed limit for the local model.
+
+### 5. Failure reason is visible in the log
+
+Show the rejected request’s log entry first. Ask the viewer to identify why it was rejected. Then reveal the request with the missing `text` field and its client response. Save the actual rejection record as evidence.
+
+**Target:** The rejected submission’s structured request record identifies that the required `text` field was missing in every trial. A generic rejection status alone does not meet this target.
+
+**Why this target:** The rejection reason lets a reader diagnose the request from the log without needing the original submission or a copy of the client response.
+
+### Demo order
+
+Start from the documentation → predict the log count → send the two submissions → match each request to its record → compare the successful outcome and elapsed times → explain the rejection from its log before revealing its input.
+
+Use the same setup, inputs, and scoring rules for comparable trials. Save actual responses and log lines as text.
