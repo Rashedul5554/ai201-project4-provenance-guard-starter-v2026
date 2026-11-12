@@ -1712,6 +1712,52 @@ from the records emitted by `app.py::log_request_outcome` and written by
 difference is consistent with lazy detector loading. Criterion 4 checks the
 recorded duration itself and does not set a maximum latency.
 
+**Evidence by criterion**
+
+1. **Startup** (`app.py::ping`, baseline startup trial 3).
+
+   ```text
+   HTTP/1.1 200 OK
+   {"ok":true,"service":"provenance-guard","you_sent":"hello"}
+   ```
+
+2. **Record count** (baseline trial 3, records written by
+   `app.py::log_request_outcome` and `audit.py::log_request`).
+
+   ```text
+   Before either submission
+          6
+   After valid submission
+          7
+   After missing-text submission
+          8
+   ```
+
+3. **Response status** (`app.py::submit` and
+   `app.py::log_request_outcome`, baseline trial 3).
+
+   ```text
+   HTTP/1.1 200 OK
+   {"timestamp": "2026-11-12T01:22:04+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 174, "has_text": true, "text_length": 137}, "http_status": 200, "duration_ms": 26.972}
+   ```
+
+4. **Elapsed time** (`app.py::log_request_outcome` and
+   `audit.py::log_request`, baseline trial 3).
+
+   ```jsonl
+   {"timestamp": "2026-11-12T01:22:04+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 174, "has_text": true, "text_length": 137}, "http_status": 200, "duration_ms": 26.972}
+   {"timestamp": "2026-11-12T01:22:04+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 27, "has_text": false, "text_length": null}, "http_status": 400, "duration_ms": 0.408, "reason": "missing_text"}
+   ```
+
+5. **Failure reason** (`app.py::submit`, `app.py::log_request_outcome`,
+   and `audit.py::log_request`, baseline trial 3).
+
+   ```text
+   HTTP/1.1 400 BAD REQUEST
+   {"error":"invalid_input","message":"text must be a non-empty string."}
+   {"timestamp": "2026-11-12T01:22:04+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 27, "has_text": false, "text_length": null}, "http_status": 400, "duration_ms": 0.408, "reason": "missing_text"}
+   ```
+
 **The Improvement**
 
 The baseline loaded GPT-2 on the first scoring request. Commit `19b5882`
@@ -1791,3 +1837,69 @@ see how consistently the combined wait changes.
    ran the timing comparison and acceptance trials locally, and saved the
    actual HTTP responses and log records. AI also helped organize those
    results and calculate the per-run estimate for this README.
+
+**Stretch Declaration**
+
+I plan to measure the stages of a warm submission, compare ordinary and
+tenfold request rates on the local app, and test a second startup improvement
+if the stage measurements support it. I also plan to compare local execution
+with a hosted run if I can provision a host for the GPT-2 service.
+
+**Stretch Results**
+
+**Latency breakdown (+1).** I timed one real, warmed GPT-2 submission using
+Flask's test client and a temporary audit log. The whole request took
+28.270 ms. The detector took 23.195 ms, the audit decision write 0.402 ms,
+the request-log write 0.109 ms, and the remaining Flask and application
+work 4.565 ms. The detector dominated at about 82% of elapsed time.
+[Raw stage timings](results/unit9-stretch-latency.json)
+
+**Load observation (+1).** I used 1 request/s as the reference rate for
+this controlled local test. I sent the same sample ten times in each group
+to one warmed server, with the existing limiter enabled. Each group had
+its own test creator and made ten submissions, within its configured quota.
+The observed rate is nine send intervals divided by the time between the
+first and last send. Latency is measured at the HTTP client.
+
+| Target rate | Observed rate | Mean latency | Non-200 responses |
+|---|---:|---:|---:|
+| 1 request/s | 1.000 requests/s | 48.960 ms | 0/10 |
+| 10 requests/s | 9.958 requests/s | 34.773 ms | 0/10 |
+
+There were no errors at either rate. Mean latency was lower in the second
+batch. The fixed order and small sample make this a local observation.
+[Raw request timings](results/unit9-stretch-load.jsonl)
+
+**Second measured improvement (+2).** The stage breakdown showed that model
+scoring dominated the warmed request. I tested whether startup could skip
+the sample inference by using `detector.warm_up()` to preload the model and
+tokenizer. I ran three clean repository checkouts for each version with the
+same existing Python 3.13 environment and cached GPT-2 weights. Each trial
+started a new server, checked `/ping`, and sent the same valid and missing-text
+submissions. These checkouts reused installed dependencies.
+
+| Timing (three-run mean) | Full sample warm-up | Model-only preload |
+|---|---:|---:|
+| Time to readiness | 1.625 s | 1.596 s |
+| First submission | 26.702 ms | 51.081 ms |
+| Combined wait | 1.651 s | 1.647 s |
+
+Model-only preload slightly shortened readiness time but nearly doubled the
+first submission latency in this sample. The mean combined wait changed by
+about four milliseconds. I restored full warm-up because it gave the
+faster first submission. [Model-only preload patch](results/unit9-model-only-experiment.patch)
+
+| Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
+|---|---|---|---|---|---|
+| 1. Clean-checkout startup | Documented launch and HTTP 200 from `POST /ping` | 200 | 200 | 200 | MET |
+| 2. One record per submission | One new structured record after each request | 1 → 2 → 3 | 1 → 2 → 3 | 1 → 2 → 3 | MET |
+| 3. Response outcome | Successful HTTP status matches its log record | 200 = 200 | 200 = 200 | 200 = 200 | MET |
+| 4. Elapsed time | Two finite, nonnegative durations in milliseconds | 50.597 / 0.331 ms | 48.646 / 0.308 ms | 50.530 / 0.443 ms | MET |
+| 5. Failure reason | Rejection record identifies the missing `text` field | `missing_text` | `missing_text` | `missing_text` | MET |
+
+[Full warm-up trials](results/unit9-stretch-second-before.jsonl) ·
+[Model-only preload trials](results/unit9-stretch-second-after.jsonl) ·
+[Measurement script](scripts/unit9_stretch.py)
+
+AI drafted and ran the stretch measurement script and helped interpret the
+recorded results.
