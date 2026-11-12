@@ -1624,6 +1624,40 @@ shared rate-limit interference.
 📖 **How to run this project: [RUNNING.md](RUNNING.md)**
 
 
+### System Architecture
+
+Provenance Guard is a local Flask service. It estimates AI-like writing
+patterns and lets writers appeal a decision using its `content_id`.
+
+```mermaid
+flowchart TD
+    Submit["POST /submit"] --> Checks{"Rate limit and input validation"}
+    Checks -->|Accepted| Score["Score GPT-2 predictability, style, and optional draft history"]
+    Checks -->|Rejected| Reject["Return an HTTP error"]
+    Score --> Decision["Combine scores and return a label with a content ID"]
+    Decision -->|Write decision| Audit["Audit log"]
+    Reject -->|Write rejection| Audit
+    Appeal["POST /appeal with content ID"] --> Lookup{"Completed decision exists?"}
+    Audit -.->|Look up decision| Lookup
+    Lookup -->|Yes| Review["Append appeal and return under_review"]
+    Lookup -->|No| Missing["Return HTTP 404"]
+    Review --> Audit
+    Decision --> Requests["Request log"]
+    Reject --> Requests
+    Review --> Requests
+    Missing --> Requests
+```
+
+- **Audit log (`logs/audit.jsonl`).** Records submission decisions, appeals, and
+  submission rejections. An appeal adds an event and preserves the original
+  decision.
+- **Request log (`logs/requests.jsonl`).** Records the timestamp, input summary,
+  HTTP status, and elapsed milliseconds. Failed requests include a reason
+  when available. A submission missing `text` records `missing_text`.
+
+For a live demo, send one valid submission and one with `text` missing.
+Compare the HTTP 200 and 400 responses with the two request records.
+
 ## Capstone
 
 **What This Extends**
