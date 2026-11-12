@@ -22,6 +22,7 @@ and the one you most want to compare is the one from before the change.
 import json
 import threading
 from datetime import datetime, timezone
+from pathlib import Path
 
 import config
 
@@ -112,11 +113,31 @@ def log_rejection(creator_id: str, reason: str, **extra) -> dict:
     })
 
 
-def _append(entry: dict) -> dict:
-    config.LOG_DIR.mkdir(parents=True, exist_ok=True)
+def log_request(
+    input_summary: dict,
+    http_status: int,
+    duration_ms: float,
+    reason: str | None = None,
+) -> dict:
+    """Write a request record alongside the existing audit log."""
+    entry = {
+        "timestamp": _now(),
+        "input": input_summary,
+        "http_status": http_status,
+        "duration_ms": duration_ms,
+    }
+    if reason is not None:
+        entry["reason"] = reason
+    return _append(entry, path=config.AUDIT_LOG.with_name("requests.jsonl"))
+
+
+def _append(entry: dict, *, path: Path | None = None) -> dict:
+    if path is None:
+        path = config.AUDIT_LOG
+    path.parent.mkdir(parents=True, exist_ok=True)
     line = json.dumps(entry, ensure_ascii=False)
     with _lock:
-        with config.AUDIT_LOG.open("a", encoding="utf-8") as f:
+        with path.open("a", encoding="utf-8") as f:
             f.write(line + "\n")
     return entry
 

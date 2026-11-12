@@ -2,8 +2,9 @@
 """Provenance Guard — the web service."""
 
 import uuid
+from time import perf_counter
 
-from flask import Flask, jsonify, request
+from flask import Flask, g, jsonify, request
 
 import audit
 import config
@@ -14,6 +15,50 @@ import provenance
 import verification
 
 app = Flask(__name__)
+
+
+@app.before_request
+def start_request_timer():
+    g.request_started = perf_counter()
+
+
+@app.after_request
+def log_request_outcome(response):
+    """Record the outcome and elapsed time of each local service request."""
+    input_summary = {
+        "method": request.method,
+        "route": request.url_rule.rule if request.url_rule else None,
+        "body_bytes": request.content_length,
+    }
+    if request.path == "/submit" and request.method == "POST":
+        payload = request.get_json(silent=True)
+        if isinstance(payload, dict):
+            text = payload.get("text")
+            input_summary["has_text"] = "text" in payload
+            input_summary["text_length"] = len(text) if isinstance(text, str) else None
+
+    reason = None
+    if response.status_code >= 400:
+        body = response.get_json(silent=True)
+        reason = g.get("request_rejection_reason")
+        if reason is None and isinstance(body, dict):
+            reason = body.get("error")
+        if reason is None:
+            reason = "http_error"
+
+    try:
+        audit.log_request(
+            input_summary=input_summary,
+            http_status=response.status_code,
+            duration_ms=round((perf_counter() - g.request_started) * 1000, 3),
+            reason=reason,
+        )
+    except OSError:
+        app.logger.exception("Could not write the structured request record")
+
+    return response
+
+
 @app.after_request
 def log_submit_rejections(response):
     """Record rejected submissions; the existing handler logs 429s."""
@@ -145,6 +190,8 @@ def submit():
     creator_id = payload.get("creator_id")
 
     if not isinstance(text, str) or not text.strip():
+        if "text" not in payload:
+            g.request_rejection_reason = "missing_text"
         return jsonify({
             "error": "invalid_input",
             "message": "text must be a non-empty string.",
