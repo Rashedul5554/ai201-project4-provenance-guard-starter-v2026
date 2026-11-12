@@ -1,6 +1,6 @@
 # Running Provenance Guard
 
-Everything about how the starter works.
+For the current capstone setup, see [Unit 9 — Path B: Local with logs](#unit-9--path-b-local-with-logs). The earlier milestone notes provide starter-project context.
 
 This is a **web service**. It runs on your machine and you talk to it with
 `curl` from another terminal. If you've not built a backend before, that's
@@ -76,8 +76,7 @@ curl -X POST http://127.0.0.1:5000/submit \
   -d '{"text": "some writing", "creator_id": "me"}'
 ```
 
-It returns a `501` saying it isn't built yet. **That's the correct starting
-position.**
+The original starter returned `501` here. Use the Unit 9 example below to check the implemented submission route.
 
 ---
 
@@ -88,8 +87,8 @@ position.**
 | `POST /ping` | **works** | The example. Don't edit it |
 | `GET /health` | **works** | Is the service up, is the model loaded |
 | `GET /log` | **works** | The audit log, as JSON |
-| `POST /submit` | **you build it** | Milestones 3, 4, 5 |
-| `POST /appeal` | **you build it** | Milestone 5 |
+| `POST /submit` | **works** | Scores a submission and records its decision |
+| `POST /appeal` | **works** | Records an appeal for an existing submission |
 
 ---
 
@@ -185,52 +184,81 @@ trace look exactly like a quiet afternoon.
 
 ---
 
-## Running it somewhere else (unit 9)
+## Unit 9 — Path B: Local with logs
 
-Unit 9 asks you to deploy one of your systems. **Read this before you pick
-which one** — for this project the answer is already decided, and it isn't the
-hosted one.
+Run these commands from the repository root. This guide was prepared for
+macOS with Python 3.13.15. Use Git and `curl`, and have room for the Python
+dependencies and the GPT-2 download (approximately 550 MB for the model).
 
-Flask's built-in server says "development server" on startup because that's
-what it is. A real one comes from `gunicorn`, which is in
-`requirements.txt` and unused until now:
+### Set up a fresh clone
 
 ```bash
-gunicorn app:app --bind 0.0.0.0:$PORT
+git clone https://github.com/Rashedul5554/ai201-project4-provenance-guard-starter-v2026.git provenance-guard-unit9-check
+cd provenance-guard-unit9-check
+python3.13 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python test.py
 ```
 
-Two settings do the work, and both read the environment:
+Install the dependency versions allowed by `requirements.txt`. If the setup
+check says the GPT-2 model is missing, run `python detector.py` to download it
+and then run `python test.py` again. The first download needs internet access.
+Scoring runs locally and uses no API key.
 
-| Variable | Default | What it does |
-|---|---|---|
-| `HOST` | `127.0.0.1` | Loopback — your machine only. A host needs `0.0.0.0`, or nothing outside the box can reach the service and it looks like the app is down |
-| `PORT` | `5000` | Most hosts hand you a port in `PORT` and expect you to bind exactly that one |
-| `AI201_DEBUG` | `1` | Debug mode. Off automatically whenever `HOST` isn't loopback — an interactive debugger on a public address is a stranger's Python prompt inside your process |
+### Start the service
 
-Nothing about your local workflow changes. With no variables set you get
-`http://127.0.0.1:5000` and every `curl` above still works.
+From the repository root with `.venv` active, run this single launch command:
 
-### This project will not fit a free host
+```bash
+AI201_DEBUG=0 python app.py
+```
 
-Say it plainly, because the arithmetic is the point:
+Leave the server terminal open. From a second terminal in the same clone,
+check readiness:
 
-| What has to be in memory | Roughly |
-|---|---|
-| `torch` | ~200–800 MB depending on the build |
-| the `gpt2` weights | ~550 MB on disk, loaded into RAM to score |
-| Flask, gunicorn, your code | the rest |
-| **A free tier gives you** | **512 MB** |
+```bash
+curl -i http://127.0.0.1:5000/ping \
+  -H 'Content-Type: application/json' \
+  -d '{"message":"hello"}'
+```
 
-That's over budget before a single request arrives — and a free host has no
-persistent disk, so the 550 MB download starts again after every idle
-spin-down. There is no configuration that fixes this. The model is the size it
-is.
+Expect HTTP `200` and JSON containing `"ok": true`. If port 5000 is in use,
+stop the earlier server with Ctrl+C in its terminal, then retry the launch.
 
-**So pair 4 extensions take Path B — local, with logs.** That is the expected
-answer for this project, not a fallback and not a failure. Working out that a
-system doesn't fit its host *before* you spend an evening watching it get
-killed is the skill unit 9 is actually testing. Write the arithmetic above in
-your write-up; that's the deliverable.
+### Check the request records
+
+Note the log count after the readiness request. Send these two submissions
+sequentially, checking the count after each:
+
+```bash
+wc -l < logs/requests.jsonl
+
+curl -i http://127.0.0.1:5000/submit \
+  -H 'Content-Type: application/json' \
+  -d '{"creator_id":"unit9-demo","text":"I inspected the laptop after the update. The wireless adapter was disabled, so I enabled it and confirmed the device could connect again."}'
+wc -l < logs/requests.jsonl
+
+curl -i http://127.0.0.1:5000/submit \
+  -H 'Content-Type: application/json' \
+  -d '{"creator_id":"unit9-demo"}'
+wc -l < logs/requests.jsonl
+
+tail -n 2 logs/requests.jsonl
+```
+
+The valid request should return HTTP `200`. The submission missing `text`
+should return HTTP `400`. Each should add one request record with a timestamp,
+input summary, `http_status`, and numeric `duration_ms`. The rejection should
+also include `"reason": "missing_text"`. The first successful submission may
+take longer while GPT-2 loads into memory.
+
+`logs/requests.jsonl` contains request records. `logs/audit.jsonl` contains
+decision, appeal, and rejection events from the earlier units. Use the request
+log for the Unit 9 record count and timing checks. Save the actual responses
+and matching request records as text for your trial evidence.
+
+Stop the server with Ctrl+C when finished.
 
 ---
 
@@ -248,7 +276,8 @@ your write-up; that's the deliverable.
 | `run_eval.py` | Runs your criteria three times — **unit 8** |
 | `scenarios.py` | What your test runs. **You fill this in** |
 | `criteria.md` | Your five criteria. **You write all five** |
-| `logs/audit.jsonl` | Your audit log. **Commit it** |
+| `logs/audit.jsonl` | Decision, appeal, and rejection events |
+| `logs/requests.jsonl` | Structured request records for Unit 9 |
 | `results/` | Attack runs and run logs. **Commit them** |
 
 ---
