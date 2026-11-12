@@ -1702,5 +1702,29 @@ from the records emitted by `app.py::log_request_outcome` and written by
 difference is consistent with lazy detector loading. Criterion 4 checks the
 recorded duration itself and does not set a maximum latency.
 
-The full capstone instrumentation excerpt, cost measurement, and after-change
-trials are pending.
+**The Improvement**
+
+The baseline loaded GPT-2 on the first scoring request. Commit `19b5882`
+adds one sample inference in `app.py::main` before Flask starts listening.
+I measured time from process launch until the first successful `POST /ping`
+and used curl's total time for the first valid `POST /submit`. Both runs used
+the same test clone, virtual environment, port, and submission text.
+
+| Timing | Before warm-up | After warm-up |
+|---|---:|---:|
+| Time to readiness | 0.241 s | 3.545 s |
+| First submission | 3.593117 s | 0.031493 s |
+| Sum of readiness and first submission | 3.834 s | 3.576 s |
+| First submission HTTP status | 200 | 200 |
+
+The first submission was about 3.562 s faster and readiness took 3.304 s
+longer. The combined wait was about 0.258 s shorter in this single comparison.
+The measurements show where the wait occurred in these runs. A larger set of
+timed starts would be needed to establish how consistently the combined wait
+changes.
+
+Raw output: [before](results/unit9-timing-before.txt) and
+[after](results/unit9-timing-after.txt).
+
+The three formal after-change trials for each criterion, the full
+instrumentation excerpt, and the per-run cost measurement are pending.

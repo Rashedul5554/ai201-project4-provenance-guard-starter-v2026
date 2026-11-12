@@ -214,6 +214,11 @@ From the repository root with `.venv` active, run this single launch command:
 AI201_DEBUG=0 python app.py
 ```
 
+Wait for `Warming up the detector...` to finish and for Flask to print that
+it is listening. The app runs one local GPT-2 inference before opening the
+port, so startup can take a few seconds. If warm-up exits with a model-loading
+error, check the model setup above and the error in the server terminal.
+
 Leave the server terminal open. From a second terminal in the same clone,
 check readiness:
 
@@ -250,8 +255,8 @@ tail -n 2 logs/requests.jsonl
 The valid request should return HTTP `200`. The submission missing `text`
 should return HTTP `400`. Each should add one request record with a timestamp,
 input summary, `http_status`, and numeric `duration_ms`. The rejection should
-also include `"reason": "missing_text"`. The first successful submission may
-take longer while GPT-2 loads into memory.
+also include `"reason": "missing_text"`. The launch command warms up GPT-2
+before these requests.
 
 `logs/requests.jsonl` contains request records. `logs/audit.jsonl` contains
 decision, appeal, and rejection events from the earlier units. Use the request
