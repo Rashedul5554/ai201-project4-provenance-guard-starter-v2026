@@ -1665,6 +1665,16 @@ pairs, transcribed from the terminal output. Timestamps are UTC.
 {"timestamp": "2026-11-12T01:22:04+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 174, "has_text": true, "text_length": 137}, "http_status": 200, "duration_ms": 26.972}
 {"timestamp": "2026-11-12T01:22:04+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 27, "has_text": false, "text_length": null}, "http_status": 400, "duration_ms": 0.408, "reason": "missing_text"}
 ```
+Six additional submission records from the three after-change trials:
+
+```jsonl
+{"timestamp": "2026-11-12T02:19:34+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 174, "has_text": true, "text_length": 137}, "http_status": 200, "duration_ms": 29.743}
+{"timestamp": "2026-11-12T02:19:34+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 27, "has_text": false, "text_length": null}, "http_status": 400, "duration_ms": 0.443, "reason": "missing_text"}
+{"timestamp": "2026-11-12T02:23:42+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 174, "has_text": true, "text_length": 137}, "http_status": 200, "duration_ms": 28.861}
+{"timestamp": "2026-11-12T02:23:42+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 27, "has_text": false, "text_length": null}, "http_status": 400, "duration_ms": 0.47, "reason": "missing_text"}
+{"timestamp": "2026-11-12T02:25:48+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 174, "has_text": true, "text_length": 137}, "http_status": 200, "duration_ms": 28.393}
+{"timestamp": "2026-11-12T02:25:48+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 27, "has_text": false, "text_length": null}, "http_status": 400, "duration_ms": 0.479, "reason": "missing_text"}
+```
 
 **Run Log and Verdicts**
 
@@ -1726,5 +1736,58 @@ changes.
 Raw output: [before](results/unit9-timing-before.txt) and
 [after](results/unit9-timing-after.txt).
 
-The three formal after-change trials for each criterion, the full
-instrumentation excerpt, and the per-run cost measurement are pending.
+The after-change trials used three fresh checkouts of `5bf7e3d`, each with the
+documented startup command and the same valid and missing-text inputs as
+the baseline. Durations below show the valid request followed by the
+rejected request.
+
+| Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
+|---|---|---|---|---|---|
+| 1. Clean-checkout startup | Documented launch and HTTP 200 from `POST /ping` | 200 | 200 | 200 | MET |
+| 2. One record per submission | One new structured record after each request | 2 → 3 → 4 | 2 → 3 → 4 | 2 → 3 → 4 | MET |
+| 3. Response outcome | Successful HTTP status matches its log record | 200 = 200 | 200 = 200 | 200 = 200 | MET |
+| 4. Elapsed time | Two finite, nonnegative durations in milliseconds | 29.743 / 0.443 ms | 28.861 / 0.470 ms | 28.393 / 0.479 ms | MET |
+| 5. Failure reason | Rejection record identifies the missing `text` field | `missing_text` | `missing_text` | `missing_text` | MET |
+
+Raw responses and matching log records: [trial 1](results/unit9-after-trial-1.txt),
+[trial 2](results/unit9-after-trial-2.txt), and [trial 3](results/unit9-after-trial-3.txt).
+
+**What It Costs**
+
+I sent ten sequential valid submissions with the same sample text to the
+local server after GPT-2 had warmed up. All ten returned HTTP 200. I used
+curl's `time_total` to measure elapsed request time from the client. The
+ten requests took 0.316719 s in total, so the average was
+0.316719 ÷ 10 = **0.031672 s per submission**. At one submission per
+person, 100 people per day would take 100 × 0.031672 ≈ **3.167 s
+of sequential request time per day** under the same conditions. This estimate
+excludes startup and measures elapsed time on my machine.
+
+[Raw timing output](results/unit9-cost-10-runs.txt)
+
+**What's Still Broken**
+
+All five criteria were met. The timing criterion only required a finite,
+nonnegative duration, so it would still pass if a warmed-up request were
+slow. I would tighten it by requiring the valid submission to finish within
+100 ms of recorded server time in each warmed-up trial on the same machine.
+
+The warm-up made the first submission faster after readiness, while the
+server took longer to become ready. I stopped after one timed before-and-after
+comparison and three acceptance trials per version. With more time, I would
+repeat the startup timing comparison across more fresh server processes to
+see how consistently the combined wait changes.
+
+**How I Used AI**
+
+1. I asked AI to help turn the five capstone checks into an interactive
+   demo and draft measurable targets and reasons. It proposed checks for
+   startup, record counts, response status, duration, and rejection details.
+   I added the AI-assisted draft to `criteria.md`, disclosed the assistance
+   there, and used the same committed targets before and after the change.
+2. I asked AI to update the request logging and help compare the first
+   submission before and after detector warm-up. It drafted the logging
+   changes and suggested a warm-up call in `app.py`. I applied the changes,
+   ran the timing comparison and acceptance trials locally, and saved the
+   actual HTTP responses and log records. AI also helped organize those
+   results and calculate the per-run estimate for this README.
