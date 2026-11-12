@@ -1641,3 +1641,66 @@ I chose Shape A (Deploy and Instrument) and Path B (Local with Logs). I’ll use
 `RUNNING.md` to document the local startup and its environment. Hosted
 deployment, detector retraining, and changes to the scoring rules are outside
 this capstone’s scope.
+
+**Running It**
+
+This capstone uses Path B (Local with Logs). Follow [RUNNING.md](RUNNING.md)
+from a fresh clone. The launch command is `AI201_DEBUG=0 python app.py` and
+the readiness check is `POST /ping`.
+
+**Instrumentation**
+
+The service records a timestamp, an input summary, the HTTP status, and
+elapsed milliseconds in `logs/requests.jsonl`. For submissions, the input
+summary includes whether the text field is present and its length when
+available. The rejection record identifies a missing text field as
+`missing_text`. The six records below are from the three baseline submission
+pairs, transcribed from the terminal output. Timestamps are UTC.
+
+```jsonl
+{"timestamp": "2026-11-12T01:18:03+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 174, "has_text": true, "text_length": 137}, "http_status": 200, "duration_ms": 3781.303}
+{"timestamp": "2026-11-12T01:18:03+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 27, "has_text": false, "text_length": null}, "http_status": 400, "duration_ms": 0.549, "reason": "missing_text"}
+{"timestamp": "2026-11-12T01:19:16+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 174, "has_text": true, "text_length": 137}, "http_status": 200, "duration_ms": 27.392}
+{"timestamp": "2026-11-12T01:19:16+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 27, "has_text": false, "text_length": null}, "http_status": 400, "duration_ms": 0.424, "reason": "missing_text"}
+{"timestamp": "2026-11-12T01:22:04+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 174, "has_text": true, "text_length": 137}, "http_status": 200, "duration_ms": 26.972}
+{"timestamp": "2026-11-12T01:22:04+00:00", "input": {"method": "POST", "route": "/submit", "body_bytes": 27, "has_text": false, "text_length": null}, "http_status": 400, "duration_ms": 0.408, "reason": "missing_text"}
+```
+
+**Run Log and Verdicts**
+
+The startup trials used three fresh checkouts. The three submission pairs
+ran sequentially on the first checkout. Each cell gives the observed result
+for that criterion.
+
+| Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
+|---|---|---|---|---|---|
+| 1. Clean-checkout startup | Documented launch and HTTP 200 from `POST /ping` | 200 | 200 | 200 | MET |
+| 2. One record per submission | One new structured record after each request | One per request in the log sequence | 4 → 5 → 6 | 6 → 7 → 8 | MET |
+| 3. Response outcome | Successful HTTP status matches its log record | 200 = 200 | 200 = 200 | 200 = 200 | MET |
+| 4. Elapsed time | Two finite, nonnegative durations in milliseconds | 3781.303 / 0.549 ms | 27.392 / 0.424 ms | 26.972 / 0.408 ms | MET |
+| 5. Failure reason | Rejection record identifies the missing `text` field | `missing_text` | `missing_text` | `missing_text` | MET |
+
+The readiness response came from `app.py::ping`:
+
+```text
+HTTP/1.1 200 OK
+{"ok":true,"service":"provenance-guard","you_sent":"hello"}
+```
+
+The valid submission returned HTTP 200. The rejected submission returned the
+following response from `app.py::submit`:
+
+```text
+HTTP/1.1 400 BAD REQUEST
+{"error":"invalid_input","message":"text must be a non-empty string."}
+```
+
+The submission counts, status codes, durations, and rejection reason come
+from the records emitted by `app.py::log_request_outcome` and written by
+`audit.py::log_request`. The first successful submission took approximately
+3.78 seconds, while the next two took about 27 milliseconds. That first-run
+difference is consistent with lazy detector loading. Criterion 4 checks the
+recorded duration itself and does not set a maximum latency.
+
+The full capstone instrumentation excerpt, cost measurement, and after-change
+trials are pending.
