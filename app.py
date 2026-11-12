@@ -350,6 +350,11 @@ def main():
     print("    -d '{\"message\": \"hello\"}'")
     print()
 
+    print("Warming up the detector...", flush=True)
+    detector.model_signal(
+        "This is a local startup check. The detector scores this sample before serving requests."
+        
+    )
     app.run(
         host=config.HOST,
         port=config.PORT,
